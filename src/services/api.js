@@ -21,9 +21,9 @@ export const tmdbApi = createApi({
         }/day?api_key=${api_key}&language=en-US`,
     }),
     getVideo: builder.query({
-      query: ({ media_type, id }) =>
+      query: ({ type, id }) =>
         `/3/${
-          media_type === "movie" ? "movie" : "tv"
+          type === "movie" ? "movie" : "tv"
         }/${id}/videos?api_key=${api_key}&language=en-US`,
     }),
     getLogo: builder.query({

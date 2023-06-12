@@ -5,7 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 // eslint-disable-next-line react/prop-types
 const Navbar = ({ setIsMobileNavOpen }) => {
   return (
-    <div className="flex items-center justify-between p-6 space-x-7 custom-container">
+    <div className="fixed inset-x-0 flex items-center justify-between p-6 space-x-7 custom-container">
       <div>
         <span>LOGO</span>
       </div>
