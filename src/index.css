@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .nav__links {
+    @apply text-white md:text-black text-3xl md:text-sm py-[.4rem] md:py-0 md:px-3 font-semibold md:font-normal;
+  }
+
+  .custom-container {
+    @apply w-full max-w-[1100px] mx-auto;
+  }
+}
