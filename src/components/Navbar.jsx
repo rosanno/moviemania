@@ -1,16 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LuSearch } from "react-icons/lu";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar = ({ setIsMobileNavOpen }) => {
+  const { pathname } = useLocation();
+
   return (
     <div className="fixed z-10 inset-x-0 flex items-center justify-between p-3 md:p-6 space-x-10 custom-container">
       <div>
-        <span className="text-white text-lg font-semibold">MovieMania</span>
+        <span className="text-white text-lg font-semibold">
+          Movie<span className="text-red-600 font-extrabold">Mania</span>
+        </span>
       </div>
       <nav className="hidden md:block py-28 md:p-0 px-10 w-full">
         <ul className="flex items-center">
-          <li className="nav__links">
+          <li className={`nav__links ${pathname === "/" && "text-rose-500"}`}>
             <Link to="/">Home</Link>
           </li>
           <li className="nav__links">
