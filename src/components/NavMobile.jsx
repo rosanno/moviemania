@@ -20,13 +20,13 @@ const NavMobile = ({ isMobileNavOpen, setIsMobileNavOpen }) => {
             <Link to="/">Home</Link>
           </li>
           <li className="nav__links">
-            <Link to="/">Popular Movies</Link>
+            <Link to="/popular-movies">Popular Movies</Link>
           </li>
           <li className="nav__links">
-            <Link to="/">TV Shows</Link>
+            <Link to="/tv-shows">TV Shows</Link>
           </li>
           <li className="nav__links">
-            <Link to="/">Popular people</Link>
+            <Link to="/popular-people">Popular people</Link>
           </li>
         </ul>
       </nav>

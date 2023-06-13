@@ -4,9 +4,9 @@ import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar = ({ setIsMobileNavOpen }) => {
   return (
-    <div className="fixed inset-x-0 flex items-center justify-between p-3 md:p-6 space-x-7 custom-container">
+    <div className="fixed z-10 inset-x-0 flex items-center justify-between p-3 md:p-6 space-x-10 custom-container">
       <div>
-        <span>LOGO</span>
+        <span className="text-white text-lg font-semibold">MovieMania</span>
       </div>
       <nav className="hidden md:block py-28 md:p-0 px-10 w-full">
         <ul className="flex items-center">
@@ -14,13 +14,13 @@ const Navbar = ({ setIsMobileNavOpen }) => {
             <Link to="/">Home</Link>
           </li>
           <li className="nav__links">
-            <Link to="/">Popular Movies</Link>
+            <Link to="/popular-movies">Popular Movies</Link>
           </li>
           <li className="nav__links">
-            <Link to="/">TV Shows</Link>
+            <Link to="/tv-shows">TV Shows</Link>
           </li>
           <li className="nav__links">
-            <Link to="/">Popular people</Link>
+            <Link to="/popular-people">Popular people</Link>
           </li>
         </ul>
       </nav>
