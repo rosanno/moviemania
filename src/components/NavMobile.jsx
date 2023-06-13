@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 const NavMobile = ({ isMobileNavOpen, setIsMobileNavOpen }) => {
   return (
     <div
-      className={`bg-black fixed z-30 h-screen inset-0 ${
+      className={`bg-background-dark fixed z-30 h-screen inset-0 ${
         !isMobileNavOpen
           ? "-translate-y-full transition-transform"
           : "translate-y-0"

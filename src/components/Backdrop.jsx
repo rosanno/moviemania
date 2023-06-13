@@ -35,7 +35,7 @@ const Backdrop = ({ src, isAlwaysDisplayed, setIsVideoPlayed }) => {
         sizes="100vw"
         className={`
        ${isDisplayed ? "opacity-100" : "xl:opacity-0"}
-      object-cover brightness-110 transition-all duration-1000 ease-in`}
+      object-cover w-full brightness-110 transition-all duration-1000 ease-in`}
       />
     </>
   );
