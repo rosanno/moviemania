@@ -2,10 +2,9 @@ import { Link } from "react-router-dom";
 import { LuSearch } from "react-icons/lu";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-// eslint-disable-next-line react/prop-types
 const Navbar = ({ setIsMobileNavOpen }) => {
   return (
-    <div className="fixed inset-x-0 flex items-center justify-between p-6 space-x-7 custom-container">
+    <div className="fixed inset-x-0 flex items-center justify-between p-3 md:p-6 space-x-7 custom-container">
       <div>
         <span>LOGO</span>
       </div>
@@ -27,10 +26,10 @@ const Navbar = ({ setIsMobileNavOpen }) => {
       </nav>
       <div className="flex items-center space-x-3">
         <button className="ml-auto">
-          <LuSearch className="text-xl" />
+          <LuSearch className="text-xl text-white" />
         </button>
         <button onClick={() => setIsMobileNavOpen(true)} className="md:hidden">
-          <GiHamburgerMenu className="text-2xl" />
+          <GiHamburgerMenu className="text-2xl text-white" />
         </button>
       </div>
     </div>
