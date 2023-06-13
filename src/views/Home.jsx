@@ -1,4 +1,6 @@
 import Hero from "../components/Hero";
+import Showcase from "../components/Showcase";
+import Content from "../components/content/Content";
 import { useGetRandomMovie } from "../hooks/useGetRandomMovie";
 import { useGetTrendingQuery } from "../services/api";
 
@@ -9,6 +11,9 @@ const Home = () => {
   return (
     <>
       <Hero media={randomMovie} />
+      <Content variant="primary">
+        <Showcase media={randomMovie} isMediaSelected={false} />
+      </Content>
     </>
   );
 };

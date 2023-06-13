@@ -27,15 +27,15 @@ export const tmdbApi = createApi({
         }/${id}/videos?api_key=${api_key}&language=en-US`,
     }),
     getLogo: builder.query({
-      query: ({ media_type, id }) =>
+      query: ({ type, id }) =>
         `/3/${
-          media_type === "movie" ? "movie" : "tv"
+          type === "movie" ? "movie" : "tv"
         }/${id}/images?api_key=${api_key}`,
     }),
     getRuntime: builder.query({
       query: ({ type, id }) =>
         `/3/${
-          type === "movies" ? "movie" : "tv"
+          type === "movie" ? "movie" : "tv"
         }/${id}?api_key=${api_key}&language=en-US`,
     }),
     getNowPlaying: builder.query({

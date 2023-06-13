@@ -16,7 +16,7 @@ const Layout = () => {
         />
       </header>
 
-      <main>
+      <main className="min-h-screen overflow-hidden sm:overflow-visible">
         <Outlet />
       </main>
     </>

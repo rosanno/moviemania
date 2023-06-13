@@ -11,8 +11,6 @@ const Hero = ({ media }) => {
   const { data } = useGetVideoQuery({ type, id });
   const { video } = useFilterVideo(data);
 
-  console.log(media);
-
   return (
     <section className="sticky -z-10 aspect-video max-h-screen w-full overflow-hidden sm:top-0">
       <div className="relative h-full w-full">
