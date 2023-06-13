@@ -31,7 +31,7 @@ const Showcase = ({ media, isMediaSelected }) => {
             }
             alt=""
             sizes="500px"
-            className="object-contain h-[230px]"
+            className="object-contain h-full"
           />
         </div>
       </div>

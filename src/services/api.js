@@ -17,7 +17,7 @@ export const tmdbApi = createApi({
     getTrending: builder.query({
       query: ({ type }) =>
         `/3/trending/${
-          type === "movies" ? "movie" : "tv"
+          type === "movies" ? "movie" : type === "series" ? "tv" : "all"
         }/day?api_key=${api_key}&language=en-US`,
     }),
     getVideo: builder.query({

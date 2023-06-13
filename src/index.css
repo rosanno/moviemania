@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: dark;
+}
+
+@layer components {
+  .transition-smooth {
+    @apply transition-all duration-150 ease-in;
+  }
+}
+
 @layer components {
   .nav__links {
     @apply text-white text-3xl md:text-sm py-[.4rem] md:py-0 md:px-3 font-semibold md:font-normal;
