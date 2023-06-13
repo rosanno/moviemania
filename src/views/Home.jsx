@@ -1,18 +1,23 @@
 import Hero from "../components/Hero";
+import Loader from "../components/Loader/Loader";
 import Showcase from "../components/Showcase";
 import Content from "../components/content/Content";
 import { useGetRandomMovie } from "../hooks/useGetRandomMovie";
 import { useGetTrendingQuery } from "../services/api";
 
 const Home = () => {
-  const { data } = useGetTrendingQuery({ type: "movies" });
+  const { data, isLoading } = useGetTrendingQuery({ type: "movies" });
   const { randomMovie } = useGetRandomMovie(data);
 
   return (
     <>
       <Hero media={randomMovie} />
       <Content variant="primary">
-        <Showcase media={randomMovie} isMediaSelected={false} />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Showcase media={randomMovie} isMediaSelected={false} />
+        )}
       </Content>
     </>
   );
