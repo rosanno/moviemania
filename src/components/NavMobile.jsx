@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 
-// eslint-disable-next-line react/prop-types
 const NavMobile = ({ isMobileNavOpen, setIsMobileNavOpen }) => {
   return (
     <div
