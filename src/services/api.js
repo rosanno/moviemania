@@ -90,6 +90,9 @@ export const tmdbApi = createApi({
       query: (movie_id) =>
         `/3/movie/${movie_id}?api_key=${api_key}&language=en-US`,
     }),
+    getPopularSeries: builder.query({
+      query: () => `/3/tv/popular?api_key=${api_key}&language=en-US&page=1`,
+    }),
   }),
 });
 
@@ -103,4 +106,5 @@ export const {
   useGetTrendingQuery,
   useGetRuntimeQuery,
   useGetPopularQuery,
+  useGetPopularSeriesQuery,
 } = tmdbApi;
