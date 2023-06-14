@@ -2,7 +2,8 @@ import { useState } from "react";
 import Grid from "../components/Grid/Grid";
 import Popular from "../components/Popular";
 import Content from "../components/content/Content";
-import { useGetPopularQuery } from "../services/api";
+import { useGetMovieGenreQuery, useGetPopularQuery } from "../services/api";
+import { useGenre } from "../hooks/useGenre";
 
 const PopularMovies = () => {
   const [page, setPage] = useState(1);
@@ -11,6 +12,8 @@ const PopularMovies = () => {
     isLoading,
     isFetching,
   } = useGetPopularQuery({ type: "movies", page });
+  const { data: genre } = useGetMovieGenreQuery({ type: "movies" });
+  useGenre(popular?.results, genre);
 
   return (
     <>
