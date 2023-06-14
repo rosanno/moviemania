@@ -12,7 +12,7 @@ const Content = ({ children, variant, isSpacerOnly = false }) => {
 
   if (isSpacerOnly) {
     return (
-      <div className="relative space-y-6 bg-background-dark pb-28 sm:space-y-12 sm:pb-12">
+      <div className="relative space-y-6 bg-background-dark pb-28 sm:space-y-12 sm:pb-12 sm:mt-16">
         {children}
       </div>
     );
