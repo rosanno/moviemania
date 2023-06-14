@@ -4,6 +4,7 @@ import Showcase from "../components/Showcase";
 import Content from "../components/content/Content";
 import { useGetRandomMovie } from "../hooks/useGetRandomMovie";
 import { useGetTrendingQuery } from "../services/api";
+import UpcomingMovie from "../components/UpcomingMovie";
 
 const Home = () => {
   const { data, isLoading } = useGetTrendingQuery({ type: "movies" });
@@ -18,6 +19,10 @@ const Home = () => {
         ) : (
           <Showcase media={randomMovie} isMediaSelected={false} />
         )}
+      <Content isSpacerOnly>
+        <UpcomingMovie />
+      </Content>
+
       </Content>
     </>
   );
