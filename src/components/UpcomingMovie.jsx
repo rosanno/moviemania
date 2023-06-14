@@ -29,12 +29,12 @@ function UpcomingMovie() {
   };
 
   return (
-    <section className="md:pl-6 px-2 md:pt-14 lg:ml-28">
+    <section className="md:pl-6 px-2 md:pt-14 xl:ml-7 2xl:ml-28">
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-lg sm:text-3xl font-bold capitalize">
           Upcoming Movies
         </h1>
-        <div className="hidden sm:flex items-center justify-center gap-2 md:mr-4 xl:mr-32">
+        <div className="hidden sm:flex items-center justify-center gap-2 md:mr-4 2xl:mr-32">
           <div
             onClick={scrollLeft}
             className="bg-gray-300/10 hover:bg-gray-300/5 transition-colors duration-300 cursor-pointer p-2 rounded-full"
