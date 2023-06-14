@@ -90,8 +90,17 @@ export const tmdbApi = createApi({
       query: (movie_id) =>
         `/3/movie/${movie_id}?api_key=${api_key}&language=en-US`,
     }),
+    /**
+     * Popular tv series
+     */
     getPopularSeries: builder.query({
       query: () => `/3/tv/popular?api_key=${api_key}&language=en-US&page=1`,
+    }),
+    getMovieGenre: builder.query({
+      query: ({ type }) =>
+        `/3/genre/${
+          type === "movies" ? "movie" : "tv"
+        }/list?api_key=${api_key}&language=en`,
     }),
   }),
 });
@@ -107,4 +116,5 @@ export const {
   useGetRuntimeQuery,
   useGetPopularQuery,
   useGetPopularSeriesQuery,
+  useGetMovieGenreQuery,
 } = tmdbApi;
