@@ -21,13 +21,10 @@ const Home = () => {
         ) : (
           <Showcase media={randomMovie} isMediaSelected={false} />
         )}
-      <Content isSpacerOnly>
-        <UpcomingMovie />
-      </Content>
-
       </Content>
       <Content isSpacerOnly>
         <NowShowing />
+        <UpcomingMovie />
       </Content>
     </>
   );
