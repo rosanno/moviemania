@@ -1,19 +1,58 @@
-import React from "react";
-import { useGetUpComingMovieQuery } from "../services/api";
-
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
+import { useGetUpComingMovieQuery } from "../services/api";
+import { useRef } from "react";
 
 function UpcomingMovie() {
+  const scrollRef = useRef(null);
   const { data } = useGetUpComingMovieQuery();
   console.log(data);
 
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: -1200,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: 1200,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <section className="md:pl-6 px-2 md:pt-14 lg:ml-28">
-      <h1 className="text-lg sm:text-3xl mb-5 font-bold capitalize">
-        Upcoming Movies
-      </h1>
-      <div className="grid grid-rows-2 grid-flow-col gap-5 sm:gap-7 md:mt-7 overflow-x-scroll overflow-y-hidden scrollbar">
+      <div className="flex justify-between items-center mb-5">
+        <h1 className="text-lg sm:text-3xl font-bold capitalize">
+          Upcoming Movies
+        </h1>
+        <div className="hidden sm:flex items-center justify-center gap-2 md:mr-4 xl:mr-32">
+          <div
+            onClick={scrollLeft}
+            className="bg-gray-300/10 hover:bg-gray-300/5 transition-colors duration-300 cursor-pointer p-2 rounded-full"
+          >
+            <FaChevronLeft className="text-lg" />
+          </div>
+          <div
+            onClick={scrollRight}
+            className="bg-gray-300/10 hover:bg-gray-300/5 transition-colors duration-300 cursor-pointer p-2 rounded-full"
+          >
+            <FaChevronRight className="text-lg" />
+          </div>
+        </div>
+      </div>
+      <div
+        ref={scrollRef}
+        className="grid grid-rows-2 grid-flow-col gap-5 sm:gap-7 md:mt-7 overflow-x-scroll overflow-y-hidden scrollbar scroll-smooth"
+      >
         {data?.results?.map((item) => (
           <Link to={`/movies/details/${item.id}`} key={item.id}>
             <div className="relative group overflow-hidden">
