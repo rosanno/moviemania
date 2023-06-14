@@ -5,16 +5,16 @@ import { useEffect, useState } from "react";
 
 const Navbar = ({ setIsMobileNavOpen }) => {
   const { pathname } = useLocation();
-  const [navbarColor, setNavbarColor] = useState("bg-transparent"); // Initial color of the navbar
+  const [navbarColor, setNavbarColor] = useState("bg-transparent");
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop =
         window.pageYOffset || document.documentElement.scrollTop;
       if (scrollTop > 50) {
-        setNavbarColor("bg-black/75 backdrop-blur shadow"); // Change to your desired color class when scrolling
+        setNavbarColor("bg-black/75 backdrop-blur shadow");
       } else {
-        setNavbarColor("bg-transparent"); // Change to your initial color class when not scrolling
+        setNavbarColor("bg-transparent");
       }
     };
 
@@ -25,7 +25,9 @@ const Navbar = ({ setIsMobileNavOpen }) => {
   }, []);
 
   return (
-    <div className={`fixed z-10 inset-x-0 ${navbarColor}`}>
+    <div
+      className={`fixed z-10 inset-x-0 ${navbarColor} transition-colors duration-300`}
+    >
       <div className="custom-container flex items-center justify-between space-x-10 p-3 md:p-6">
         <div>
           <span className="text-white text-lg font-semibold">

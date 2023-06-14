@@ -1,8 +1,10 @@
 import Hero from "../components/Hero";
 import Loader from "../components/Loader/Loader";
+import NowShowing from "../components/NowShowing";
 import Showcase from "../components/Showcase";
 import Content from "../components/content/Content";
 import { useGetRandomMovie } from "../hooks/useGetRandomMovie";
+
 import { useGetTrendingQuery } from "../services/api";
 import UpcomingMovie from "../components/UpcomingMovie";
 
@@ -23,6 +25,9 @@ const Home = () => {
         <UpcomingMovie />
       </Content>
 
+      </Content>
+      <Content isSpacerOnly>
+        <NowShowing />
       </Content>
     </>
   );

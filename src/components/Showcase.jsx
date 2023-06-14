@@ -52,9 +52,7 @@ const Showcase = ({ media, isMediaSelected }) => {
           </div>
         </div>
         <div className="overflow-y-auto scrollbar-none sm:max-h-12">
-          <p className="text-xs sm:text-base text-gray-300">
-            {media?.overview}
-          </p>
+          <p className="text-xs sm:text-base">{media?.overview}</p>
         </div>
       </div>
       <div>
