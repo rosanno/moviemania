@@ -4,6 +4,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import { useGetUpComingMovieQuery } from "../services/api";
 import { useRef } from "react";
+import Section from "./Section/Section";
 
 function UpcomingMovie() {
   const scrollRef = useRef(null);
@@ -28,7 +29,7 @@ function UpcomingMovie() {
   };
 
   return (
-    <section className="md:pl-6 px-2 md:pt-14 xl:ml-7 2xl:ml-28">
+    <Section>
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-2xl sm:text-3xl font-bold capitalize">
           Upcoming Movies
@@ -77,7 +78,7 @@ function UpcomingMovie() {
           </Link>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 

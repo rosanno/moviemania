@@ -2,6 +2,7 @@ import moment from "moment";
 import { useGetNowPlayingQuery } from "../services/api";
 import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import Section from "./Section/Section";
 
 const NowShowing = () => {
   const scrollRef = useRef(null);
@@ -28,7 +29,7 @@ const NowShowing = () => {
   };
 
   return (
-    <section className="md:pl-6 px-2 md:pt-14 xl:ml-7 2xl:ml-28">
+    <Section>
       <div className="flex justify-between items-center mb-5 pt-14">
         <h1 className="text-2xl sm:text-3xl font-bold capitalize">
           Now Showing
@@ -96,7 +97,7 @@ const NowShowing = () => {
           </div>
         ))}
       </div>
-    </section>
+    </Section>
   );
 };
 
