@@ -26,7 +26,7 @@ const Navbar = ({ setIsMobileNavOpen }) => {
 
   return (
     <div
-      className={`fixed z-10 inset-x-0 ${navbarColor} transition-colors duration-300`}
+      className={`fixed z-20 inset-x-0 ${navbarColor} transition-colors duration-300`}
     >
       <div className="custom-container flex items-center justify-between space-x-10 p-3 md:p-6">
         <div>
