@@ -8,12 +8,11 @@ import { useRef } from "react";
 function UpcomingMovie() {
   const scrollRef = useRef(null);
   const { data } = useGetUpComingMovieQuery();
-  console.log(data);
 
   const scrollLeft = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({
-        left: -1200,
+        left: -600,
         behavior: "smooth",
       });
     }
@@ -22,7 +21,7 @@ function UpcomingMovie() {
   const scrollRight = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({
-        left: 1200,
+        left: 600,
         behavior: "smooth",
       });
     }
@@ -31,7 +30,7 @@ function UpcomingMovie() {
   return (
     <section className="md:pl-6 px-2 md:pt-14 xl:ml-7 2xl:ml-28">
       <div className="flex justify-between items-center mb-5">
-        <h1 className="text-lg sm:text-3xl font-bold capitalize">
+        <h1 className="text-2xl sm:text-3xl font-bold capitalize">
           Upcoming Movies
         </h1>
         <div className="hidden sm:flex items-center justify-center gap-2 md:mr-4 2xl:mr-32">
@@ -64,7 +63,7 @@ function UpcomingMovie() {
                 />
               </div>
               <div className="absolute bottom-10 z-10 px-5">
-                <h2 className="text-lg font-bold">{item?.title}</h2>
+                <h2 className="text-lg sm:text-2xl font-bold">{item?.title}</h2>
                 <span className="text-gray-300">
                   {item.original_language}
                 </span>{" "}
