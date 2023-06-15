@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Grid from "../components/Grid/Grid";
 import Popular from "../components/Popular";
 import Content from "../components/content/Content";
@@ -7,24 +7,65 @@ import { useGenre } from "../hooks/useGenre";
 
 const PopularMovies = () => {
   const [page, setPage] = useState(1);
+  const [loadMore, setLoadMore] = useState(false);
   const {
     data: popular,
     isLoading,
     isFetching,
   } = useGetPopularQuery({ type: "movies", page });
   const { data: genre } = useGetMovieGenreQuery({ type: "movies" });
-  useGenre(popular?.results, genre);
+
+  useEffect(() => {
+    if (!loadMore) return;
+
+    const onScroll = () => {
+      const scrolledToBottom =
+        document.documentElement.clientHeight + window.scrollY >=
+        document.documentElement.offsetHeight;
+      if (scrolledToBottom && !isFetching) {
+        console.log("Fetching more data...");
+        setPage((prev) => prev + 1);
+      }
+    };
+
+    document.addEventListener("scroll", onScroll);
+
+    return () => {
+      document.removeEventListener("scroll", onScroll);
+    };
+  }, [page, isFetching, loadMore]);
+
+  const handleLoadMore = () => {
+    setLoadMore(true);
+    setPage((prev) => prev + 1);
+  };
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <>
       <Content variant="secondary">
         <div className="mt-16 sm:mt-20 md:mt-32 px-4 sm:px-6">
-          <h1 className="md:text-2xl mb-1 sm:mb-4">Popular Movies</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold capitalize mb-1 sm:mb-4">
+            Popular Movies
+          </h1>
           <Grid>
-            {popular?.results?.map((movie) => (
-              <Popular key={movie.id} movie={movie} />
+            {popular?.results?.map((movie, index) => (
+              <Popular key={index} movie={movie} />
             ))}
           </Grid>
+          {!loadMore && (
+            <div className="flex justify-center">
+              <button
+                className="bg-red-800 w-full sm:w-1/3 rounded-md py-2 mt-7"
+                onClick={handleLoadMore}
+              >
+                Load more...
+              </button>
+            </div>
+          )}
         </div>
       </Content>
     </>

@@ -61,8 +61,13 @@ export const tmdbApi = createApi({
       serializeQueryArgs: ({ endpoint }) => {
         return endpoint;
       },
-      merge: (currentCache, newItems) => {
-        currentCache.results.push(...newItems.results);
+      merge: (currentCache, newItems, currentArg) => {
+        console.log(currentArg);
+        if (currentArg.arg.page === 1) {
+          currentCache.results;
+        } else {
+          currentCache.results.push(...newItems.results);
+        }
       },
       forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg;
