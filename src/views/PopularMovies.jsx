@@ -4,6 +4,7 @@ import Grid from "../components/Grid/Grid";
 import Content from "../components/content/Content";
 import { useGetMovieGenreQuery, useGetPopularQuery } from "../services/api";
 import SkeletonLoader from "../components/SkeletonLoader";
+import Genre from "../components/Genre";
 
 const LazyPopularMovies = lazy(() =>
   import("../components/LazyLoad/LazyPopularMovies")
@@ -17,7 +18,7 @@ const PopularMovies = () => {
     page,
   });
   const [isLoaded, setIsLoaded] = useState(false);
-  const { data: genre } = useGetMovieGenreQuery({ type: "movies" });
+  const { data: genres } = useGetMovieGenreQuery({ type: "movies" });
 
   useEffect(() => {
     if (!loadMore) return;
@@ -50,9 +51,13 @@ const PopularMovies = () => {
     <>
       <Content variant="secondary">
         <div className="mt-16 sm:mt-20 md:mt-32 px-4 sm:px-6">
-          <h1 className="text-2xl sm:text-3xl font-bold capitalize mb-1 sm:mb-4">
-            Popular Movies
-          </h1>
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold capitalize mb-1 sm:mb-4">
+              Popular Movies
+            </h1>
+
+            <Genre genres={genres} />
+          </div>
           <Grid>
             <Suspense fallback={<SkeletonLoader loader={20} />}>
               <LazyPopularMovies popular={popular} />
