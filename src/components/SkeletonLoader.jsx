@@ -3,14 +3,16 @@ import Skeleton from "react-loading-skeleton";
 
 import "react-loading-skeleton/dist/skeleton.css";
 
-const SkeletonLoader = () => {
-  return (
-    <div>
-      <Skeleton width={190} height={280} />
-      <Skeleton width={190} className="mt-3" />
-      <Skeleton width={90} className="mt-2" />
-    </div>
-  );
+const SkeletonLoader = ({ loader }) => {
+  return Array(loader)
+    .fill(0)
+    .map((_, i) => (
+      <div key={i}>
+        <Skeleton width={195} height={280} />
+        <Skeleton width={195} className="mt-3" />
+        <Skeleton width={90} className="mt-2" />
+      </div>
+    ));
 };
 
 export default SkeletonLoader;

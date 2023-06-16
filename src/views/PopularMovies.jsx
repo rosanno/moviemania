@@ -1,19 +1,21 @@
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 
 import Grid from "../components/Grid/Grid";
-import Popular from "../components/Popular";
 import Content from "../components/content/Content";
 import { useGetMovieGenreQuery, useGetPopularQuery } from "../services/api";
 import SkeletonLoader from "../components/SkeletonLoader";
 
+const LazyPopularMovies = lazy(() =>
+  import("../components/LazyLoad/LazyPopularMovies")
+);
+
 const PopularMovies = () => {
   const [page, setPage] = useState(1);
   const [loadMore, setLoadMore] = useState(false);
-  const {
-    data: popular,
-    isLoading,
-    isFetching,
-  } = useGetPopularQuery({ type: "movies", page });
+  const { data: popular, isFetching } = useGetPopularQuery({
+    type: "movies",
+    page,
+  });
   const { data: genre } = useGetMovieGenreQuery({ type: "movies" });
 
   useEffect(() => {
@@ -49,17 +51,9 @@ const PopularMovies = () => {
             Popular Movies
           </h1>
           <Grid>
-            {isLoading ? (
-              Array.from({ length: 20 }).map((_, index) => (
-                <SkeletonLoader key={index} />
-              ))
-            ) : (
-              <>
-                {popular?.results?.map((movie, index) => (
-                  <Popular key={index} movie={movie} />
-                ))}
-              </>
-            )}
+            <Suspense fallback={<SkeletonLoader loader={20} />}>
+              <LazyPopularMovies popular={popular} />
+            </Suspense>
           </Grid>
           {!loadMore && (
             <div className="flex justify-center">
