@@ -8,8 +8,8 @@ const SkeletonLoader = ({ loader }) => {
     .fill(0)
     .map((_, i) => (
       <div key={i}>
-        <Skeleton width={195} height={280} />
-        <Skeleton width={195} className="mt-3" />
+        <Skeleton className="w-[190px] h-[240px] sm:h-[260px]" />
+        <Skeleton className="w-[190px] mt-3" />
         <Skeleton width={90} className="mt-2" />
       </div>
     ));
