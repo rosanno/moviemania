@@ -16,6 +16,7 @@ const PopularMovies = () => {
     type: "movies",
     page,
   });
+  const [isLoaded, setIsLoaded] = useState(false);
   const { data: genre } = useGetMovieGenreQuery({ type: "movies" });
 
   useEffect(() => {
@@ -25,9 +26,11 @@ const PopularMovies = () => {
       const scrolledToBottom =
         document.documentElement.clientHeight + window.scrollY >=
         document.documentElement.offsetHeight * 0.9;
+      setIsLoaded(true);
       if (scrolledToBottom && !isFetching) {
         console.log("Fetching more data...");
         setPage((prev) => prev + 1);
+        setIsLoaded(false);
       }
     };
 
@@ -54,11 +57,12 @@ const PopularMovies = () => {
             <Suspense fallback={<SkeletonLoader loader={20} />}>
               <LazyPopularMovies popular={popular} />
             </Suspense>
+            {isLoaded && <SkeletonLoader loader={20} />}
           </Grid>
           {!loadMore && (
             <div className="flex justify-center">
               <button
-                className="bg-red-800 w-full md:w-1/2 rounded-md py-2 mt-7"
+                className="bg-red-800 w-full sm:w-1/2 xl:w-1/3 rounded-md py-2 mt-7"
                 onClick={handleLoadMore}
               >
                 Load more...
