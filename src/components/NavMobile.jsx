@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 const NavMobile = ({ isMobileNavOpen, setIsMobileNavOpen }) => {
   return (
     <div
-      className={`bg-background-dark fixed z-30 h-screen inset-0 ${
+      className={`bg-background-dark fixed z-50 h-screen inset-0 ${
         !isMobileNavOpen
           ? "-translate-y-full transition-transform"
           : "translate-y-0"
@@ -13,18 +13,18 @@ const NavMobile = ({ isMobileNavOpen, setIsMobileNavOpen }) => {
       <button onClick={() => setIsMobileNavOpen(false)}>
         <AiOutlineClose className="text-white absolute right-6 text-3xl" />
       </button>
-      <nav className="py-28 px-10">
+      <nav className="py-32 px-10">
         <ul>
-          <li className="nav__links">
+          <li onClick={() => setIsMobileNavOpen(false)} className="nav__links">
             <Link to="/">Home</Link>
           </li>
-          <li className="nav__links">
+          <li onClick={() => setIsMobileNavOpen(false)} className="nav__links">
             <Link to="/popular-movies">Popular Movies</Link>
           </li>
-          <li className="nav__links">
+          <li onClick={() => setIsMobileNavOpen(false)} className="nav__links">
             <Link to="/tv-shows">TV Shows</Link>
           </li>
-          <li className="nav__links">
+          <li onClick={() => setIsMobileNavOpen(false)} className="nav__links">
             <Link to="/popular-people">Popular people</Link>
           </li>
         </ul>

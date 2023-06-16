@@ -4,6 +4,7 @@ import Home from "../views/Home";
 import PopularMovies from "../views/PopularMovies";
 import TvShows from "../views/TvShows";
 import PopularPeople from "../views/PopularPeople";
+import NotFound from "../views/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
       {
         path: "/popular-people",
         element: <PopularPeople />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
