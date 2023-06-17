@@ -5,6 +5,7 @@ const api_key = import.meta.env.VITE_TMDB_API_KEY;
 export const tmdbApi = createApi({
   reducerPath: "tmdbApi",
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_TMDB_BASE_URL }),
+  tagTypes: ["Popular"],
 
   endpoints: (builder) => ({
     /**
@@ -54,17 +55,25 @@ export const tmdbApi = createApi({
      * Popular movies
      */
     getPopular: builder.query({
-      query: ({ type, page }) =>
+      query: ({ type, page, genre, fromDate, toDate }) =>
         `/3/${
           type === "movies" ? "movie" : "tv"
-        }/popular?api_key=${api_key}&language=en-US&page=${page}`,
-      serializeQueryArgs: ({ endpoint }) => {
-        return endpoint;
+        }/popular?api_key=${api_key}&with_genres=${
+          genre.length !== 0 ? genre.join(",") : ""
+        }&primary_release_date.gte=${
+          fromDate !== undefined ? fromDate : ""
+        }&release_date.lte=${
+          toDate !== undefined ? toDate : ""
+        }&language=en-US&page=${page}`,
+      providesTags: ["Popular"],
+      keepUnusedDataFor: 5,
+      serializeQueryArgs: ({ queryArgs, endpoint }) => {
+        const { genre, fromDate, toDate } = queryArgs;
+        return { genre, fromDate, toDate };
       },
       merge: (currentCache, newItems, currentArg) => {
-        console.log(currentArg);
         if (currentArg.arg.page === 1) {
-          currentCache.results;
+          newItems.results;
         } else {
           currentCache.results.push(...newItems.results);
         }
