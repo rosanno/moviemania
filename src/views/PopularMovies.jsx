@@ -2,7 +2,7 @@ import { Suspense, lazy, useEffect, useState } from "react";
 
 import Grid from "../components/Grid/Grid";
 import Content from "../components/content/Content";
-import { useGetMovieGenreQuery, useGetPopularQuery } from "../services/api";
+import { useGetPopularQuery } from "../services/api";
 import SkeletonLoader from "../components/SkeletonLoader";
 
 const LazyPopularMovies = lazy(() =>
