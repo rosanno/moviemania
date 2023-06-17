@@ -7,10 +7,10 @@ const SkeletonLoader = ({ loader }) => {
   return Array(loader)
     .fill(0)
     .map((_, i) => (
-      <div key={i}>
-        <Skeleton className="w-[190px] h-[240px] sm:h-[260px]" />
+      <div key={i} className="mt-4">
+        <Skeleton className="w-[190px] h-[320px] md:h-[270px] lg:h-[330px] xl:h-[285px]" />
         <Skeleton className="w-[190px] mt-3" />
-        <Skeleton width={90} className="mt-2" />
+        <Skeleton width={90} className="mt-1" />
       </div>
     ));
 };
