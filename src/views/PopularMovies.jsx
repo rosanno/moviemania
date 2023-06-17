@@ -17,7 +17,6 @@ const PopularMovies = () => {
     page,
   });
   const [isLoaded, setIsLoaded] = useState(false);
-  const { data: genre } = useGetMovieGenreQuery({ type: "movies" });
 
   useEffect(() => {
     if (!loadMore) return;
