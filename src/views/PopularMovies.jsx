@@ -5,6 +5,7 @@ import Content from "../components/content/Content";
 import { useGetMovieGenreQuery, useGetPopularQuery } from "../services/api";
 import SkeletonLoader from "../components/SkeletonLoader";
 import Genre from "../components/Genre";
+import DateInput from "../components/DateInput";
 
 const LazyPopularMovies = lazy(() =>
   import("../components/LazyLoad/LazyPopularMovies")
@@ -12,10 +13,16 @@ const LazyPopularMovies = lazy(() =>
 
 const PopularMovies = () => {
   const [page, setPage] = useState(1);
+  const [genre, setGenre] = useState([]);
+  const [fromDate, setFromDate] = useState();
+  const [toDate, setToDate] = useState();
   const [loadMore, setLoadMore] = useState(false);
   const { data: popular, isFetching } = useGetPopularQuery({
     type: "movies",
     page,
+    genre,
+    fromDate,
+    toDate,
   });
   const [isLoaded, setIsLoaded] = useState(false);
   const { data: genres } = useGetMovieGenreQuery({ type: "movies" });
@@ -42,6 +49,15 @@ const PopularMovies = () => {
     };
   }, [page, isFetching, loadMore]);
 
+  const handleGenre = (genreId) => {
+    setGenre((prevGenre) => {
+      const updatedGenre = prevGenre.includes(genreId)
+        ? prevGenre.filter((id) => id !== genreId)
+        : [...prevGenre, genreId];
+      return updatedGenre;
+    });
+  };
+
   const handleLoadMore = () => {
     setLoadMore(true);
     setPage((prev) => prev + 1);
@@ -56,7 +72,11 @@ const PopularMovies = () => {
               Popular Movies
             </h1>
 
-            <Genre genres={genres} />
+            <div className="flex flex-col md:flex-row md:items-center mt-5 sm:mt-7 md:gap-5">
+              <Genre genres={genres} genre={genre} handleGenre={handleGenre} />
+              <DateInput label="From" setDate={setFromDate} />
+              <DateInput label="To" setDate={setToDate} />
+            </div>
           </div>
           <Grid>
             <Suspense fallback={<SkeletonLoader loader={20} />}>
