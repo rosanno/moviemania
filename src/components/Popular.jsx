@@ -5,7 +5,11 @@ const Popular = ({ movie }) => {
   return (
     <Link to={`/movie/details/${movie?.id}`} className="mt-4">
       <img
-        src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
+        src={`${
+          movie?.poster_path !== null
+            ? `https://image.tmdb.org/t/p/w500${movie?.poster_path}`
+            : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
+        } `}
         alt={movie?.title}
         className="rounded-md overflow-hidden"
       />
