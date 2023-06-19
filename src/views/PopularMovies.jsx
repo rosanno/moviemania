@@ -12,6 +12,9 @@ import Genre from "../components/Genre";
 import DateInput from "../components/DateInput";
 import FilteringCard from "../components/FilteringCard";
 import Loader from "../components/Loader/Loader";
+import SortSelect from "../components/SortSelect";
+import CountrySelect from "../components/CountrySelect";
+import NoResults from "../components/NoResults";
 
 const LazyPopularMovies = lazy(() => import("../components/LazyLoad/LazyPopularMovies"));
 
@@ -47,15 +50,22 @@ const PopularMovies = () => {
   const [genre, setGenre] = useState([]);
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
-  const [selectedRegion, setSelectedRegion] = useState("PH");
+  const [selectedRegion, setSelectedRegion] = useState({
+    iso_3166_1: "PH",
+    english_name: "Philippines",
+  });
+  const [sort, setSort] = useState(sorts[1]);
   const [seletedWatchProviders, setSelectedWatchProviders] = useState([]);
   const [loadMore, setLoadMore] = useState(false);
   const { data: popular, isFetching } = useGetPopularQuery({
     type: "movies",
     page,
     genre,
+    region: selectedRegion.iso_3166_1,
+    seletedWatchProviders,
     fromDate,
     toDate,
+    sort: sort.value,
   });
   const { data: regions } = useGetRegionsQuery();
   const { data: watchProviders } = useGetWatchProvidersQuery({ type: "movie", selectedRegion });
@@ -92,7 +102,19 @@ const PopularMovies = () => {
     });
   };
 
-  console.log(isFetching);
+  const handleWatchProvider = (providerId) => {
+    setSelectedWatchProviders((prevProvider) => {
+      const updateProvider = prevProvider.includes(providerId)
+        ? prevProvider.filter((id) => id !== providerId)
+        : [...prevProvider, providerId];
+      return updateProvider;
+    });
+  };
+
+  const handleSelectedRegion = (selected) => {
+    setSelectedRegion(selected);
+    setSelectedWatchProviders([])
+  };
 
   const handleLoadMore = () => {
     setLoadMore(true);
@@ -108,37 +130,36 @@ const PopularMovies = () => {
           </div>
           <Grid variant="primary" gap="5">
             <div className="hidden md:block">
-              <FilteringCard heading="Sort" subHeading="Sort Results By">
+              <FilteringCard heading="Sort">
                 <div className="px-4">
-                  <select className="rounded-md outline-none py-2 px-2.5 text-sm w-full mt-1">
-                    {sorts.map((sort) => (
-                      <option key={sort.value} value={sort.value}>
-                        {sort.label}
-                      </option>
-                    ))}
-                  </select>
+                  <SortSelect data={sorts} sort={sort} setSort={setSort} label="Sort Results By" />
                 </div>
               </FilteringCard>
-              <FilteringCard heading="Where to Watch" subHeading="Country">
+              <FilteringCard heading="Where to Watch">
                 <div className="px-4">
-                  <select
-                    value={selectedRegion}
-                    onChange={(e) => setSelectedRegion(e.target.value)}
-                    className="rounded-md outline-none py-2 px-2.5 text-sm w-full mt-1"
-                  >
-                    {regions?.results?.map((region) => (
-                      <option key={region.english_name} value={region.iso_3166_1}>
-                        {region.english_name}
-                      </option>
-                    ))}
-                  </select>
+                  <CountrySelect
+                    data={regions?.results}
+                    selectedRegion={selectedRegion}
+                    handleSelectedRegion={handleSelectedRegion}
+                  />
                 </div>
                 <div className="px-4 mt-2 overflow-y-scroll max-h-[360px] scrollbar scroll-smooth">
                   <div className="grid grid-cols-4 gap-3 mt-4">
                     {watchProviders?.results?.map((provider) => (
-                      <button key={provider.provider_id} className="rounded-md overflow-hidden">
-                        <img src={`https://www.themoviedb.org/t/p/original${provider.logo_path}`} alt="" />
-                      </button>
+                      <div key={provider.provider_id} className="relative rounded-md overflow-hidden">
+                        <button
+                          onClick={() => handleWatchProvider(provider.provider_id)}
+                          className="rounded-md overflow-hidden bg-[#FFAE06]"
+                        >
+                          <img
+                            src={`https://www.themoviedb.org/t/p/original${provider.logo_path}`}
+                            alt=""
+                            className={`hover:opacity-30 ${
+                              seletedWatchProviders.includes(provider.provider_id) ? "opacity-30" : ""
+                            } transition duration-300`}
+                          />
+                        </button>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -149,9 +170,9 @@ const PopularMovies = () => {
                     <button
                       key={item.id}
                       onClick={() => handleGenre(item.id)}
-                      className={`text-sm text-gray-400 bg-neutral-700 hover:bg-neutral-500 ${
-                        genre.includes(item.id) ? "bg-neutral-500 text-white" : ""
-                      } hover:text-white transition duration-300 px-6 py-1.5 rounded-full`}
+                      className={`text-sm text-gray-400 hover:bg-[#FFAE06] hover:text-white ${
+                        genre.includes(item.id) ? "bg-[#FFAE06] text-white" : "bg-neutral-700"
+                      } transition duration-300 px-6 py-1.5 rounded-full`}
                     >
                       {item.name}
                     </button>
@@ -164,26 +185,27 @@ const PopularMovies = () => {
                     <DateInput label="From" />
                     <DateInput label="To" />
                   </div>
-                  <button className="bg-[#FFAE06] hover:bg-[#FFAE06]/80 transition duration-300 shadow-md mt-3 py-2 rounded-md w-full">
-                    Filter
-                  </button>
                 </div>
               </FilteringCard>
             </div>
             <div className="col-span-12">
-              <Suspense fallback={<Loader />}>
-                <Grid>
-                  <LazyPopularMovies popular={popular} />
-                </Grid>
-                <div className="flex justify-center">
-                  <button
-                    className="bg-[#FFC54E] w-full sm:w-1/2 xl:w-1/3 rounded-md py-2 mt-7"
-                    onClick={handleLoadMore}
-                  >
-                    Load more...
-                  </button>
-                </div>
-              </Suspense>
+              {popular?.results.length === 0 ? (
+                <NoResults />
+              ) : (
+                <Suspense fallback={<Loader />}>
+                  <Grid>
+                    <LazyPopularMovies popular={popular} />
+                  </Grid>
+                  <div className="flex justify-center">
+                    <button
+                      className="bg-[#FFC54E] w-full sm:w-1/2 xl:w-1/3 rounded-md py-2 mt-7"
+                      onClick={handleLoadMore}
+                    >
+                      Load more...
+                    </button>
+                  </div>
+                </Suspense>
+              )}
             </div>
           </Grid>
         </div>

@@ -43,17 +43,19 @@ export const tmdbApi = createApi({
      * Popular movies
      */
     getPopular: builder.query({
-      query: ({ type, page, genre, fromDate, toDate }) =>
-        `/3/${type === "movies" ? "movie" : "tv"}/popular?api_key=${api_key}&with_genres=${
+      query: ({ type, page, genre, region, seletedWatchProviders, fromDate, toDate, sort }) =>
+        `/3/discover/${type === "movies" ? "movie" : "tv"}?api_key=${api_key}&with_genres=${
           genre.length !== 0 ? genre.join(",") : ""
+        }&watch_region=${region}&with_watch_providers=${
+          seletedWatchProviders.length !== 0 ? seletedWatchProviders.join(",") : ""
         }&primary_release_date.gte=${fromDate !== undefined ? fromDate : ""}&release_date.lte=${
           toDate !== undefined ? toDate : ""
-        }&language=en-US&page=${page}`,
+        }&sort_by=${sort}&language=en-US&page=${page}`,
       providesTags: ["Popular"],
       keepUnusedDataFor: 5,
       serializeQueryArgs: ({ queryArgs, endpoint }) => {
-        const { genre, fromDate, toDate, type } = queryArgs;
-        return { genre, fromDate, toDate, type };
+        const { genre, region, seletedWatchProviders, fromDate, toDate, type, sort } = queryArgs;
+        return { genre, region, seletedWatchProviders, fromDate, toDate, type, sort };
       },
       merge: (currentCache, newItems, currentArg) => {
         if (currentArg.arg.page === 1) {
@@ -99,8 +101,11 @@ export const tmdbApi = createApi({
      */
     getWatchProviders: builder.query({
       query: ({ type, selectedRegion }) =>
-        `3/watch/providers/${type}?api_key=${api_key}&language=en-US&watch_region=${selectedRegion}`,
+        `3/watch/providers/${type}?api_key=${api_key}&language=en-US&watch_region=${selectedRegion.iso_3166_1}`,
       providesTags: ["Providers"],
+    }),
+    getPopularPeople: builder.query({
+      query: () => `/3/person/popular?api_key=${api_key}&language=en-US&page=1`,
     }),
   }),
 });
@@ -118,4 +123,5 @@ export const {
   useGetMovieGenreQuery,
   useGetRegionsQuery,
   useGetWatchProvidersQuery,
+  useGetPopularPeopleQuery,
 } = tmdbApi;
