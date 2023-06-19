@@ -69,7 +69,6 @@ const PopularMovies = () => {
   });
   const { data: regions } = useGetRegionsQuery();
   const { data: watchProviders } = useGetWatchProvidersQuery({ type: "movie", selectedRegion });
-  const [isLoaded, setIsLoaded] = useState(false);
   const { data: genres } = useGetMovieGenreQuery({ type: "movies" });
 
   useEffect(() => {
@@ -78,11 +77,9 @@ const PopularMovies = () => {
     const onScroll = () => {
       const scrolledToBottom =
         document.documentElement.clientHeight + window.scrollY >= document.documentElement.offsetHeight * 0.9;
-      setIsLoaded(true);
       if (scrolledToBottom && !isFetching) {
         console.log("Fetching more data...");
         setPage((prev) => prev + 1);
-        setIsLoaded(false);
       }
     };
 
@@ -113,7 +110,7 @@ const PopularMovies = () => {
 
   const handleSelectedRegion = (selected) => {
     setSelectedRegion(selected);
-    setSelectedWatchProviders([])
+    setSelectedWatchProviders([]);
   };
 
   const handleLoadMore = () => {
@@ -126,7 +123,7 @@ const PopularMovies = () => {
       <Content variant="secondary">
         <div className="mt-16 sm:mt-20 md:mt-32 px-4 sm:px-6 transition-all duration-1000 ease-in">
           <div>
-            <h1 className="text-2xl sm:text-2xl font-medium capitalize mb-1 sm:mb-4">Popular Movies</h1>
+            <h1 className="text-xl sm:text-2xl font-medium capitalize mb-1 sm:mb-4">Popular Movies</h1>
           </div>
           <Grid variant="primary" gap="5">
             <div className="hidden md:block">
