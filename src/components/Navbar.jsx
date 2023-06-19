@@ -42,10 +42,10 @@ const Navbar = ({ setIsMobileNavOpen }) => {
             <li className={`nav__links ${pathname === "/popular-movies" && "text-yellow-500"}`}>
               <Link to="/popular-movies">Popular Movies</Link>
             </li>
-            <li className="nav__links">
+            <li className={`nav__links ${pathname === "/tv-shows" && "text-yellow-500"}`}>
               <Link to="/tv-shows">TV Shows</Link>
             </li>
-            <li className="nav__links">
+            <li className={`nav__links ${pathname === "/popular-people" && "text-yellow-500"}`}>
               <Link to="/popular-people">Popular people</Link>
             </li>
           </ul>
