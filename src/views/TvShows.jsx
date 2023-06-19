@@ -3,13 +3,47 @@ import { useEffect, useState } from "react";
 import Grid from "../components/Grid/Grid";
 import Popular from "../components/Popular";
 import Content from "../components/content/Content";
+import Button from "../components/Button/Button";
 import { useGetMovieGenreQuery, useGetPopularQuery } from "../services/api";
+
+const sorts = [
+  {
+    value: "popularity.asc",
+    label: "Popularity Ascending",
+  },
+  {
+    value: "popularity.desc",
+    label: "Popularity Descending",
+  },
+  {
+    value: "vote_average.asc",
+    label: "Rating Ascending",
+  },
+  {
+    value: "vote_average.desc",
+    label: "Rating Descending",
+  },
+  {
+    value: "primary_release_date.asc",
+    label: "Release Date Ascending",
+  },
+  {
+    value: "primary_release_date.desc",
+    label: "Release Date Descending",
+  },
+];
 
 const TvShows = () => {
   const [page, setPage] = useState(1);
   const [loadMore, setLoadMore] = useState(false);
-  const { data: popular, isLoading, isFetching } = useGetPopularQuery({ type: "tv", page });
-  const { data: genre } = useGetMovieGenreQuery({ type: "tv" });
+  const [genre, setGenre] = useState([]);
+  const [sort, setSort] = useState(sorts[1]);
+  const [seletedWatchProviders, setSelectedWatchProviders] = useState([]);
+  const {
+    data: popular,
+    isLoading,
+    isFetching,
+  } = useGetPopularQuery({ type: "tv", page, genre, seletedWatchProviders, sort: sort.value });
 
   useEffect(() => {
     if (!loadMore) return;
@@ -52,9 +86,7 @@ const TvShows = () => {
           </Grid>
           {!loadMore && (
             <div className="flex justify-center">
-              <button className="bg-red-800 w-full md:w-1/2 rounded-md py-2 mt-7" onClick={handleLoadMore}>
-                Load more...
-              </button>
+              <Button handleClick={handleLoadMore}>Load more...</Button>
             </div>
           )}
         </div>
