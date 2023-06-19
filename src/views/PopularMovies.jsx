@@ -15,6 +15,7 @@ import Loader from "../components/Loader/Loader";
 import SortSelect from "../components/SortSelect";
 import CountrySelect from "../components/CountrySelect";
 import NoResults from "../components/NoResults";
+import Button from "../components/Button/Button";
 
 const LazyPopularMovies = lazy(() => import("../components/LazyLoad/LazyPopularMovies"));
 
@@ -194,12 +195,7 @@ const PopularMovies = () => {
                     <LazyPopularMovies popular={popular} />
                   </Grid>
                   <div className="flex justify-center">
-                    <button
-                      className="bg-[#FFC54E] w-full sm:w-1/2 xl:w-1/3 rounded-md py-2 mt-7"
-                      onClick={handleLoadMore}
-                    >
-                      Load more...
-                    </button>
+                    <Button handleClick={handleLoadMore}>Load more...</Button>
                   </div>
                 </Suspense>
               )}

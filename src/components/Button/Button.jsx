@@ -1,22 +1,9 @@
-const Button = ({ children, icon, variant }) => {
-  let style = "";
-
-  switch (variant) {
-    case "primary":
-      style = "bg-[#FFAE06] transition-color duration-300 w-full";
-      break;
-  }
-
-  if (icon) {
-    return (
-      <button className={`${style} rounded-md flex items-center justify-center gap-3 text-white text-lg py-2`}>
-        {icon}
-        {children}
-      </button>
-    );
-  }
-
-  return <button>{children}</button>;
+const Button = ({ children, handleClick }) => {
+  return (
+    <button onClick={handleClick} className="bg-[#FFC54E] w-full sm:w-1/2 xl:w-1/3 rounded-md py-2 mt-7 text-center">
+      {children}
+    </button>
+  );
 };
 
 export default Button;

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Grid from "../components/Grid/Grid";
 import Popular from "../components/Popular";
 import Content from "../components/content/Content";
+import Button from "../components/Button/Button";
 import { useGetMovieGenreQuery, useGetPopularQuery } from "../services/api";
 
 const sorts = [
@@ -85,9 +86,7 @@ const TvShows = () => {
           </Grid>
           {!loadMore && (
             <div className="flex justify-center">
-              <button className="bg-red-800 w-full md:w-1/2 rounded-md py-2 mt-7" onClick={handleLoadMore}>
-                Load more...
-              </button>
+              <Button handleClick={handleLoadMore}>Load more...</Button>
             </div>
           )}
         </div>
