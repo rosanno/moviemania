@@ -25,10 +25,7 @@ const Showcase = ({ media, isMediaSelected }) => {
           className="relative bottom-0 max-h-56 w-full sm:absolute"
         >
           <img
-            src={
-              logo?.file_path &&
-              `https://image.tmdb.org/t/p/w500${logo?.file_path}`
-            }
+            src={logo?.file_path && `https://image.tmdb.org/t/p/w500${logo?.file_path}`}
             alt=""
             sizes="500px"
             className="object-contain h-full"
@@ -38,27 +35,21 @@ const Showcase = ({ media, isMediaSelected }) => {
       <div className="space-y-4">
         <div className="flex items-center gap-1 text-xs sm:text-base">
           <p className="font-semibold text-gray-300">
-            {media?.release_date?.slice(0, 4)
-              ? media?.release_date?.slice(0, 4)
-              : "New"}{" "}
-            •{" "}
-            {type === "movie"
-              ? runtime(humanruntime?.runtime)
-              : `${humanruntime} Seasons`}{" "}
-            • {langauage?.en.name ? langauage?.en.name : "English"} •
+            {media?.release_date?.slice(0, 4) ? media?.release_date?.slice(0, 4) : "New"} •{" "}
+            {type === "movie" ? runtime(humanruntime?.runtime) : `${humanruntime} Seasons`} •{" "}
+            {langauage?.en.name ? langauage?.en.name : "English"} •
           </p>
-          <div className="rounded bg-rated-dark px-2 py-0.5 font-semibold sm:py-0">
-            {media?.adult ? "18+" : "PG"}
-          </div>
+          <div className="rounded bg-rated-dark px-2 py-0.5 font-semibold sm:py-0">{media?.adult ? "18+" : "PG"}</div>
         </div>
         <div className="overflow-y-auto scrollbar-none sm:max-h-12">
           <p className="text-xs sm:text-base">{media?.overview}</p>
         </div>
       </div>
       <div>
-        <Button icon={<BiPlay size="35px" />} variant="primary">
-          Trailler
-        </Button>
+        <button className="bg-[#FFAE06] hover:bg-[#cc9b3b] transition duration-300 w-full py-2 rounded-xl flex items-center justify-center">
+          <BiPlay size="30px" />
+          <span className="font-semibold">Watch Trailler</span>
+        </button>
       </div>
     </section>
   );
