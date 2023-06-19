@@ -91,7 +91,7 @@ export const tmdbApi = createApi({
      * Popular People
      */
     getPopularPeople: builder.query({
-      query: () => `/3/person/popular?api_key=${api_key}&language=en-US&page=1`,
+      query: (page) => `/3/person/popular?api_key=${api_key}&language=en-US&page=${page}`,
     }),
   }),
 });
