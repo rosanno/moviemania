@@ -2,7 +2,6 @@ import React from "react";
 import { useGetLogoQuery, useGetRuntimeQuery } from "../services/api";
 import { useLogoFilter } from "../hooks/useLogoFilter";
 import runtime from "../helpers/runtime";
-import Button from "./Button/Button";
 
 import { BiPlay } from "react-icons/bi";
 import { convertLanguage } from "../helpers/convert-language";
