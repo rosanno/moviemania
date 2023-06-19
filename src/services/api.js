@@ -44,8 +44,11 @@ export const tmdbApi = createApi({
     getPopular: builder.query({
       query: ({ type, page }) =>
         `/3/${type === "movies" ? "movie" : "tv"}/popular?api_key=${api_key}&language=en-US&page=${page}`,
-      serializeQueryArgs: ({ endpoint }) => {
-        return endpoint;
+      serializeQueryArgs: ({ queryArgs, endpoint }) => {
+        const { type } = queryArgs;
+        return {
+          type,
+        };
       },
       merge: (currentCache, newItems, currentArg) => {
         console.log(currentArg);

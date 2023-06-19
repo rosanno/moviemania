@@ -25,9 +25,7 @@ const Navbar = ({ setIsMobileNavOpen }) => {
   }, []);
 
   return (
-    <div
-      className={`fixed z-20 inset-x-0 ${navbarColor} transition-colors duration-300`}
-    >
+    <div className={`fixed z-20 inset-x-0 ${navbarColor} transition-colors duration-300`}>
       <div className="custom-container flex items-center justify-between space-x-10 p-3 md:p-6">
         <div>
           <span className="text-white text-lg font-semibold">
@@ -39,12 +37,10 @@ const Navbar = ({ setIsMobileNavOpen }) => {
             <li className={`nav__links ${pathname === "/" && "text-rose-500"}`}>
               <Link to="/">Home</Link>
             </li>
-            <li
-              className={`nav__links ${
-                pathname === "/popular-movies" && "text-rose-500"
-              }`}
-            >
-              <Link to="/popular-movies">Popular Movies</Link>
+            <li className={`nav__links ${pathname === "/popular-movies" && "text-rose-500"}`}>
+              <Link to="/popular-movies" className={`nav__links ${pathname === "/tv-shows" && "text-rose-500"}`}>
+                Popular Movies
+              </Link>
             </li>
             <li className="nav__links">
               <Link to="/tv-shows">TV Shows</Link>
@@ -58,10 +54,7 @@ const Navbar = ({ setIsMobileNavOpen }) => {
           <button className="ml-auto">
             <LuSearch className="text-xl text-white" />
           </button>
-          <button
-            onClick={() => setIsMobileNavOpen(true)}
-            className="md:hidden"
-          >
+          <button onClick={() => setIsMobileNavOpen(true)} className="md:hidden">
             <GiHamburgerMenu className="text-2xl text-white" />
           </button>
         </div>
