@@ -1,5 +1,9 @@
 const Loader = () => {
-  return <div className="absolute z-40 top-1/2 left-1/2 flex items-center justify-center loader"></div>;
+  return (
+    <div className="flex justify-center items-center h-[540px]">
+      <div className="loader"></div>
+    </div>
+  );
 };
 
 export default Loader;
