@@ -8,7 +8,6 @@ import {
   useGetRegionsQuery,
   useGetWatchProvidersQuery,
 } from "../services/api";
-import SkeletonLoader from "../components/SkeletonLoader";
 import Genre from "../components/Genre";
 import DateInput from "../components/DateInput";
 import FilteringCard from "../components/FilteringCard";
@@ -48,13 +47,10 @@ const PopularMovies = () => {
   const [genre, setGenre] = useState([]);
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
-  const [selectedProvider, setSelectedProvider] = useState("PH");
+  const [selectedRegion, setSelectedRegion] = useState("PH");
+  const [seletedWatchProviders, setSelectedWatchProviders] = useState([]);
   const [loadMore, setLoadMore] = useState(false);
-  const {
-    data: popular,
-    isFetching,
-    isLoading,
-  } = useGetPopularQuery({
+  const { data: popular, isFetching } = useGetPopularQuery({
     type: "movies",
     page,
     genre,
@@ -62,7 +58,7 @@ const PopularMovies = () => {
     toDate,
   });
   const { data: regions } = useGetRegionsQuery();
-  const { data: watchProviders } = useGetWatchProvidersQuery();
+  const { data: watchProviders } = useGetWatchProvidersQuery({ type: "movie", selectedRegion });
   const [isLoaded, setIsLoaded] = useState(false);
   const { data: genres } = useGetMovieGenreQuery({ type: "movies" });
 
@@ -96,6 +92,8 @@ const PopularMovies = () => {
     });
   };
 
+  console.log(isFetching);
+
   const handleLoadMore = () => {
     setLoadMore(true);
     setPage((prev) => prev + 1);
@@ -104,15 +102,9 @@ const PopularMovies = () => {
   return (
     <>
       <Content variant="secondary">
-        <div className="mt-16 sm:mt-20 md:mt-32 px-4 sm:px-6">
+        <div className="mt-16 sm:mt-20 md:mt-32 px-4 sm:px-6 transition-all duration-1000 ease-in">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold capitalize mb-1 sm:mb-4">Popular Movies</h1>
-
-            {/* <div className="flex flex-col md:flex-row md:items-center mt-5 sm:mt-7 md:gap-5">
-              <Genre genres={genres} genre={genre} handleGenre={handleGenre} />
-              <DateInput label="From" setDate={setFromDate} />
-              <DateInput label="To" setDate={setToDate} />
-            </div> */}
+            <h1 className="text-2xl sm:text-2xl font-medium capitalize mb-1 sm:mb-4">Popular Movies</h1>
           </div>
           <Grid variant="primary" gap="5">
             <div className="hidden md:block">
@@ -129,7 +121,11 @@ const PopularMovies = () => {
               </FilteringCard>
               <FilteringCard heading="Where to Watch" subHeading="Country">
                 <div className="px-4">
-                  <select value={selectedProvider} className="rounded-md outline-none py-2 px-2.5 text-sm w-full mt-1">
+                  <select
+                    value={selectedRegion}
+                    onChange={(e) => setSelectedRegion(e.target.value)}
+                    className="rounded-md outline-none py-2 px-2.5 text-sm w-full mt-1"
+                  >
                     {regions?.results?.map((region) => (
                       <option key={region.english_name} value={region.iso_3166_1}>
                         {region.english_name}
@@ -149,12 +145,15 @@ const PopularMovies = () => {
               </FilteringCard>
               <FilteringCard heading="Filters" subHeading="Genre" divider dateInputs>
                 <div className="flex flex-wrap items-center gap-2 mt-3 px-4">
-                  {genres?.genres?.map((genre) => (
+                  {genres?.genres?.map((item) => (
                     <button
-                      key={genre.id}
-                      className="text-sm text-gray-400 bg-neutral-700 hover:bg-neutral-500 hover:text-white transition duration-300 px-6 py-1.5 rounded-full"
+                      key={item.id}
+                      onClick={() => handleGenre(item.id)}
+                      className={`text-sm text-gray-400 bg-neutral-700 hover:bg-neutral-500 ${
+                        genre.includes(item.id) ? "bg-neutral-500 text-white" : ""
+                      } hover:text-white transition duration-300 px-6 py-1.5 rounded-full`}
                     >
-                      {genre.name}
+                      {item.name}
                     </button>
                   ))}
                 </div>
@@ -165,26 +164,26 @@ const PopularMovies = () => {
                     <DateInput label="From" />
                     <DateInput label="To" />
                   </div>
-                  <button className="bg-neutral-600 shadow-md mt-3 py-2 rounded-md w-full">Filter</button>
+                  <button className="bg-[#FFAE06] hover:bg-[#FFAE06]/80 transition duration-300 shadow-md mt-3 py-2 rounded-md w-full">
+                    Filter
+                  </button>
                 </div>
               </FilteringCard>
             </div>
             <div className="col-span-12">
-              <Grid>
-                <Suspense fallback={<Loader />}>
+              <Suspense fallback={<Loader />}>
+                <Grid>
                   <LazyPopularMovies popular={popular} />
-                </Suspense>
-              </Grid>
-              {!loadMore && (
+                </Grid>
                 <div className="flex justify-center">
                   <button
-                    className="bg-action-dark w-full sm:w-1/2 xl:w-1/3 rounded-md py-2 mt-7"
+                    className="bg-[#FFC54E] w-full sm:w-1/2 xl:w-1/3 rounded-md py-2 mt-7"
                     onClick={handleLoadMore}
                   >
                     Load more...
                   </button>
                 </div>
-              )}
+              </Suspense>
             </div>
           </Grid>
         </div>

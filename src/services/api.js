@@ -5,7 +5,7 @@ const api_key = import.meta.env.VITE_TMDB_API_KEY;
 export const tmdbApi = createApi({
   reducerPath: "tmdbApi",
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_TMDB_BASE_URL }),
-  tagTypes: ["Popular"],
+  tagTypes: ["Popular", "Providers"],
 
   endpoints: (builder) => ({
     /**
@@ -52,8 +52,8 @@ export const tmdbApi = createApi({
       providesTags: ["Popular"],
       keepUnusedDataFor: 5,
       serializeQueryArgs: ({ queryArgs, endpoint }) => {
-        const { genre, fromDate, toDate } = queryArgs;
-        return { genre, fromDate, toDate };
+        const { genre, fromDate, toDate, type } = queryArgs;
+        return { genre, fromDate, toDate, type };
       },
       merge: (currentCache, newItems, currentArg) => {
         if (currentArg.arg.page === 1) {
@@ -98,7 +98,9 @@ export const tmdbApi = createApi({
      * Watch providers
      */
     getWatchProviders: builder.query({
-      query: () => `3/watch/providers/movie?api_key=${api_key}&language=en-US&watch_region=PH`,
+      query: ({ type, selectedRegion }) =>
+        `3/watch/providers/${type}?api_key=${api_key}&language=en-US&watch_region=${selectedRegion}`,
+      providesTags: ["Providers"],
     }),
   }),
 });
