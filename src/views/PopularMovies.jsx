@@ -179,8 +179,8 @@ const PopularMovies = () => {
                 <div className="px-4">
                   <h4 className="text-sm font-light">Release Dates</h4>
                   <div className="mt-2">
-                    <DateInput label="From" />
-                    <DateInput label="To" />
+                    <DateInput label="From" setDate={setFromDate} />
+                    <DateInput label="To" setDate={setToDate} />
                   </div>
                 </div>
               </FilteringCard>
