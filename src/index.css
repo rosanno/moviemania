@@ -14,7 +14,7 @@
 
 @layer components {
   .nav__links {
-    @apply text-white text-3xl md:text-sm py-[.4rem] md:py-0 md:px-3 font-semibold md:font-medium hover:text-rose-500 transition-colors duration-300;
+    @apply text-white text-3xl md:text-sm py-[.4rem] md:py-0 md:px-3 font-semibold md:font-medium hover:text-yellow-500 transition-colors duration-300;
   }
 
   .custom-container {
