@@ -21,19 +21,28 @@ function UpcomingMovie() {
 
   const scrollRight = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({
-        left: 600,
-        behavior: "smooth",
-      });
+      const { scrollLeft, clientWidth } = scrollRef.current;
+
+      if (Math.round(scrollLeft + clientWidth) >= scrollRef.current.scrollWidth) {
+        // Scroll reached the end, scroll back to the beginning
+        scrollRef.current.scrollTo({
+          left: 0,
+          behavior: "smooth",
+        });
+      } else {
+        // Scroll by a fixed amount to the right
+        scrollRef.current.scrollBy({
+          left: 600,
+          behavior: "smooth",
+        });
+      }
     }
   };
 
   return (
     <Section>
       <div className="flex justify-between items-center mb-5">
-        <h1 className="text-2xl sm:text-3xl font-bold capitalize">
-          Upcoming Movies
-        </h1>
+        <h1 className="text-2xl sm:text-3xl font-bold capitalize">Upcoming Movies</h1>
         <div className="hidden sm:flex items-center justify-center gap-2 md:mr-4 2xl:mr-32">
           <div
             onClick={scrollLeft}
@@ -49,10 +58,7 @@ function UpcomingMovie() {
           </div>
         </div>
       </div>
-      <div
-        ref={scrollRef}
-        className="grid grid-rows-2 grid-flow-col gap-5 sm:gap-7 md:mt-7 overflow-x-scroll overflow-y-hidden scrollbar scroll-smooth"
-      >
+      <div ref={scrollRef} className="grid grid-rows-2 grid-flow-col gap-4 md:mt-7 overflow-x-auto scrollbar">
         {data?.results?.map((item) => (
           <Link to={`/movies/details/${item.id}`} key={item.id}>
             <div className="relative group overflow-hidden">
@@ -65,13 +71,8 @@ function UpcomingMovie() {
               </div>
               <div className="absolute bottom-10 z-10 px-5">
                 <h2 className="text-lg sm:text-2xl font-bold">{item?.title}</h2>
-                <span className="text-gray-300">
-                  {item.original_language}
-                </span>{" "}
-                •{" "}
-                <span className="text-sm text-gray-300">
-                  {moment(item?.release_date).format("MMMM D YYYY")}
-                </span>
+                <span className="text-gray-300">{item.original_language}</span> •{" "}
+                <span className="text-sm text-gray-300">{moment(item?.release_date).format("MMMM D YYYY")}</span>
               </div>
               <div className="absolute top-0 w-full h-full bg-black/40 rounded-md overflow-hidden" />
             </div>

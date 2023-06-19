@@ -23,10 +23,21 @@ const NowShowing = () => {
 
   const scrollRight = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({
-        left: 600,
-        behavior: "smooth",
-      });
+      const { scrollLeft, clientWidth } = scrollRef.current;
+
+      if (Math.round(scrollLeft + clientWidth) >= scrollRef.current.scrollWidth) {
+        // Scroll reached the end, scroll back to the beginning
+        scrollRef.current.scrollTo({
+          left: 0,
+          behavior: "smooth",
+        });
+      } else {
+        // Scroll by a fixed amount to the right
+        scrollRef.current.scrollBy({
+          left: 600,
+          behavior: "smooth",
+        });
+      }
     }
   };
 
