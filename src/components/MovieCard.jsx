@@ -17,7 +17,7 @@ const MovieCard = ({ media }) => {
           <span className="text-gray-300">{media.original_language}</span> •{" "}
           <span className="text-sm text-gray-300">{moment(media?.release_date).format("MMMM D YYYY")}</span>
         </div>
-        <div className="absolute top-0 w-full h-full bg-black/40 rounded-md overflow-hidden" />
+        <div className="absolute top-0 w-full h-full bg-black/30 rounded-md overflow-hidden" />
       </div>
     </Link>
   );
