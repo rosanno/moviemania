@@ -7,7 +7,11 @@ const MovieCard = ({ media }) => {
       <div className="relative group overflow-hidden">
         <div className="w-72 sm:w-96 rounded-md overflow-hidden">
           <img
-            src={`https://image.tmdb.org/t/p/w500${media?.backdrop_path}`}
+            src={`${
+              media?.backdrop_path
+                ? `https://image.tmdb.org/t/p/w500${media?.backdrop_path}`
+                : "https://upload.wikimedia.org/wikipedia/commons/7/75/No_image_available.png"
+            }`}
             alt=""
             className="rounded-md h-[270px] object-cover group-hover:scale-110 overflow-hidden transition-transform duration-300"
           />

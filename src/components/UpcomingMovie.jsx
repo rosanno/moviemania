@@ -9,7 +9,7 @@ import MovieCard from "./MovieCard";
 
 function UpcomingMovie() {
   const scrollRef = useRef(null);
-  const { data } = useGetUpComingMovieQuery();
+  const { data } = useGetUpComingMovieQuery({ date: moment(new Date()).format("YYYY-MM-DD") });
 
   const scrollLeft = () => {
     if (scrollRef.current) {
