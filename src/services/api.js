@@ -79,7 +79,8 @@ export const tmdbApi = createApi({
      * Upcoming movies
      */
     getUpComingMovie: builder.query({
-      query: () => `/3/movie/upcoming?api_key=${api_key}&language=en-US&page=1`,
+      query: ({ date }) =>
+        `/3/movie/upcoming?api_key=${api_key}&primary_release_date.gte=${date ? date : ""}&language=en-US&page=1`,
     }),
     /**
      * Get single movies details
