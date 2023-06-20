@@ -1,15 +1,12 @@
-import { Link } from "react-router-dom";
-import moment from "moment";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
-import { useGetUpComingMovieQuery } from "../services/api";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import Section from "./Section/Section";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useGetPopularTvQuery } from "../services/api";
 import MovieCard from "./MovieCard";
 
-function UpcomingMovie() {
+const PopularTvShows = () => {
   const scrollRef = useRef(null);
-  const { data } = useGetUpComingMovieQuery();
+  const { data: tvShows } = useGetPopularTvQuery();
 
   const scrollLeft = () => {
     if (scrollRef.current) {
@@ -42,8 +39,8 @@ function UpcomingMovie() {
 
   return (
     <Section>
-      <div className="flex justify-between items-center mb-5">
-        <h1 className="text-2xl sm:text-3xl font-bold capitalize">Upcoming Movies</h1>
+      <div className="flex justify-between items-center mb-5 pt-14">
+        <h1 className="text-2xl sm:text-3xl font-bold capitalize">Popular TV Series</h1>
         <div className="hidden sm:flex items-center justify-center gap-2 md:mr-4 2xl:mr-32">
           <div
             onClick={scrollLeft}
@@ -59,13 +56,13 @@ function UpcomingMovie() {
           </div>
         </div>
       </div>
-      <div ref={scrollRef} className="grid grid-rows-2 grid-flow-col gap-4 md:mt-7 overflow-x-auto scrollbar">
-        {data?.results?.map((item) => (
-          <MovieCard key={item.id} media={item} />
+      <div ref={scrollRef} className="grid grid-flow-col gap-4 overflow-x-scroll scrollbar">
+        {tvShows?.results?.map((tv) => (
+          <MovieCard key={tv.id} media={tv} />
         ))}
       </div>
     </Section>
   );
-}
+};
 
-export default UpcomingMovie;
+export default PopularTvShows;

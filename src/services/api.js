@@ -107,6 +107,9 @@ export const tmdbApi = createApi({
     getPopularPeople: builder.query({
       query: () => `/3/person/popular?api_key=${api_key}&language=en-US&page=1`,
     }),
+    getPopularTv: builder.query({
+      query: () => `/3/tv/airing_today?api_key=${api_key}&with_origin_country=PH&language=en-US&page=1`,
+    }),
   }),
 });
 
@@ -123,5 +126,6 @@ export const {
   useGetMovieGenreQuery,
   useGetRegionsQuery,
   useGetWatchProvidersQuery,
-  useGetPopularPeopleQuery
+  useGetPopularPeopleQuery,
+  useGetPopularTvQuery,
 } = tmdbApi;

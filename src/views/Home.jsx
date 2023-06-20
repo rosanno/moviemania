@@ -10,6 +10,7 @@ import { useGetTrendingQuery } from "../services/api";
 import UpcomingMovie from "../components/UpcomingMovie";
 import { useState } from "react";
 import Modal from "../components/Modal";
+import PopularTvShows from "../components/PopularTvShows";
 
 const Home = () => {
   const { data, isLoading } = useGetTrendingQuery({ type: "movies" });
@@ -37,6 +38,7 @@ const Home = () => {
       <Content isSpacerOnly>
         <NowShowing />
         <UpcomingMovie />
+        <PopularTvShows />
       </Content>
     </>
   );
