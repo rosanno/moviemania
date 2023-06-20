@@ -1,43 +1,13 @@
 import moment from "moment";
 import { useGetNowPlayingQuery } from "../services/api";
-import { useRef } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { BsPlayFill } from "react-icons/bs";
 import Section from "./Section/Section";
 import { Link } from "react-router-dom";
+import useHorizontalScroll from "../hooks/useHorizontalScroll";
 
 const NowShowing = () => {
-  const scrollRef = useRef(null);
+  const { scrollRef, scrollLeft, scrollRight } = useHorizontalScroll();
   const { data: nowPlaying } = useGetNowPlayingQuery({ type: "movies" });
-
-  const scrollLeft = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({
-        left: -600,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, clientWidth } = scrollRef.current;
-
-      if (Math.round(scrollLeft + clientWidth) >= scrollRef.current.scrollWidth) {
-        // Scroll reached the end, scroll back to the beginning
-        scrollRef.current.scrollTo({
-          left: 0,
-          behavior: "smooth",
-        });
-      } else {
-        // Scroll by a fixed amount to the right
-        scrollRef.current.scrollBy({
-          left: 600,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
 
   return (
     <Section heading="Now Showing" scrollLeft={scrollLeft} scrollRight={scrollRight}>
