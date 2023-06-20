@@ -105,7 +105,7 @@ export const tmdbApi = createApi({
       providesTags: ["Providers"],
     }),
     getPopularPeople: builder.query({
-      query: () => `/3/person/popular?api_key=${api_key}&language=en-US&page=1`,
+      query: (page) => `/3/person/popular?api_key=${api_key}&language=en-US&page=${page}`,
     }),
     getPopularTv: builder.query({
       query: () => `/3/tv/airing_today?api_key=${api_key}&with_origin_country=PH&language=en-US&page=1`,
