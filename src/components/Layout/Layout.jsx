@@ -10,10 +10,7 @@ const Layout = () => {
     <>
       <header>
         <Navbar setIsMobileNavOpen={setIsMobileNavOpen} />
-        <NavMobile
-          isMobileNavOpen={isMobileNavOpen}
-          setIsMobileNavOpen={setIsMobileNavOpen}
-        />
+        <NavMobile isMobileNavOpen={isMobileNavOpen} setIsMobileNavOpen={setIsMobileNavOpen} />
       </header>
 
       <main className="min-h-screen overflow-hidden sm:overflow-visible">

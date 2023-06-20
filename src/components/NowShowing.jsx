@@ -10,8 +10,6 @@ const NowShowing = () => {
   const scrollRef = useRef(null);
   const { data: nowPlaying } = useGetNowPlayingQuery({ type: "movies" });
 
-  console.log(nowPlaying);
-
   const scrollLeft = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({
