@@ -28,7 +28,10 @@ export const tmdbApi = createApi({
      * Get Movies Videos
      */
     getVideo: builder.query({
-      query: ({ type, id }) => `/3/${type === "movie" ? "movie" : "tv"}/${id}/videos?api_key=${api_key}&language=en-US`,
+      query: ({ type, id, original_language }) =>
+        `/3/${
+          type === "movie" ? "movie" : "tv"
+        }/${id}/videos?api_key=${api_key}&language=en-US&include_video_language=${original_language || ""}`,
     }),
     /**
      * Get Movies Logo

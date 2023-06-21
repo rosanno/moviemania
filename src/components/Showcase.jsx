@@ -1,12 +1,10 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 import { useGetLogoQuery, useGetRuntimeQuery } from "../services/api";
 import { useLogoFilter } from "../hooks/useLogoFilter";
 import runtime from "../helpers/runtime";
 import { BiPlay } from "react-icons/bi";
 import { convertLanguage } from "../helpers/convert-language";
-import Modal from "./Modal";
 
 const Showcase = ({ media, isMediaSelected, setModalOpen }) => {
   const type = media?.media_type;
@@ -43,7 +41,7 @@ const Showcase = ({ media, isMediaSelected, setModalOpen }) => {
         </div>
         <div className="space-y-4">
           <motion.div
-            initial={{ opacity: 0, x: -200 }}
+            initial={{ opacity: 0, x: -300 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
               duration: 0.8,
@@ -55,7 +53,7 @@ const Showcase = ({ media, isMediaSelected, setModalOpen }) => {
             <p className="font-semibold text-gray-300">
               {media?.release_date?.slice(0, 4) ? media?.release_date?.slice(0, 4) : "New"} •{" "}
               {type === "movie" ? runtime(humanruntime?.runtime) : `${humanruntime} Seasons`} •{" "}
-              {langauage?.en.name ? langauage?.en.name : "English"} •
+              {langauage?.en.name || "English"} •
             </p>
             <div className="rounded bg-rated-dark px-2 py-0.5 font-semibold sm:py-0">{media?.adult ? "18+" : "PG"}</div>
           </motion.div>

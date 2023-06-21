@@ -30,7 +30,7 @@ const Home = () => {
           className="fixed z-40 inset-0 overflow-hidden bg-gradient-to-r from-black/80 backdrop-blur"
         />
       )}
-      {openModal && <Modal media={randomMovie} setModalOpen={setModalOpen} />}
+      {openModal && <Modal media={randomMovie} setModalOpen={setModalOpen} openModal={openModal} />}
       <Hero media={randomMovie} />
       <Content variant="primary">
         {isLoading ? <Loader /> : <Showcase media={randomMovie} isMediaSelected={false} setModalOpen={setModalOpen} />}

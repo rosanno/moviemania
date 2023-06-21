@@ -11,7 +11,7 @@ const PopularTvShows = () => {
     <Section heading="Popular TV Series" scrollLeft={scrollLeft} scrollRight={scrollRight}>
       <div ref={scrollRef} className="grid grid-flow-col gap-4 overflow-x-scroll scrollbar">
         {tvShows?.results?.map((tv) => (
-          <MovieCard key={tv.id} media={tv} />
+          <MovieCard key={tv.id} media={tv} isVideo="tv" />
         ))}
       </div>
     </Section>

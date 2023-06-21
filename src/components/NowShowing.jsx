@@ -11,7 +11,7 @@ const NowShowing = () => {
     <Section heading="Now Showing" scrollLeft={scrollLeft} scrollRight={scrollRight}>
       <div ref={scrollRef} className="grid grid-rows-2 grid-flow-col overflow-x-auto gap-4 scrollbar">
         {nowPlaying?.results?.map((item) => (
-          <MovieCard key={item.id} media={item} />
+          <MovieCard key={item.id} media={item} isVideo="movie" />
         ))}
       </div>
     </Section>
