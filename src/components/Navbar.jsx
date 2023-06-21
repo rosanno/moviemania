@@ -24,7 +24,7 @@ const Navbar = ({ setIsMobileNavOpen }) => {
   }, []);
 
   return (
-    <div className={`fixed z-50 inset-x-0 ${navbarColor} transition-colors duration-300`}>
+    <div className={`fixed z-30 inset-x-0 ${navbarColor} transition-colors duration-300`}>
       <div className="custom-container flex items-center justify-between space-x-10 p-3 md:p-6">
         <Link to="/" className=" flex items-center gap-1">
           <div className="text-white text-lg font-extrabold flex items-center">
