@@ -5,8 +5,12 @@ const useHorizontalScroll = () => {
 
   const scrollLeft = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({
-        left: -600,
+      const containerWidth = scrollRef.current.clientWidth;
+      const itemWidth = containerWidth / 3;
+      const scrollPosition = scrollRef.current.scrollLeft - itemWidth * 3;
+
+      scrollRef.current.scrollTo({
+        left: scrollPosition,
         behavior: "smooth",
       });
     }
@@ -25,7 +29,7 @@ const useHorizontalScroll = () => {
       } else {
         // Scroll by a fixed amount to the right
         scrollRef.current.scrollBy({
-          left: 600,
+          left: scrollRef.current.scrollLeft + clientWidth / 3,
           behavior: "smooth",
         });
       }
