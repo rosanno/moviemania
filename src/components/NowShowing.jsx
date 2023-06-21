@@ -1,8 +1,5 @@
-import moment from "moment";
 import { useGetNowPlayingQuery } from "../services/api";
-import { BsPlayFill } from "react-icons/bs";
 import Section from "./Section/Section";
-import { Link } from "react-router-dom";
 import useHorizontalScroll from "../hooks/useHorizontalScroll";
 import MovieCard from "./MovieCard";
 
