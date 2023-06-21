@@ -4,6 +4,7 @@ import Grid from "../components/Grid/Grid";
 import People from "../components/People";
 import Content from "../components/content/Content";
 import { useGetPopularPeopleQuery } from "../services/api";
+import Button from "../components/Button/Button";
 
 const PopularPeople = () => {
   const [page, setPage] = useState(1);
@@ -38,7 +39,7 @@ const PopularPeople = () => {
     <>
       <Content variant="secondary">
         <div className="mt-16 sm:mt-20 md:mt-32 px-4 sm:px-6">
-          <h1 className="text-2xl sm:text-3xl font-bold capitalize mb-1 sm:mb-4">Popular People</h1>
+          <h1 className="text-xl sm:text-2xl font-medium capitalize mb-1 sm:mb-4">Popular People</h1>
           <Grid>
             {isLoading ? (
               <h1>Loading</h1>
@@ -52,9 +53,7 @@ const PopularPeople = () => {
           </Grid>
           {!loadMore && (
             <div className="flex justify-center">
-              <button className="bg-red-800 w-full md:w-1/2 rounded-md py-2 mt-7" onClick={handleLoadMore}>
-                Load more...
-              </button>
+              <Button handleClick={handleLoadMore}>Load more...</Button>
             </div>
           )}
         </div>
