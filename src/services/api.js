@@ -46,19 +46,25 @@ export const tmdbApi = createApi({
      * Popular movies
      */
     getPopular: builder.query({
-      query: ({ type, page, genre, region, seletedWatchProviders, fromDate, toDate, sort }) =>
+      query: ({ type, page, genre, region, selectedWatchProviders, fromDate, toDate, sort }) =>
         `/3/discover/${type === "movies" ? "movie" : "tv"}?api_key=${api_key}&with_genres=${
           genre.length !== 0 ? genre.join(",") : ""
         }&watch_region=${region ? region : "PH"}&with_watch_providers=${
-          seletedWatchProviders.length !== 0 ? seletedWatchProviders.join(",") : ""
-        }&primary_release_date.gte=${fromDate !== undefined ? fromDate : ""}&release_date.lte=${
-          toDate !== undefined ? toDate : ""
+          selectedWatchProviders.length !== 0 ? selectedWatchProviders.join(",") : ""
+        }&${
+          type === "movies"
+            ? `primary_release_date.gte=${fromDate !== undefined ? fromDate : ""}`
+            : `first_air_date.gte=${fromDate !== undefined ? fromDate : ""}`
+        }&${
+          type === "movies"
+            ? `release_date.lte=${toDate !== undefined ? toDate : ""}`
+            : `first_air_date.lte=${toDate !== undefined ? toDate : ""}`
         }&sort_by=${sort}&language=en-US&page=${page}`,
       providesTags: ["Popular"],
       keepUnusedDataFor: 5,
       serializeQueryArgs: ({ queryArgs, endpoint }) => {
-        const { genre, region, seletedWatchProviders, fromDate, toDate, type, sort } = queryArgs;
-        return { genre, region, seletedWatchProviders, fromDate, toDate, type, sort };
+        const { genre, region, selectedWatchProviders, fromDate, toDate, type, sort } = queryArgs;
+        return { genre, region, selectedWatchProviders, fromDate, toDate, type, sort };
       },
       merge: (currentCache, newItems, currentArg) => {
         if (currentArg.arg.page === 1) {

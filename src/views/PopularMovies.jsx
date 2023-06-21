@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useState } from "react";
 
 import Grid from "../components/Grid/Grid";
 import Content from "../components/content/Content";
@@ -8,7 +8,6 @@ import {
   useGetRegionsQuery,
   useGetWatchProvidersQuery,
 } from "../services/api";
-import Genre from "../components/Genre";
 import DateInput from "../components/DateInput";
 import FilteringCard from "../components/FilteringCard";
 import Loader from "../components/Loader/Loader";
@@ -16,39 +15,16 @@ import SortSelect from "../components/SortSelect";
 import CountrySelect from "../components/CountrySelect";
 import NoResults from "../components/NoResults";
 import Button from "../components/Button/Button";
+import useSelection from "../hooks/useSelection";
+import useInfinityScroll from "../hooks/useInfinityScroll";
+import Genre from "../components/Genre";
+import WatchProvider from "../components/WatchProvider";
+import { sorts } from "../constant/sorts";
 
 const LazyPopularMovies = lazy(() => import("../components/LazyLoad/LazyPopularMovies"));
 
-const sorts = [
-  {
-    value: "popularity.asc",
-    label: "Popularity Ascending",
-  },
-  {
-    value: "popularity.desc",
-    label: "Popularity Descending",
-  },
-  {
-    value: "vote_average.asc",
-    label: "Rating Ascending",
-  },
-  {
-    value: "vote_average.desc",
-    label: "Rating Descending",
-  },
-  {
-    value: "primary_release_date.asc",
-    label: "Release Date Ascending",
-  },
-  {
-    value: "primary_release_date.desc",
-    label: "Release Date Descending",
-  },
-];
-
 const PopularMovies = () => {
   const [page, setPage] = useState(1);
-  const [genre, setGenre] = useState([]);
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
   const [selectedRegion, setSelectedRegion] = useState({
@@ -56,14 +32,14 @@ const PopularMovies = () => {
     english_name: "Philippines",
   });
   const [sort, setSort] = useState(sorts[1]);
-  const [seletedWatchProviders, setSelectedWatchProviders] = useState([]);
-  const [loadMore, setLoadMore] = useState(false);
+  const [genre, handleGenre] = useSelection([]);
+  const [selectedWatchProviders, handleWatchProvider, resetWatchProviders] = useSelection([]);
   const { data: popular, isFetching } = useGetPopularQuery({
     type: "movies",
     page,
     genre,
     region: selectedRegion.iso_3166_1,
-    seletedWatchProviders,
+    selectedWatchProviders,
     fromDate,
     toDate,
     sort: sort.value,
@@ -71,52 +47,11 @@ const PopularMovies = () => {
   const { data: regions } = useGetRegionsQuery();
   const { data: watchProviders } = useGetWatchProvidersQuery({ type: "movie", selectedRegion });
   const { data: genres } = useGetMovieGenreQuery({ type: "movies" });
-
-  useEffect(() => {
-    if (!loadMore) return;
-
-    const onScroll = () => {
-      const scrolledToBottom =
-        document.documentElement.clientHeight + window.scrollY >= document.documentElement.offsetHeight * 0.9;
-      if (scrolledToBottom && !isFetching) {
-        console.log("Fetching more data...");
-        setPage((prev) => prev + 1);
-      }
-    };
-
-    document.addEventListener("scroll", onScroll);
-
-    return () => {
-      document.removeEventListener("scroll", onScroll);
-    };
-  }, [page, isFetching, loadMore]);
-
-  const handleGenre = (genreId) => {
-    setGenre((prevGenre) => {
-      const updatedGenre = prevGenre.includes(genreId)
-        ? prevGenre.filter((id) => id !== genreId)
-        : [...prevGenre, genreId];
-      return updatedGenre;
-    });
-  };
-
-  const handleWatchProvider = (providerId) => {
-    setSelectedWatchProviders((prevProvider) => {
-      const updateProvider = prevProvider.includes(providerId)
-        ? prevProvider.filter((id) => id !== providerId)
-        : [...prevProvider, providerId];
-      return updateProvider;
-    });
-  };
+  const [handleLoadMore] = useInfinityScroll(isFetching, page, setPage);
 
   const handleSelectedRegion = (selected) => {
     setSelectedRegion(selected);
-    setSelectedWatchProviders([]);
-  };
-
-  const handleLoadMore = () => {
-    setLoadMore(true);
-    setPage((prev) => prev + 1);
+    resetWatchProviders();
   };
 
   return (
@@ -144,38 +79,18 @@ const PopularMovies = () => {
                 <div className="px-4 mt-2 overflow-y-scroll max-h-[360px] scrollbar scroll-smooth">
                   <div className="grid grid-cols-4 gap-3 mt-4">
                     {watchProviders?.results?.map((provider) => (
-                      <div key={provider.provider_id} className="relative rounded-md overflow-hidden">
-                        <button
-                          onClick={() => handleWatchProvider(provider.provider_id)}
-                          className="rounded-md overflow-hidden bg-[#FFAE06]"
-                        >
-                          <img
-                            src={`https://www.themoviedb.org/t/p/original${provider.logo_path}`}
-                            alt=""
-                            className={`hover:opacity-30 ${
-                              seletedWatchProviders.includes(provider.provider_id) ? "opacity-30" : ""
-                            } transition duration-300`}
-                          />
-                        </button>
-                      </div>
+                      <WatchProvider
+                        key={provider.provider_id}
+                        selectedWatchProviders={selectedWatchProviders}
+                        provider={provider}
+                        handleWatchProvider={handleWatchProvider}
+                      />
                     ))}
                   </div>
                 </div>
               </FilteringCard>
               <FilteringCard heading="Filters" subHeading="Genre" divider dateInputs>
-                <div className="flex flex-wrap items-center gap-2 mt-3 px-4">
-                  {genres?.genres?.map((item) => (
-                    <button
-                      key={item.id}
-                      onClick={() => handleGenre(item.id)}
-                      className={`text-sm text-gray-400 hover:bg-[#FFAE06] hover:text-white ${
-                        genre.includes(item.id) ? "bg-[#FFAE06] text-white" : "bg-neutral-700"
-                      } transition duration-300 px-6 py-1.5 rounded-full`}
-                    >
-                      {item.name}
-                    </button>
-                  ))}
-                </div>
+                <Genre genres={genres} handleGenre={handleGenre} genre={genre} />
                 <div className="border-t border-t-gray-600 my-4" />
                 <div className="px-4">
                   <h4 className="text-sm font-light">Release Dates</h4>

@@ -1,94 +1,132 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Grid from "../components/Grid/Grid";
 import Popular from "../components/Popular";
 import Content from "../components/content/Content";
 import Button from "../components/Button/Button";
-import { useGetMovieGenreQuery, useGetPopularQuery } from "../services/api";
-
-const sorts = [
-  {
-    value: "popularity.asc",
-    label: "Popularity Ascending",
-  },
-  {
-    value: "popularity.desc",
-    label: "Popularity Descending",
-  },
-  {
-    value: "vote_average.asc",
-    label: "Rating Ascending",
-  },
-  {
-    value: "vote_average.desc",
-    label: "Rating Descending",
-  },
-  {
-    value: "primary_release_date.asc",
-    label: "Release Date Ascending",
-  },
-  {
-    value: "primary_release_date.desc",
-    label: "Release Date Descending",
-  },
-];
+import {
+  useGetMovieGenreQuery,
+  useGetPopularQuery,
+  useGetRegionsQuery,
+  useGetWatchProvidersQuery,
+} from "../services/api";
+import useInfinityScroll from "../hooks/useInfinityScroll";
+import useSelection from "../hooks/useSelection";
+import { sorts } from "../constant/sorts";
+import NoResults from "../components/NoResults";
+import FilteringCard from "../components/FilteringCard";
+import Genre from "../components/Genre";
+import DateInput from "../components/DateInput";
+import WatchProvider from "../components/WatchProvider";
+import CountrySelect from "../components/CountrySelect";
+import SortSelect from "../components/SortSelect";
+import Loader from "../components/Loader/Loader";
 
 const TvShows = () => {
   const [page, setPage] = useState(1);
-  const [loadMore, setLoadMore] = useState(false);
-  const [genre, setGenre] = useState([]);
+  const [fromDate, setFromDate] = useState();
+  const [toDate, setToDate] = useState();
+  const [selectedRegion, setSelectedRegion] = useState({
+    iso_3166_1: "PH",
+    english_name: "Philippines",
+  });
   const [sort, setSort] = useState(sorts[1]);
-  const [seletedWatchProviders, setSelectedWatchProviders] = useState([]);
+  const [genre, handleGenre] = useSelection([]);
+  const [selectedWatchProviders, handleWatchProvider, resetWatchProviders] = useSelection([]);
   const {
     data: popular,
-    isLoading,
     isFetching,
-  } = useGetPopularQuery({ type: "tv", page, genre, seletedWatchProviders, sort: sort.value });
+    isLoading,
+  } = useGetPopularQuery({
+    type: "tv",
+    page,
+    genre,
+    region: selectedRegion.iso_3166_1,
+    selectedWatchProviders,
+    fromDate,
+    toDate,
+    sort: sort.value,
+  });
+  const { data: regions } = useGetRegionsQuery();
+  const { data: watchProviders } = useGetWatchProvidersQuery({ type: "tv", selectedRegion });
+  const { data: genres } = useGetMovieGenreQuery({ type: "tv" });
+  const [handleLoadMore] = useInfinityScroll(isFetching, page, setPage);
 
-  useEffect(() => {
-    if (!loadMore) return;
-
-    const onScroll = () => {
-      const scrolledToBottom =
-        document.documentElement.clientHeight + window.scrollY >= document.documentElement.offsetHeight * 0.9;
-      if (scrolledToBottom && !isFetching) {
-        console.log("Fetching more data...");
-        setPage((prev) => prev + 1);
-      }
-    };
-
-    document.addEventListener("scroll", onScroll);
-
-    return () => {
-      document.removeEventListener("scroll", onScroll);
-    };
-  }, [page, isFetching, loadMore]);
-
-  const handleLoadMore = () => {
-    setLoadMore(true);
-    setPage((prev) => prev + 1);
+  const handleSelectedRegion = (selected) => {
+    setSelectedRegion(selected);
+    resetWatchProviders();
   };
+
   return (
     <>
       <Content variant="secondary">
         <div className="mt-16 sm:mt-20 md:mt-32 px-4 sm:px-6">
-          <h1 className="text-2xl sm:text-3xl font-bold capitalize mb-1 sm:mb-4">Popular TV Shows</h1>
-          <Grid>
-            {isLoading ? (
-              <h1>Loading...</h1>
-            ) : (
-              <>
-                {popular?.results?.map((movie, index) => (
-                  <Popular key={index} movie={movie} />
-                ))}
-              </>
-            )}
-          </Grid>
-          {!loadMore && (
-            <div className="flex justify-center">
-              <Button handleClick={handleLoadMore}>Load more...</Button>
+          <h1 className="text-xl sm:text-2xl font-medium capitalize mb-1 sm:mb-4">TV Shows</h1>
+          <Grid variant="primary" gap="5">
+            <div className="hidden md:block">
+              <FilteringCard heading="Sort">
+                <div className="px-4">
+                  <SortSelect data={sorts} sort={sort} setSort={setSort} label="Sort Results By" />
+                </div>
+              </FilteringCard>
+              <FilteringCard heading="Where to Watch">
+                <div className="px-4">
+                  <CountrySelect
+                    data={regions?.results}
+                    selectedRegion={selectedRegion}
+                    handleSelectedRegion={handleSelectedRegion}
+                  />
+                </div>
+                <div className="px-4 mt-2 overflow-y-scroll max-h-[360px] scrollbar scroll-smooth">
+                  <div className="grid grid-cols-4 gap-3 mt-4">
+                    {watchProviders?.results?.map((provider) => (
+                      <WatchProvider
+                        key={provider.provider_id}
+                        selectedWatchProviders={selectedWatchProviders}
+                        provider={provider}
+                        handleWatchProvider={handleWatchProvider}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </FilteringCard>
+              <FilteringCard heading="Filters" subHeading="Genre" divider dateInputs>
+                <Genre genres={genres} handleGenre={handleGenre} genre={genre} />
+                <div className="border-t border-t-gray-600 my-4" />
+                <div className="px-4">
+                  <h4 className="text-sm font-light">Release Dates</h4>
+                  <div className="mt-2">
+                    <DateInput label="From" setDate={setFromDate} />
+                    <DateInput label="To" setDate={setToDate} />
+                  </div>
+                </div>
+              </FilteringCard>
             </div>
-          )}
+            <div className="col-span-12">
+              {popular?.results.length === 0 ? (
+                <NoResults />
+              ) : (
+                <>
+                  {isLoading ? (
+                    <Loader />
+                  ) : (
+                    <>
+                      <Grid>
+                        {popular?.results?.map((movie, index) => (
+                          <Popular key={index} movie={movie} />
+                        ))}
+                      </Grid>
+                      {!isLoading && (
+                        <div className="flex justify-center">
+                          <Button handleClick={handleLoadMore}>Load more...</Button>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+          </Grid>
         </div>
       </Content>
     </>

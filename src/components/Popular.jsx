@@ -18,7 +18,9 @@ const Popular = ({ movie }) => {
           {movie?.title ? movie?.title : movie?.name}
         </h4>
         <p className="text-sm text-gray-400 mt-1">
-          {movie?.release_date ? moment(movie?.release_date).format("MMMM D YYYY") : ""}
+          {movie?.release_date
+            ? moment(movie?.release_date).format("MMMM D YYYY")
+            : moment(movie?.first_air_date).format("MMMM D YYYY")}
         </p>
       </div>
     </Link>
