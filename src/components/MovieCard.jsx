@@ -39,7 +39,7 @@ const MovieCard = ({ media }) => {
               <h4 className="font-bold text-sm">Overview</h4>
             </div>
             <div className="h-[60px] overflow-y-auto scrollbar px-5 translate-y-28">
-              <p className="text-sm">{media?.overview}</p>
+              <p className="text-xs sm:text-sm">{media?.overview}</p>
             </div>
             <div className="px-5 translate-y-28 flex gap-3 mt-4">
               <button className="flex items-center gap-1 text-sm hover:bg-[#FFAE06] bg-[#FFC54E] transition duration-300 rounded-full px-5 py-1">
