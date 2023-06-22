@@ -1,4 +1,5 @@
 import { Suspense, lazy, useState } from "react";
+import { FaFilter } from "react-icons/fa";
 
 import Grid from "../components/Grid/Grid";
 import Content from "../components/content/Content";
@@ -20,6 +21,7 @@ import useInfinityScroll from "../hooks/useInfinityScroll";
 import Genre from "../components/Genre";
 import WatchProvider from "../components/WatchProvider";
 import { sorts } from "../constant/sorts";
+import FilteringSidebar from "../components/FilteringSidebar";
 
 const LazyPopularMovies = lazy(() => import("../components/LazyLoad/LazyPopularMovies"));
 
@@ -48,6 +50,7 @@ const PopularMovies = () => {
   const { data: watchProviders } = useGetWatchProvidersQuery({ type: "movie", selectedRegion });
   const { data: genres } = useGetMovieGenreQuery({ type: "movies" });
   const [handleLoadMore] = useInfinityScroll(isFetching, page, setPage);
+  const [open, setOpen] = useState(false);
 
   const handleSelectedRegion = (selected) => {
     setSelectedRegion(selected);
@@ -56,10 +59,36 @@ const PopularMovies = () => {
 
   return (
     <>
+      <FilteringSidebar
+        open={open}
+        setOpen={setOpen}
+        sort={sort}
+        setSort={setSort}
+        data={regions?.results}
+        selectedRegion={selectedRegion}
+        handleSelectedRegion={handleSelectedRegion}
+        genres={genres}
+        handleGenre={handleGenre}
+        genre={genre}
+        setFromDate={setFromDate}
+        setToDate={setToDate}
+        watchProviders={watchProviders?.results}
+        selectedWatchProviders={selectedWatchProviders}
+        handleWatchProvider={handleWatchProvider}
+      />
       <Content variant="secondary">
         <div className="mt-16 sm:mt-20 md:mt-32 px-4 sm:px-6 transition-all duration-1000 ease-in">
           <div>
             <h1 className="text-xl sm:text-2xl font-medium capitalize mb-1 sm:mb-4">Popular Movies</h1>
+          </div>
+          <div className="block md:hidden mt-4 md:mt-0">
+            <button
+              onClick={() => setOpen(true)}
+              className="flex items-center gap-1 bg-gray-600/40 px-4 py-1 rounded-md hover:bg-gray-600/60 transition duration-300"
+            >
+              <FaFilter className="text-xs" />
+              <span className="text-sm">Filter</span>
+            </button>
           </div>
           <Grid variant="primary" gap="5">
             <div className="hidden md:block">
@@ -77,16 +106,11 @@ const PopularMovies = () => {
                   />
                 </div>
                 <div className="px-4 mt-2 overflow-y-scroll max-h-[360px] scrollbar scroll-smooth">
-                  <div className="grid grid-cols-4 gap-3 mt-4">
-                    {watchProviders?.results?.map((provider) => (
-                      <WatchProvider
-                        key={provider.provider_id}
-                        selectedWatchProviders={selectedWatchProviders}
-                        provider={provider}
-                        handleWatchProvider={handleWatchProvider}
-                      />
-                    ))}
-                  </div>
+                  <WatchProvider
+                    data={watchProviders?.results}
+                    selectedWatchProviders={selectedWatchProviders}
+                    handleWatchProvider={handleWatchProvider}
+                  />
                 </div>
               </FilteringCard>
               <FilteringCard heading="Filters" subHeading="Genre" divider dateInputs>
