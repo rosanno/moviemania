@@ -3,7 +3,7 @@ import { LuSearch } from "react-icons/lu";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect, useState } from "react";
 
-const Navbar = ({ setIsMobileNavOpen }) => {
+const Navbar = ({ setIsMobileNavOpen, setIsSearch }) => {
   const { pathname } = useLocation();
   const [navbarColor, setNavbarColor] = useState("bg-transparent");
 
@@ -51,8 +51,8 @@ const Navbar = ({ setIsMobileNavOpen }) => {
           </ul>
         </nav>
         <div className="flex items-center space-x-3">
-          <button className="ml-auto">
-            <LuSearch className="text-xl text-white" />
+          <button className="ml-auto hover:bg-white/20 rounded-full p-1.5 transition duration-200">
+            <LuSearch onClick={() => setIsSearch(true)} className="text-lg" />
           </button>
           <button onClick={() => setIsMobileNavOpen(true)} className="md:hidden">
             <GiHamburgerMenu className="text-2xl text-white" />
