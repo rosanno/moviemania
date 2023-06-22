@@ -77,7 +77,7 @@ const PopularMovies = () => {
         handleWatchProvider={handleWatchProvider}
       />
       <Content variant="secondary">
-        <div className="mt-16 sm:mt-20 md:mt-32 px-4 sm:px-6 transition-all duration-1000 ease-in">
+        <div className="mt-16 sm:mt-20 md:mt-32 px-3 sm:px-6 transition-all duration-1000 ease-in">
           <div>
             <h1 className="text-xl sm:text-2xl font-medium capitalize mb-1 sm:mb-4">Popular Movies</h1>
           </div>
