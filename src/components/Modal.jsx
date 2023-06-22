@@ -26,7 +26,7 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
         duration: 0.6,
         delay: 0.2,
       }}
-      className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-64 z-50 w-full md:w-10/12 lg:w-10/12 xl:w-4/6 px-3 md:px-0"
+      className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-72 z-50 w-full md:w-10/12 lg:w-10/12 xl:w-4/6 px-3 md:px-0"
     >
       <div className="bg-black rounded-md overflow-hidden">
         <div className="p-2">
