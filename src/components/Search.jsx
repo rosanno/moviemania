@@ -1,11 +1,10 @@
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { useGetSearchQuery } from "../services/api";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
 const Search = ({ isSearch, query, setQuery, onClose }) => {
-  const { data: searchResults } = useGetSearchQuery({ query });
+  const { data: searchResults } = useGetSearchQuery({ query }, { skip: !isSearch });
 
   return (
     <AnimatePresence>
@@ -19,7 +18,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
         }}
         className="fixed z-50 top-10 flex flex-col items-center w-full"
       >
-        <div className="flex items-center bg-background-dark w-[360px] sm:w-[530px] md:w-[640px] py-2 px-5 rounded-md shadow-md">
+        <div className="flex items-center bg-black/50 backdrop-blur w-[360px] sm:w-[530px] md:w-[640px] py-2 px-5 rounded-md shadow-md">
           <input
             type="text"
             value={query}
@@ -30,7 +29,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
           <HiOutlineMagnifyingGlass className="text-xl" />
         </div>
         {query !== "" && (
-          <div className="bg-background-dark absolute top-16 p-6 w-full max-w-[360px] sm:max-w-[530px] md:max-w-[640px] rounded-md max-h-[340px] overflow-y-auto scrollbar">
+          <div className="bg-black/50 backdrop-blur absolute top-16 p-6 w-full max-w-[360px] sm:max-w-[530px] md:max-w-[640px] rounded-md max-h-[340px] overflow-y-auto scrollbar">
             {searchResults?.results?.map((item) => (
               <Link onClick={onClose} to={`/details/${item.id}`} key={item.id} className="my-2 block">
                 <div className="flex gap-2">
