@@ -114,11 +114,23 @@ export const tmdbApi = createApi({
         `3/watch/providers/${type}?api_key=${api_key}&language=en-US&watch_region=${selectedRegion.iso_3166_1}`,
       providesTags: ["Providers"],
     }),
+    /**
+     * Popular people
+     */
     getPopularPeople: builder.query({
       query: (page) => `/3/person/popular?api_key=${api_key}&language=en-US&page=${page}`,
     }),
+    /**
+     * Tv shows
+     */
     getPopularTv: builder.query({
       query: () => `/3/tv/airing_today?api_key=${api_key}&with_origin_country=PH&language=en-US&page=1`,
+    }),
+    /**
+     * Search movies, tv shows etc.
+     */
+    getSearch: builder.query({
+      query: ({ query }) => `/3/search/multi?api_key=${api_key}&query=${query || ""}`,
     }),
   }),
 });
@@ -138,4 +150,5 @@ export const {
   useGetWatchProvidersQuery,
   useGetPopularPeopleQuery,
   useGetPopularTvQuery,
+  useGetSearchQuery,
 } = tmdbApi;
