@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import langToLang from "language-name-to-language-name";
 import moment from "moment";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import { FaPlay } from "react-icons/fa";
 import { LuClipboardList } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
+import BackdropBlur from "./Backdrop/BackdropBlur";
 
 const MovieCard = ({ media, isVideo }) => {
   const navigate = useNavigate();
@@ -16,20 +17,16 @@ const MovieCard = ({ media, isVideo }) => {
     navigate(`/details/${movieId}`);
   };
 
+  const onClose = () => {
+    setModalOpen(false);
+  };
+
   return (
     <>
-      {openModal && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{
-            duration: 0.5,
-          }}
-          onClick={() => setModalOpen(false)}
-          className="fixed z-40 inset-0 overflow-hidden bg-gradient-to-r from-black/80 backdrop-blur"
-        />
-      )}
-      {openModal && <Modal media={media} setModalOpen={setModalOpen} openModal={openModal} isVideo={isVideo} />}
+      <AnimatePresence>
+        <BackdropBlur onClose={onClose} isOpen={openModal} />
+        <Modal media={media} setModalOpen={setModalOpen} openModal={openModal} isVideo={isVideo} />
+      </AnimatePresence>
       <div className="w-full h-full">
         <div className="relative group w-72 sm:w-96 overflow-hidden cursor-default">
           <div className="rounded-md overflow-hidden">

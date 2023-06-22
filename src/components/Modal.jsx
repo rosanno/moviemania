@@ -20,11 +20,12 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={openModal ? { opacity: 1 } : { opacity: 0 }}
+      initial={{ opacity: 0, visibility: "hidden" }}
+      animate={openModal ? { opacity: 1, visibility: "visible" } : { opacity: 0, visibility: "hidden" }}
+      exit={{ opacity: 0, visibility: "hidden" }}
       transition={{
         duration: 0.6,
-        delay: 0.2,
+        delay: 0.3,
       }}
       className="fixed top-10 left-1/2 -translate-x-1/2 z-50 bg-black rounded-md w-[670px] md:w-10/12 lg:w-10/12 xl:w-9/12 h-[340px] sm:h-[690px] md:px-0"
     >
