@@ -8,7 +8,7 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
   const videoRef = useRef(null);
   const type = media?.media_type || isVideo;
   const id = media?.id;
-  const { data } = useGetVideoQuery({ type, id, original_language: media?.original_language });
+  const { data } = useGetVideoQuery({ type, id, original_language: media?.original_language }, { skip: !openModal });
   const { video } = useFilterVideo(data);
 
   const handlePlayVideo = () => {
@@ -26,9 +26,9 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
         duration: 0.6,
         delay: 0.2,
       }}
-      className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-72 z-50 w-full md:w-10/12 lg:w-10/12 xl:w-4/6 px-3 md:px-0"
+      className="fixed top-10 left-1/2 -translate-x-1/2 z-50 bg-black rounded-md w-[670px] md:w-10/12 lg:w-10/12 xl:w-9/12 h-[340px] sm:h-[690px] md:px-0"
     >
-      <div className="bg-black rounded-md overflow-hidden">
+      <div className=" rounded-md overflow-hidden">
         <div className="p-2">
           <h1 className="sm:text-xl">{media?.title || media?.name}</h1>
         </div>
@@ -38,7 +38,7 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
               ref={videoRef}
               src={`https://www.youtube.com/embed/${video?.key}/?autoplay=1&mute=1&loop=1&controls=0`}
               title="Playback"
-              className="h-[320px] lg:h-[520px] xl:h-[530px] w-full brightness-110"
+              className="h-[340px] sm:h-[650px] w-full scale-150 sm:scale-125 brightness-110"
             ></iframe>
           )}
         </div>
