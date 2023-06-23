@@ -1,10 +1,8 @@
-import { Link } from "react-router-dom";
-
 const Popular = ({ movie }) => {
   const mapJoin = movie?.known_for.map((item) => item.original_title).join(", ");
 
   return (
-    <Link to={`/movie/details/${movie?.id}`} className="mt-4">
+    <di>
       <img
         src={`https://image.tmdb.org/t/p/w500${movie?.profile_path}`}
         alt={movie?.title}
@@ -15,7 +13,7 @@ const Popular = ({ movie }) => {
 
         <span className="text-sm text-gray-400 mt-1  ">{mapJoin}</span>
       </div>
-    </Link>
+    </di>
   );
 };
 
