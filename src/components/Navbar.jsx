@@ -40,7 +40,7 @@ const Navbar = ({ setIsMobileNavOpen, setIsSearch }) => {
               <Link to="/">Home</Link>
             </li>
             <li className={`nav__links ${pathname === "/popular-movies" && "text-yellow-500"}`}>
-              <Link to="/popular-movies">Popular Movies</Link>
+              <Link to="/popular-movies">Movies</Link>
             </li>
             <li className={`nav__links ${pathname === "/tv-shows" && "text-yellow-500"}`}>
               <Link to="/tv-shows">TV Shows</Link>
