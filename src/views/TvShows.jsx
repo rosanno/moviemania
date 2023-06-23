@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Grid from "../components/Grid/Grid";
 import Popular from "../components/Popular";
@@ -59,6 +59,10 @@ const TvShows = () => {
     setSelectedRegion(selected);
     resetWatchProviders();
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

@@ -11,7 +11,9 @@ const PopularPeople = () => {
   const [loadMore, setLoadMore] = useState(false);
   const { data: people, isLoading, isFetching } = useGetPopularPeopleQuery({ page });
 
-  console.log(people);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     if (!loadMore) return;

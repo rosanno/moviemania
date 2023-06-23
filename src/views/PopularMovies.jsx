@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { FaFilter } from "react-icons/fa";
 
 import Grid from "../components/Grid/Grid";
@@ -56,6 +56,10 @@ const PopularMovies = () => {
     setSelectedRegion(selected);
     resetWatchProviders();
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

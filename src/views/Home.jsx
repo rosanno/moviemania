@@ -8,7 +8,7 @@ import { useGetRandomMovie } from "../hooks/useGetRandomMovie";
 
 import { useGetTrendingQuery } from "../services/api";
 import UpcomingMovie from "../components/UpcomingMovie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../components/Modal";
 import PopularTvShows from "../components/PopularTvShows";
 
@@ -16,6 +16,10 @@ const Home = () => {
   const { data, isLoading } = useGetTrendingQuery({ type: "movies" });
   const { randomMovie } = useGetRandomMovie(data);
   const [openModal, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
