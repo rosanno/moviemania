@@ -9,11 +9,11 @@ const Footer = () => {
         <div className="ml-10">
           <h3 className="text-lg font-semibold">About Us</h3>
           <p className="text-xs leading-5 text-gray-300 mt-2">
-            ReelFlix is a groundbreaking movie web app that redefines the cinematic experience. With an extensive
-            library spanning genres, eras, and cultures, it unlocks a world of captivating storytelling. Discover the
-            perfect movie for every mood, engage with a vibrant community, and dive into behind-the-scenes content.
-            ReelFlix brings the magic of movies to your fingertips, allowing you to explore, discover, and let the
-            stories unfold.
+            Movie<span className="text-yellow-500 font-semibold">Mania</span> is a groundbreaking movie web app that
+            redefines the cinematic experience. With an extensive library spanning genres, eras, and cultures, it
+            unlocks a world of captivating storytelling. Discover the perfect movie for every mood, engage with a
+            vibrant community, and dive into behind-the-scenes content. ReelFlix brings the magic of movies to your
+            fingertips, allowing you to explore, discover, and let the stories unfold.
           </p>
         </div>
         <div className="ml-10">
