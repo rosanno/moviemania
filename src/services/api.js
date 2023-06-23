@@ -118,7 +118,20 @@ export const tmdbApi = createApi({
      * Popular people
      */
     getPopularPeople: builder.query({
-      query: (page) => `/3/person/popular?api_key=${api_key}&language=en-US&page=${page}`,
+      query: ({ page }) => `/3/person/popular?api_key=${api_key}&language=en-US&page=${page}`,
+      serializeQueryArgs: ({ endpoint }) => {
+        return endpoint;
+      },
+      merge: (currentCache, newItems, currentArg) => {
+        if (currentArg.arg.page === 1) {
+          newItems.results;
+        } else {
+          currentCache.results.push(...newItems.results);
+        }
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
     }),
     /**
      * Tv shows

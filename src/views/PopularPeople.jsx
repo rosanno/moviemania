@@ -9,7 +9,9 @@ import Button from "../components/Button/Button";
 const PopularPeople = () => {
   const [page, setPage] = useState(1);
   const [loadMore, setLoadMore] = useState(false);
-  const { data: people, isLoading, isFetching } = useGetPopularPeopleQuery();
+  const { data: people, isLoading, isFetching } = useGetPopularPeopleQuery({ page });
+
+  console.log(people);
 
   useEffect(() => {
     if (!loadMore) return;
