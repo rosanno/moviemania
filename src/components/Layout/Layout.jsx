@@ -6,6 +6,7 @@ import Navbar from "../Navbar";
 import NavMobile from "../NavMobile";
 import Search from "../Search";
 import BackdropBlur from "../Backdrop/BackdropBlur";
+import Footer from "../Footer";
 
 const Layout = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -29,6 +30,8 @@ const Layout = () => {
       <main className="min-h-screen overflow-hidden sm:overflow-visible">
         <Outlet />
       </main>
+
+      <Footer />
     </>
   );
 };
