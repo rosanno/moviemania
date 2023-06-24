@@ -31,7 +31,12 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
         {query !== "" && (
           <div className="bg-black/50 backdrop-blur absolute top-16 p-6 w-full max-w-[360px] sm:max-w-[530px] md:max-w-[640px] rounded-md max-h-[340px] overflow-y-auto scrollbar">
             {searchResults?.results?.map((item) => (
-              <Link onClick={onClose} to={`/details/${item.id}`} key={item.id} className="my-2 block">
+              <Link
+                onClick={onClose}
+                to={`/${item.media_type === "movie" ? "movie" : "tv"}/details/${item.id}`}
+                key={item.id}
+                className="my-2 block"
+              >
                 <div className="flex gap-2">
                   <img
                     src={`${
