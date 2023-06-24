@@ -51,8 +51,11 @@ const Navbar = ({ setIsMobileNavOpen, setIsSearch }) => {
           </ul>
         </nav>
         <div className="flex items-center space-x-3">
-          <button className="ml-auto hover:bg-white/20 rounded-full p-1.5 transition duration-200">
-            <LuSearch onClick={() => setIsSearch(true)} className="text-lg" />
+          <button
+            onClick={() => setIsSearch(true)}
+            className="ml-auto hover:bg-white/20 rounded-full p-1.5 transition duration-200"
+          >
+            <LuSearch className="text-lg" />
           </button>
           <button onClick={() => setIsMobileNavOpen(true)} className="md:hidden">
             <GiHamburgerMenu className="text-2xl text-white" />
