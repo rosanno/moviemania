@@ -47,7 +47,7 @@ const PopularPeople = () => {
   return (
     <>
       <Content variant="secondary">
-        <div className="mt-16 sm:mt-20 md:mt-32 px-4 sm:px-6">
+        <section className="mt-16 sm:mt-20 md:mt-32 px-4 sm:px-6 overflow-hidden">
           <h1 className="text-xl sm:text-2xl font-medium capitalize mb-1 sm:mb-4">Popular People</h1>
           <Grid>
             {people?.results?.map((movie, index) => (
@@ -59,7 +59,7 @@ const PopularPeople = () => {
               <Button handleClick={handleLoadMore}>Load more...</Button>
             </div>
           )}
-        </div>
+        </section>
       </Content>
     </>
   );
