@@ -16,9 +16,9 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
           duration: 0.6,
           delay: 0.3,
         }}
-        className="fixed z-50 top-10 flex flex-col items-center w-full"
+        className="fixed z-50 top-10 flex flex-col items-center w-full px-2"
       >
-        <div className="flex items-center bg-black/50 backdrop-blur w-[360px] sm:w-[530px] md:w-[640px] py-2 px-5 rounded-md shadow-md">
+        <div className="flex items-center bg-black/50 backdrop-blur w-full sm:w-[530px] md:w-[640px] py-2 px-5 rounded-md shadow-md">
           <input
             type="text"
             value={query}
@@ -28,37 +28,39 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
           />
           <HiOutlineMagnifyingGlass className="text-xl" />
         </div>
-        {query !== "" && (
-          <div className="bg-black/50 backdrop-blur absolute top-16 p-6 w-full max-w-[360px] sm:max-w-[530px] md:max-w-[640px] rounded-md max-h-[340px] overflow-y-auto scrollbar">
-            {searchResults?.results?.map((item) => (
-              <Link
-                onClick={onClose}
-                to={`/${item.media_type === "movie" ? "movie" : "tv"}/details/${item.id}`}
-                key={item.id}
-                className="my-2 block"
-              >
-                <div className="flex gap-2">
-                  <img
-                    src={`${
-                      item?.poster_path !== null
-                        ? `https://image.tmdb.org/t/p/w500${item?.poster_path}`
-                        : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
-                    } `}
-                    alt=""
-                    className="w-20"
-                  />
-                  <div className="w-[510px]">
-                    <h3>{item.title || item.original_name}</h3>
-                    <p className="text-xs pt-1 text-gray-400 capitalize">
-                      <span>{item.media_type}</span>
-                    </p>
-                    <p className="text-xs pt-2 text-gray-400 truncate overflow-hidden">{item.overview}</p>
+        <div className="absolute top-16 flex flex-col items-center w-full px-2">
+          {query !== "" && (
+            <div className="bg-black/50 backdrop-blur p-6 w-full sm:max-w-[530px] md:max-w-[640px] rounded-md max-h-[340px] overflow-y-auto scrollbar">
+              {searchResults?.results?.map((item) => (
+                <Link
+                  onClick={onClose}
+                  to={`/${item.media_type === "movie" ? "movie" : "tv"}/details/${item.id}`}
+                  key={item.id}
+                  className="my-2 block"
+                >
+                  <div className="flex gap-2">
+                    <img
+                      src={`${
+                        item?.poster_path !== null
+                          ? `https://image.tmdb.org/t/p/w500${item?.poster_path}`
+                          : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
+                      } `}
+                      alt=""
+                      className="w-20"
+                    />
+                    <div className="w-[510px]">
+                      <h3>{item.title || item.original_name}</h3>
+                      <p className="text-xs pt-1 text-gray-400 capitalize">
+                        <span>{item.media_type}</span>
+                      </p>
+                      <p className="text-xs pt-2 text-gray-400 truncate overflow-hidden">{item.overview}</p>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        )}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
       </motion.div>
     </AnimatePresence>
   );
