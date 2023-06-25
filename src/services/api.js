@@ -92,10 +92,10 @@ export const tmdbApi = createApi({
         `/3/movie/upcoming?api_key=${api_key}&primary_release_date.gte=${date ? date : ""}&language=en-US&page=1`,
     }),
     /**
-     * Get single movies details
+     * Get media details
      */
-    getMovieDetails: builder.query({
-      query: (movie_id) => `/3/movie/${movie_id}?api_key=${api_key}&language=en-US`,
+    getMediaDetails: builder.query({
+      query: ({ type, id }) => `/3/${type === "movie" ? "movie" : "tv"}/${id}?api_key=${api_key}&language=en-US`,
     }),
     getMovieGenre: builder.query({
       query: ({ type }) => `/3/genre/${type === "movies" ? "movie" : "tv"}/list?api_key=${api_key}&language=en`,
@@ -134,16 +134,38 @@ export const tmdbApi = createApi({
       },
     }),
     /**
+     * Person Details endpoint
+     */
+    getPersonDetails: builder.query({
+      query: ({ id }) => `/3/person/${id}?api_key=${api_key}`,
+    }),
+    getCreditMovies: builder.query({
+      query: ({ personId }) => `/3/person/${personId}/combined_credits?api_key=${api_key}`,
+    }),
+    /**
      * Tv shows
      */
     getPopularTv: builder.query({
-      query: () => `/3/tv/airing_today?api_key=${api_key}&with_origin_country=PH&language=en-US&page=1`,
+      query: () => `/3/tv/on_the_air?api_key=${api_key}&with_origin_country=PH&language=en-US&page=1`,
     }),
     /**
      * Search movies, tv shows etc.
      */
     getSearch: builder.query({
       query: ({ query }) => `/3/search/multi?api_key=${api_key}&query=${query || ""}`,
+    }),
+    /**
+     * Credits
+     */
+    getCredits: builder.query({
+      query: ({ type, id }) =>
+        `/3/${type === "movie" ? "movie" : "tv"}/${id}/credits?api_key=${api_key}&language=en-US`,
+    }),
+    /**
+     * Recommendation endpoint
+     */
+    getRecommendation: builder.query({
+      query: ({ id, type }) => `/3/${type}/${id}/recommendations?api_key=${api_key}&language=en-US&page=1`,
     }),
   }),
 });
@@ -152,7 +174,7 @@ export const {
   useGetDiscoverQuery,
   useGetNowPlayingQuery,
   useGetUpComingMovieQuery,
-  useGetMovieDetailsQuery,
+  useGetMediaDetailsQuery,
   useGetVideoQuery,
   useGetLogoQuery,
   useGetTrendingQuery,
@@ -164,4 +186,8 @@ export const {
   useGetPopularPeopleQuery,
   useGetPopularTvQuery,
   useGetSearchQuery,
+  useGetPersonDetailsQuery,
+  useGetCreditMoviesQuery,
+  useGetCreditsQuery,
+  useGetRecommendationQuery,
 } = tmdbApi;
