@@ -23,10 +23,8 @@ const MovieCard = ({ media, isVideo }) => {
 
   return (
     <>
-      <AnimatePresence>
-        <BackdropBlur onClose={onClose} isOpen={openModal} />
-        <Modal media={media} setModalOpen={setModalOpen} openModal={openModal} isVideo={isVideo} />
-      </AnimatePresence>
+      <BackdropBlur onClose={onClose} isOpen={openModal} />
+      <Modal media={media} setModalOpen={setModalOpen} openModal={openModal} isVideo={isVideo} />
       <div className="w-full h-full">
         <div className="relative group w-72 sm:w-96 overflow-hidden cursor-default">
           <div className="rounded-md overflow-hidden">
