@@ -27,7 +27,7 @@ const Layout = () => {
         <NavMobile isMobileNavOpen={isMobileNavOpen} setIsMobileNavOpen={setIsMobileNavOpen} />
       </header>
 
-      <main className="min-h-screen overflow-hidden sm:overflow-visible">
+      <main className="overflow-hidden sm:overflow-visible">
         <Outlet />
       </main>
 
