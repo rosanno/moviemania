@@ -13,8 +13,8 @@ const MovieCard = ({ media, isVideo }) => {
   const language = langToLang(media.original_language);
   const [openModal, setModalOpen] = useState(false);
 
-  const handleRouteChange = (movieId) => {
-    navigate(`/details/${movieId}`);
+  const handleRouteChange = (mediaId) => {
+    navigate(`/${isVideo}/details/${mediaId}`);
   };
 
   const onClose = () => {
