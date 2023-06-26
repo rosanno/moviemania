@@ -1,10 +1,16 @@
+import { useEffect, useRef } from "react";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { useGetSearchQuery } from "../services/api";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
 const Search = ({ isSearch, query, setQuery, onClose }) => {
+  const inputRef = useRef(null);
   const { data: searchResults } = useGetSearchQuery({ query }, { skip: !isSearch });
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [isSearch]);
 
   return (
     <AnimatePresence>
@@ -13,7 +19,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
         animate={isSearch ? { opacity: 1, y: 0 } : { opacity: 0, y: -100 }}
         exit={{ opacity: 0, y: -100 }}
         transition={{
-          duration: 0.6,
+          duration: 0.3,
           delay: 0.3,
         }}
         className="fixed z-50 top-10 flex flex-col items-center w-full px-2"
@@ -23,6 +29,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            ref={inputRef}
             placeholder="Search for a movies, tv shows"
             className="w-full bg-transparent p-2 font-normal outline-none"
           />
