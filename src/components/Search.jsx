@@ -30,11 +30,11 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
         </div>
         <div className="absolute top-16 flex flex-col items-center w-full px-2">
           {query !== "" && (
-            <div className="bg-black/50 backdrop-blur p-6 w-full sm:max-w-[530px] md:max-w-[640px] rounded-md max-h-[340px] overflow-y-auto scrollbar">
+            <div className="bg-black/50 backdrop-blur px-6 w-full sm:max-w-[530px] md:max-w-[640px] rounded-md max-h-[340px] overflow-y-auto scrollbar">
               {searchResults?.results?.map((item) => (
                 <Link
                   onClick={onClose}
-                  to={`/${item.media_type === "movie" ? "movie" : "tv"}/details/${item.id}`}
+                  to={`/${item.media_type}/details/${item.id}`}
                   key={item.id}
                   className="my-2 block"
                 >
@@ -42,7 +42,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
                     <img
                       src={`${
                         item?.poster_path !== null
-                          ? `https://image.tmdb.org/t/p/w500${item?.poster_path}`
+                          ? `https://image.tmdb.org/t/p/w300${item?.poster_path || item?.profile_path}`
                           : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
                       } `}
                       alt=""
