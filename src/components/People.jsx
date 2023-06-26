@@ -13,6 +13,7 @@ const Popular = ({ movie }) => {
             : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
         } `}
         alt={movie?.title}
+        loading="lazy"
         className="h-[240px] sm:h-full sm:max-h-[280px] w-full object-cover rounded-md overflow-hidden"
       />
       <div className="overflow-hidden sm:w-48 truncate">

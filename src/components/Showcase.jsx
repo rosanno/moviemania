@@ -34,6 +34,7 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
               }}
               src={logo?.file_path && `https://image.tmdb.org/t/p/w500${logo?.file_path}`}
               alt=""
+              loading="lazy"
               sizes="500px"
               className="object-contain h-full"
             />

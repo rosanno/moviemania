@@ -26,12 +26,11 @@ const Backdrop = ({ src, isAlwaysDisplayed, setIsVideoPlayed }) => {
 
   return (
     <>
-      {isDisplayed ? (
-        <div className="absolute inset-0 bg-background-dark" />
-      ) : null}
+      {isDisplayed ? <div className="absolute inset-0 bg-background-dark" /> : null}
       <img
         src={`https://image.tmdb.org/t/p/original${src}`}
         alt="Backdrop"
+        loading="lazy"
         sizes="100vw"
         className={`
        ${isDisplayed ? "opacity-100" : "xl:opacity-0"}

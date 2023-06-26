@@ -7,6 +7,7 @@ const Credit = ({ title, name, poster_path, profile_path }) => {
         <img
           src={`https://image.tmdb.org/t/p/w300${poster_path || profile_path}`}
           alt={title || name}
+          loading="lazy"
           className="w-[130px] max-h-[180px] object-cover rounded-md"
         />
       ) : (

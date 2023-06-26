@@ -76,6 +76,7 @@ const PersonDetails = () => {
               <img
                 src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${details?.profile_path}`}
                 alt={details?.name}
+                loading="lazy"
                 className="object-cover rounded-md overflow-hidden"
               />
             ) : (
@@ -180,6 +181,7 @@ const PersonDetails = () => {
                       <img
                         src={`https://www.themoviedb.org/t/p/w300${profile.file_path}`}
                         alt=""
+                        loading="lazy"
                         className="rounded-md"
                       />
                     </div>
