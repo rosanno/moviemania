@@ -167,6 +167,24 @@ export const tmdbApi = createApi({
     getRecommendation: builder.query({
       query: ({ id, type }) => `/3/${type}/${id}/recommendations?api_key=${api_key}&language=en-US&page=1`,
     }),
+    /**
+     * Similar Movies
+     */
+    getSimilar: builder.query({
+      query: ({ id, type }) => `/3/${type}/${id}/similar?api_key=${api_key}`,
+    }),
+    /**
+     * Profile
+     */
+    getProfile: builder.query({
+      query: ({ id }) => `/3/person/${id}/images?api_key=${api_key}`,
+    }),
+    /**
+     * External ids
+     */
+    getExternalID: builder.query({
+      query: ({ id }) => `/3/person/${id}/external_ids?api_key=${api_key}`,
+    }),
   }),
 });
 
@@ -190,4 +208,7 @@ export const {
   useGetCreditMoviesQuery,
   useGetCreditsQuery,
   useGetRecommendationQuery,
+  useGetSimilarQuery,
+  useGetProfileQuery,
+  useGetExternalIDQuery,
 } = tmdbApi;
