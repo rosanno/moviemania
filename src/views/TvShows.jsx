@@ -143,7 +143,7 @@ const TvShows = () => {
                     <>
                       <Grid>
                         {popular?.results?.map((movie, index) => (
-                          <Popular key={index} movie={movie} />
+                          <Popular key={index} movie={movie} isType="tv" />
                         ))}
                       </Grid>
                       {!isLoading && (

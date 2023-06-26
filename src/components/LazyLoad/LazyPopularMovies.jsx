@@ -4,7 +4,7 @@ const LazyPopularMovies = ({ popular }) => {
   return (
     <>
       {popular?.results?.map((movie, index) => (
-        <Popular key={index} movie={movie} />
+        <Popular key={index} movie={movie} isType="movie" />
       ))}
     </>
   );

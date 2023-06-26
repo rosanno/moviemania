@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import { IoImageOutline } from "react-icons/io5";
 
-const Popular = ({ movie }) => {
+const Popular = ({ movie, isType }) => {
   return (
-    <Link to={`/movie/details/${movie?.id}`} className="mt-4">
+    <Link to={`/${isType}/details/${movie?.id}`} className="mt-4">
       {movie?.poster_path !== null ? (
         <img
           src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
