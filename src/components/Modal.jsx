@@ -18,6 +18,8 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
     }
   };
 
+  console.log(data);
+
   return (
     <motion.div
       initial={{ opacity: 0, visibility: "hidden" }}
@@ -27,7 +29,7 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
         duration: 0.6,
         delay: 0.3,
       }}
-      className="fixed top-10 left-1/2 -translate-x-1/2 z-50 bg-black rounded-md w-[470px] md:w-10/12 lg:w-10/12 xl:w-9/12 h-[330px] sm:h-[410px] xl:h-[690px] md:px-0"
+      className="fixed top-10 left-1/2 -translate-x-1/2 z-50 bg-background-dark rounded-md w-[470px] md:w-10/12 lg:w-10/12 xl:w-9/12 h-[330px] sm:h-[410px] xl:h-[690px] md:px-0"
     >
       <div className="rounded-md overflow-hidden">
         <div className="p-2">
@@ -35,12 +37,20 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
         </div>
         <div className="overflow-hidden">
           {openModal && (
-            <iframe
-              ref={videoRef}
-              src={`https://www.youtube.com/embed/${video?.key}/?autoplay=1&mute=1&loop=1&controls=0`}
-              title="Playback"
-              className="h-[330px] sm:h-[410px] xl:h-[650px] w-full scale-150 sm:scale-125 brightness-110"
-            ></iframe>
+            <>
+              {video !== undefined ? (
+                <iframe
+                  ref={videoRef}
+                  src={`https://www.youtube.com/embed/${video?.key}/?autoplay=1&mute=1&loop=1&controls=0`}
+                  title="Playback"
+                  className="h-[330px] sm:h-[410px] xl:h-[650px] w-full scale-150 sm:scale-125 brightness-110"
+                ></iframe>
+              ) : (
+                <div className="flex justify-center items-center h-96">
+                  <h1 className="text-2xl text-gray-400">Video Not Found</h1>
+                </div>
+              )}
+            </>
           )}
         </div>
         <AiOutlineClose
