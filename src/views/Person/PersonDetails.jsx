@@ -77,7 +77,7 @@ const PersonDetails = () => {
                 src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${details?.profile_path}`}
                 alt={details?.name}
                 loading="lazy"
-                className="object-cover rounded-md overflow-hidden"
+                className="w-full object-cover rounded-md overflow-hidden"
               />
             ) : (
               <div className="h-[380px] w-[300px] sm:w-[340px] md:w-[290px] xl:w-[300px] rounded-md bg-gray-300 flex items-center justify-center">
