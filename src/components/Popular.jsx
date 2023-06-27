@@ -9,6 +9,7 @@ const Popular = ({ movie, isType }) => {
         <img
           src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
           alt={movie?.title}
+          loading="lazy"
           className="w-full md:max-w-[200px] h-[280px] md:max-h-[250px] rounded-md overflow-hidden"
         />
       ) : (
