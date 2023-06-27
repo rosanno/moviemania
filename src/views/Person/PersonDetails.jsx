@@ -51,7 +51,7 @@ const SocialAccounts = ({ url, social_id, icon }) => {
 
 const PersonDetails = () => {
   const { id } = useParams();
-  const { data: details, isLoading } = useGetPersonDetailsQuery({ id });
+  const { data: details, isFetching } = useGetPersonDetailsQuery({ id });
   const { data: creditMovie } = useGetCreditMoviesQuery({ personId: id });
   const { data: profiles } = useGetProfileQuery({ id });
   const { data: externalIds } = useGetExternalIDQuery({ id });
@@ -63,7 +63,7 @@ const PersonDetails = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  if (isLoading) {
+  if (isFetching) {
     return <Loader />;
   }
 
