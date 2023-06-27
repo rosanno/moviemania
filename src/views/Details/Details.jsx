@@ -19,7 +19,7 @@ const Details = () => {
   const { pathname } = useLocation();
   const type = pathname.split("/")[1];
   const { id } = useParams();
-  const { data: media, isLoading } = useGetMediaDetailsQuery({ type, id });
+  const { data: media, isFetching } = useGetMediaDetailsQuery({ type, id });
   const { data: credits } = useGetCreditsQuery({ type, id });
   const { data: recommendations } = useGetRecommendationQuery({ id, type });
   const { data: similar } = useGetSimilarQuery({ id, type });
@@ -31,7 +31,7 @@ const Details = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  if (isLoading) {
+  if (isFetching) {
     return <Loader />;
   }
 
