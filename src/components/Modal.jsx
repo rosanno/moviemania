@@ -67,7 +67,7 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
                                 className="w-full h-[350px] sm:w-[520px] md:w-[930px] md:h-[600px] scale-150 object-cover brightness-110"
                               ></iframe>
                             ) : (
-                              <div className="flex justify-center items-center h-96">
+                              <div className="flex justify-center items-center sm:h-96">
                                 <div className="flex flex-col items-center gap-2">
                                   <BsCameraVideoOff className="text-2xl" />
                                   <h1 className="text-xl">No video</h1>
