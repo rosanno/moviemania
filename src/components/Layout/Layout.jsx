@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
 
 import Navbar from "../Navbar";
 import NavMobile from "../NavMobile";
@@ -9,7 +8,6 @@ import BackdropBlur from "../Backdrop/BackdropBlur";
 import Footer from "../Footer";
 
 const Layout = () => {
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [query, setQuery] = useState("");
 
@@ -23,8 +21,8 @@ const Layout = () => {
       <header>
         <BackdropBlur onClose={onClose} isOpen={isSearch} />
         <Search isSearch={isSearch} query={query} setQuery={setQuery} onClose={onClose} />
-        <Navbar setIsMobileNavOpen={setIsMobileNavOpen} setIsSearch={setIsSearch} />
-        <NavMobile isMobileNavOpen={isMobileNavOpen} setIsMobileNavOpen={setIsMobileNavOpen} />
+        <Navbar setIsSearch={setIsSearch} />
+        <NavMobile />
       </header>
 
       <main className="overflow-hidden sm:overflow-visible">
