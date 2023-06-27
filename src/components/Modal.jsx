@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useRef } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BsCameraVideoOff } from "react-icons/bs";
 import { useGetVideoQuery } from "../services/api";
@@ -7,7 +7,6 @@ import { useFilterVideo } from "../hooks/useFilterVideo";
 import { Dialog, Transition } from "@headlessui/react";
 
 const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
-  const [open, setOpen] = useState(true);
   const cancelButtonRef = useRef(null);
   const videoRef = useRef(null);
   const type = media?.media_type || isVideo;
@@ -52,9 +51,9 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
                   <div>
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                       <Dialog.Title as="h3" className="text-base font-semibold leading-6">
-                        <h1 className="absolute left-2 top-2 z-20 hidden sm:block sm:text-sm">
+                        <span className="absolute left-2 top-2 z-20 hidden sm:block sm:text-sm">
                           {media?.title || media?.name}
-                        </h1>
+                        </span>
                       </Dialog.Title>
                       <div className="mt-2">
                         {openModal && (
