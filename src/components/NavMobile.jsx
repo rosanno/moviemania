@@ -1,34 +1,52 @@
 import { Link, useLocation } from "react-router-dom";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineHome } from "react-icons/ai";
+import { LuMonitor } from "react-icons/lu";
+import { BiMovie } from "react-icons/bi";
+import { BsPeople } from "react-icons/bs";
 
-const NavMobile = ({ isMobileNavOpen, setIsMobileNavOpen }) => {
+const NavMobile = () => {
   const { pathname } = useLocation();
 
   return (
-    <div
-      className={`bg-background-dark fixed z-50 h-screen inset-0 ${
-        !isMobileNavOpen ? "-translate-y-full transition-transform" : "translate-y-0"
-      } duration-300`}
-    >
-      <button onClick={() => setIsMobileNavOpen(false)}>
-        <AiOutlineClose className="text-white absolute right-6 text-3xl" />
-      </button>
-      <nav className="py-32 px-10">
-        <ul>
-          <li className={`nav__links ${pathname === "/" && "text-yellow-500"}`}>
-            <Link to="/">Home</Link>
-          </li>
-          <li className={`nav__links ${pathname === "/popular-movies" && "text-yellow-500"}`}>
-            <Link to="/popular-movies">Movies</Link>
-          </li>
-          <li className={`nav__links ${pathname === "/tv-shows" && "text-yellow-500"}`}>
-            <Link to="/tv-shows">TV Shows</Link>
-          </li>
-          <li className={`nav__links ${pathname === "/popular-people" && "text-yellow-500"}`}>
-            <Link to="/popular-people">Popular people</Link>
-          </li>
-        </ul>
-      </nav>
+    <div className="fixed md:hidden bottom-0 z-40 w-full px-3 bg-black/80 backdrop-blur shadow-sm">
+      <div className="flex items-center justify-between gap-5">
+        <Link
+          to="/"
+          className={`flex flex-col items-center transition-colors duration-300 text-gray-400 hover:bg-action-dark hover:text-white py-2 px-4 ${
+            pathname === "/" && "bg-action-dark text-white"
+          }`}
+        >
+          <AiOutlineHome className="text-2xl" />
+          <span className="text-xs">Home</span>
+        </Link>
+        <Link
+          to="/popular-movies"
+          className={`flex flex-col items-center text-gray-400 py-2 px-3 transition-colors duration-300 hover:bg-action-dark hover:text-white ${
+            pathname === "/popular-movies" && "bg-action-dark text-white"
+          }`}
+        >
+          <BiMovie className="text-2xl" />
+          <span className="text-xs">Movies</span>
+        </Link>
+        <Link
+          to="/tv-shows"
+          className={`flex flex-col items-center text-gray-400 py-2 px-3 transition-colors duration-300 hover:bg-action-dark hover:text-white ${
+            pathname === "/tv-shows" && "bg-action-dark text-white"
+          }`}
+        >
+          <LuMonitor className="text-2xl" />
+          <span className="text-xs">TV Shows</span>
+        </Link>
+        <Link
+          to="/popular-people"
+          className={`flex flex-col items-center text-gray-400 py-2 px-3 transition-colors duration-300 hover:bg-action-dark hover:text-white ${
+            pathname === "/popular-people" && "bg-action-dark text-white"
+          }`}
+        >
+          <BsPeople className="text-2xl" />
+          <span className="text-xs">People</span>
+        </Link>
+      </div>
     </div>
   );
 };
