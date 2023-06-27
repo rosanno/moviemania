@@ -54,8 +54,8 @@ const Details = () => {
         <Showcase media={media} isMediaSelected={false} media_type={type} setModalOpen={setModalOpen} />
       </Content>
       <Content isSpacerOnly>
-        <section className="relative z-20 px-3 sm:px-6 transition-all duration-1000 ease-in mt-20 custom-container">
-          <div className="pt-20">
+        <section className="relative z-20 px-3 sm:px-6 transition-all duration-1000 ease-in mt-10 sm:mt-20 custom-container">
+          <div className="pt-10 sm:pt-20">
             <h3 className="text-3xl font-semibold text-gray-300">Cast</h3>
             <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto scrollbar mt-5">
               {credits?.cast?.map((credit) => (
