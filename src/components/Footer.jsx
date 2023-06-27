@@ -4,7 +4,7 @@ import { AiFillYoutube, AiFillInstagram } from "react-icons/ai";
 
 const Footer = () => {
   return (
-    <div className="bg-action-dark w-full h-full mt-10 sm:mt-28">
+    <footer className="bg-action-dark w-full h-full mt-5 sm:mt-28">
       <div className="w-full max-w-[1300px] mx-auto py-14 grid grid-cols-1 sm:grid-cols-3 gap-10">
         <div className="ml-10">
           <h3 className="text-lg font-semibold">About Us</h3>
@@ -58,7 +58,7 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 
