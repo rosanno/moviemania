@@ -41,11 +41,6 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
           </div>
         </div>
         <div className="space-y-4">
-          {/* {!logo?.file_path && !isLoading && (
-            <div>
-              <h1 className="text-5xl font-bold mb-4">{type === "movie" ? media?.title : media?.name}</h1>
-            </div>
-          )} */}
           <motion.div
             initial={{ opacity: 0, x: -300 }}
             animate={{ opacity: 1, x: 0 }}
