@@ -41,14 +41,14 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
               {searchResults?.results?.map((item) => (
                 <Link
                   onClick={onClose}
-                  to={`/${item.media_type}/details/${item.id}`}
+                  to={`/${item.media_type}${item.media_type === "person" ? "" : "/details"}/${item.id}`}
                   key={item.id}
                   className="my-2 block"
                 >
                   <div className="flex gap-2">
                     <img
                       src={`${
-                        item?.poster_path !== null
+                        item?.poster_path !== null && item?.profile_path !== null
                           ? `https://image.tmdb.org/t/p/w300${item?.poster_path || item?.profile_path}`
                           : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
                       } `}
