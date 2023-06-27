@@ -51,7 +51,11 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
                 <div className="bg-background-dark px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                      <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900"></Dialog.Title>
+                      <Dialog.Title as="h3" className="text-base font-semibold leading-6">
+                        <h1 className="absolute left-2 top-2 z-20 hidden sm:block sm:text-sm">
+                          {media?.title || media?.name}
+                        </h1>
+                      </Dialog.Title>
                       <div className="mt-2">
                         {openModal && (
                           <>
