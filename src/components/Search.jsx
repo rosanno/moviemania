@@ -24,7 +24,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
         }}
         className="relative z-50"
       >
-        <div className="fixed left-0 right-0 sm:left-1/2 sm:-translate-x-1/2 top-10">
+        <div className="fixed left-0 right-0 sm:left-1/2 sm:-translate-x-1/2 top-10 md:w-[640px]">
           <div className="flex flex-col items-center w-full px-2">
             <div className="flex items-center bg-black/50 backdrop-blur w-full sm:w-[530px] md:w-[640px] py-2 px-5 rounded-md shadow-md">
               <input
