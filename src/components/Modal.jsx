@@ -1,5 +1,6 @@
 import { Fragment, useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { BsCameraVideoOff } from "react-icons/bs";
 import { useGetVideoQuery } from "../services/api";
 import { useFilterVideo } from "../hooks/useFilterVideo";
 
@@ -17,7 +18,6 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
   const handlePlayVideo = () => {
     if (videoRef.current) {
       videoRef.current.src = "";
-      videoRef.current.src = `https://www.youtube.com/embed/${video?.key}/?autoplay=1&mute=1&loop=1&controls=0`;
     }
   };
 
@@ -49,7 +49,7 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-background-dark text-left shadow-xl transition-all sm:my-8 w-full h-[250px] sm:w-full sm:max-w-[1085px] sm:h-[650px]">
                 <div className="bg-background-dark px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                  <div className="sm:flex sm:items-start">
+                  <div>
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                       <Dialog.Title as="h3" className="text-base font-semibold leading-6">
                         <h1 className="absolute left-2 top-2 z-20 hidden sm:block sm:text-sm">
@@ -67,8 +67,11 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
                                 className="w-full h-[210px] sm:w-[520px] md:w-[930px] md:h-[600px] scale-150 object-cover brightness-110"
                               ></iframe>
                             ) : (
-                              <div className="flex justify-center items-center">
-                                <h1 className="text-2xl font-semibold text-gray-400">Video Not Found</h1>
+                              <div className="flex justify-center items-center h-96">
+                                <div className="flex flex-col items-center gap-2">
+                                  <BsCameraVideoOff className="text-2xl" />
+                                  <h1 className="text-xl">No video</h1>
+                                </div>
                               </div>
                             )}
                           </>
