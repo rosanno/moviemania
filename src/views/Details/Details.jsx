@@ -97,7 +97,9 @@ const Details = () => {
               ))}
             </div>
           ) : (
-            <h1 className="text-sm text-gray-300 pt-10 text-center capitalize">No Recommendation for this {type}</h1>
+            <h1 className="text-sm text-gray-300 pt-10 text-center">
+              No Recommendation for this <span className="capitalize">{type === "tv" ? `${type} Show` : type}</span>
+            </h1>
           )}
         </section>
       </Content>
