@@ -134,7 +134,7 @@ const PersonDetails = () => {
             </div>
           </div>
           <div className="w-full md:w-[640px] xl:flex-1">
-            <h1 className="text-4xl font-bold">{details?.name}</h1>
+            <h1 className="text-2xl sm:text-4xl font-bold">{details?.name}</h1>
             <div className="mt-5">
               <h3 className="text-lg font-semibold">Biography</h3>
               <p className="text-sm font-light text-gray-300 leading-6 mt-2">
@@ -173,7 +173,7 @@ const PersonDetails = () => {
               </div>
             </div>
             <div className="mt-14">
-              <h2 className="text-3xl text-gray-300 font-semibold pb-4">Profiles</h2>
+              <h2 className="text-xl sm:text-3xl text-gray-300 font-semibold pb-4">Profiles</h2>
               {profiles?.profiles?.length !== 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   {profiles?.profiles?.map((profile, index) => (
