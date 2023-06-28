@@ -23,6 +23,7 @@ import SortSelect from "../components/SortSelect";
 import Loader from "../components/Loader/Loader";
 import FilteringSidebar from "../components/FilteringSidebar";
 import { FaFilter } from "react-icons/fa";
+import { Oval } from "react-loader-spinner";
 
 const TvShows = () => {
   const [page, setPage] = useState(1);
@@ -52,7 +53,7 @@ const TvShows = () => {
   const { data: regions } = useGetRegionsQuery();
   const { data: watchProviders } = useGetWatchProvidersQuery({ type: "tv", selectedRegion });
   const { data: genres } = useGetMovieGenreQuery({ type: "tv" });
-  const [handleLoadMore] = useInfinityScroll(isFetching, page, setPage);
+  const [handleLoadMore, loadMore] = useInfinityScroll(isFetching, page, setPage);
   const [open, setOpen] = useState(false);
 
   const handleSelectedRegion = (selected) => {
@@ -146,6 +147,22 @@ const TvShows = () => {
                           <Popular key={index} movie={movie} isType="tv" />
                         ))}
                       </Grid>
+                      {loadMore && isFetching && (
+                        <div className="flex justify-center mt-6">
+                          <Oval
+                            height={40}
+                            width={40}
+                            color="#404144"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                            visible={true}
+                            ariaLabel="oval-loading"
+                            secondaryColor="#404144"
+                            strokeWidth={2}
+                            strokeWidthSecondary={2}
+                          />
+                        </div>
+                      )}
                       {!isLoading && (
                         <div className="flex justify-center">
                           <Button handleClick={handleLoadMore}>Load more...</Button>

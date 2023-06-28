@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import Navbar from "../Navbar";
@@ -10,6 +10,19 @@ import Footer from "../Footer";
 const Layout = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    if (isSearch) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    // Clean up the class when the component unmounts
+    return () => {
+      document.body.classList.remove("scroll-disabled");
+    };
+  }, [isSearch]);
 
   const onClose = () => {
     setIsSearch(false);

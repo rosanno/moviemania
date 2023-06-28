@@ -54,10 +54,10 @@ const Details = () => {
         <Showcase media={media} isMediaSelected={false} media_type={type} setModalOpen={setModalOpen} />
       </Content>
       <Content isSpacerOnly>
-        <section className="relative z-20 px-3 sm:px-6 transition-all duration-1000 ease-in mt-20 custom-container">
-          <div className="pt-20">
-            <h3 className="text-3xl font-semibold text-gray-300">Cast</h3>
-            <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto scrollbar mt-5">
+        <section className="relative z-20 px-3 sm:px-6 transition-all duration-1000 ease-in mt-10 sm:mt-20 custom-container">
+          <div className="pt-4 sm:pt-20">
+            <h3 className="text-xl sm:text-3xl font-semibold text-gray-300">Cast</h3>
+            <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto scrollbar mt-3 sm:mt-5">
               {credits?.cast?.map((credit) => (
                 <Link to={`/person/${credit.id}`} key={credit.id}>
                   <Credit {...credit} />
@@ -68,11 +68,11 @@ const Details = () => {
         </section>
         <section className="relative z-20 px-3 sm:px-6 transition-all duration-1000 ease-in mt-20 custom-container">
           <div className="border-t border-gray-400/40 mb-10" />
-          <h3 className="text-3xl font-semibold text-gray-300">
+          <h3 className="text-xl sm:text-3xl font-semibold text-gray-300">
             Similar <span className="capitalize">{type === "movie" ? "Movies" : "TV Show"}</span>{" "}
           </h3>
           {similar?.results?.length !== 0 ? (
-            <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto scrollbar mt-5">
+            <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto scrollbar mt-3 sm:mt-5">
               {similar?.results?.map((item) => (
                 <Link to={`/${type}/details/${item.id}`} key={item.id}>
                   <Credit {...item} />
@@ -87,9 +87,9 @@ const Details = () => {
         </section>
         <section className="relative z-20 px-3 sm:px-6 transition-all duration-1000 ease-in mt-20 custom-container">
           <div className="border-t border-gray-400/40 mb-10" />
-          <h3 className="text-3xl font-semibold text-gray-300">Recommendations</h3>
+          <h3 className="text-xl sm:text-3xl font-semibold text-gray-300">Recommendations</h3>
           {recommendations?.results?.length !== 0 ? (
-            <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto scrollbar mt-5">
+            <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto scrollbar mt-3 sm:mt-5">
               {recommendations?.results?.map((recommend) => (
                 <Link to={`/${recommend.media_type}/details/${recommend.id}`} key={recommend.id}>
                   <Credit {...recommend} />
@@ -97,7 +97,9 @@ const Details = () => {
               ))}
             </div>
           ) : (
-            <h1 className="text-sm text-gray-300 pt-10 text-center capitalize">No Recommendation for this {type}</h1>
+            <h1 className="text-sm text-gray-300 pt-10 text-center">
+              No Recommendation for this <span className="capitalize">{type === "tv" ? `${type} Show` : type}</span>
+            </h1>
           )}
         </section>
       </Content>
