@@ -8,7 +8,7 @@ const useInfinityScroll = (isFetching, page, setPage) => {
 
     const onScroll = () => {
       const scrolledToBottom =
-        document.documentElement.clientHeight + window.scrollY >= document.documentElement.offsetHeight * 0.9;
+        document.documentElement.clientHeight + window.scrollY >= document.documentElement.offsetHeight * 0.8;
       if (scrolledToBottom && !isFetching) {
         console.log("Fetching more data...");
         setPage((prev) => prev + 1);
