@@ -27,7 +27,7 @@ const useInfinityScroll = (isFetching, page, setPage) => {
     setPage((prev) => prev + 1);
   };
 
-  return [handleLoadMore];
+  return [handleLoadMore, loadMore];
 };
 
 export default useInfinityScroll;
