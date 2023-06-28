@@ -38,8 +38,8 @@ const Navbar = ({ setIsSearch }) => {
             <li className={`nav__links ${pathname === "/" && "text-yellow-500"}`}>
               <Link to="/">Home</Link>
             </li>
-            <li className={`nav__links ${pathname === "/popular-movies" && "text-yellow-500"}`}>
-              <Link to="/popular-movies">Movies</Link>
+            <li className={`nav__links ${pathname === "/movies" && "text-yellow-500"}`}>
+              <Link to="/movies">Movies</Link>
             </li>
             <li className={`nav__links ${pathname === "/tv-shows" && "text-yellow-500"}`}>
               <Link to="/tv-shows">TV Shows</Link>

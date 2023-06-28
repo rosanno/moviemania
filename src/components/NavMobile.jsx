@@ -20,9 +20,9 @@ const NavMobile = () => {
           <span className="text-xs">Home</span>
         </Link>
         <Link
-          to="/popular-movies"
+          to="/movies"
           className={`flex flex-col items-center text-gray-400 py-2 px-3 transition-colors duration-300 hover:bg-action-dark hover:text-white ${
-            pathname === "/popular-movies" && "bg-action-dark text-white"
+            pathname === "/movies" && "bg-action-dark text-white"
           }`}
         >
           <BiMovie className="text-2xl" />
