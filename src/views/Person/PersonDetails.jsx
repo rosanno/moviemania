@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+
 import { AiOutlineInstagram, AiOutlineYoutube } from "react-icons/ai";
 import { BsTiktok } from "react-icons/bs";
 import { CiFacebook } from "react-icons/ci";
 import { FiTwitter } from "react-icons/fi";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/navigation";
 
 import { Link, useParams } from "react-router-dom";
 import { BiChevronRight } from "react-icons/bi";
@@ -16,6 +23,7 @@ import {
 import Content from "../../components/content/Content";
 import Credit from "../../components/Credit";
 import Loader from "../../components/Loader/Loader";
+import { Oval } from "react-loader-spinner";
 
 const Details = ({ heading, details, isRepeated = false, age }) => {
   if (isRepeated) {
@@ -51,7 +59,8 @@ const SocialAccounts = ({ url, social_id, icon }) => {
 
 const PersonDetails = () => {
   const { id } = useParams();
-  const { data: details, isFetching } = useGetPersonDetailsQuery({ id });
+  const sliderRef = useRef(null);
+  const { data: details, isFetching, isLoading } = useGetPersonDetailsQuery({ id });
   const { data: creditMovie } = useGetCreditMoviesQuery({ personId: id });
   const { data: profiles } = useGetProfileQuery({ id });
   const { data: externalIds } = useGetExternalIDQuery({ id });
@@ -61,6 +70,16 @@ const PersonDetails = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  const handlePrev = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slidePrev();
+  }, []);
+
+  const handleNext = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slideNext();
   }, []);
 
   if (isFetching) {
@@ -159,18 +178,74 @@ const PersonDetails = () => {
             </div>
             <div className="mt-10 max-h-[240px]">
               <h3 className="text-lg font-semibold">Known For</h3>
-              <div className="w-[870px] mt-1">
-                <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto scrollbar">
-                  {sortedCreditMovie?.map((credit) => (
-                    <Link
-                      to={`/${credit.media_type === "movie" ? "movie" : "tv"}/details/${credit.id}`}
-                      key={credit.id}
-                    >
-                      <Credit {...credit} />
-                    </Link>
-                  ))}
+              {details?.also_known_as.length === 0 ? (
+                <div className="flex justify-center mt-2">
+                  <h2 className="text-sm text-gray-400">No data found</h2>
                 </div>
-              </div>
+              ) : (
+                <>
+                  {isLoading ? (
+                    <div className="flex justify-center mt-6">
+                      <Oval
+                        height={30}
+                        width={30}
+                        color="#404144"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel="oval-loading"
+                        secondaryColor="#404144"
+                        strokeWidth={2}
+                        strokeWidthSecondary={2}
+                      />
+                    </div>
+                  ) : (
+                    <div className="relative w-full xl:w-[865px] mt-1">
+                      <button
+                        className="hidden sm:inline-block absolute z-10 top-1/3 sm:-left-4 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full"
+                        onClick={handlePrev}
+                      >
+                        <BsChevronLeft className="text-lg" />
+                      </button>
+                      <button
+                        className="hidden sm:inline-block absolute z-10 top-1/3 right-0 sm:-right-4 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full"
+                        onClick={handleNext}
+                      >
+                        <BsChevronRight />
+                      </button>
+                      <Swiper
+                        ref={sliderRef}
+                        slidesPerView={3}
+                        spaceBetween={10}
+                        breakpoints={{
+                          640: {
+                            slidesPerView: 5,
+                            spaceBetween: 10,
+                          },
+                          768: {
+                            slidesPerView: 4,
+                          },
+                          1024: {
+                            slidesPerView: 5,
+                          },
+                          1280: {
+                            slidesPerView: 6,
+                          },
+                        }}
+                        className="mySwiper"
+                      >
+                        {sortedCreditMovie?.map((credit) => (
+                          <SwiperSlide key={credit.id}>
+                            <Link to={`/${credit.media_type === "movie" ? "movie" : "tv"}/details/${credit.id}`}>
+                              <Credit {...credit} />
+                            </Link>
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
             <div className="mt-14">
               <h2 className="text-xl sm:text-3xl text-gray-300 font-semibold pb-4">Profiles</h2>
