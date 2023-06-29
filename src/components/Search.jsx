@@ -10,7 +10,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
     <div
       className={`fixed top-10 left-0 right-0 z-50 sm:left-1/2 sm:-translate-x-1/2 ${
         isSearch ? "translate-y-0" : "-translate-y-96"
-      } transition-transform duration-700 md:w-[640px]`}
+      } transition-transform duration-700 ease-in-out md:w-[640px]`}
     >
       <div className="flex flex-col items-center w-full px-2">
         <div className="flex items-center bg-black/80 backdrop-blur w-full sm:w-[530px] md:w-[640px] py-2 px-5 rounded-md shadow-md">
