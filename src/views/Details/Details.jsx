@@ -37,21 +37,21 @@ const MediaSection = ({ children, heading, results, type, divider = false, space
             prevEl: ".button-prev-slide",
           }}
           modules={[Navigation]}
-          slidesPerView={4}
+          slidesPerView={3}
           spaceBetween={10}
           breakpoints={{
             640: {
-              slidesPerView: 5,
+              slidesPerView: 4,
               spaceBetween: 10,
             },
             768: {
-              slidesPerView: 6,
+              slidesPerView: 5,
             },
             1024: {
-              slidesPerView: 8,
+              slidesPerView: 7,
             },
             1280: {
-              slidesPerView: 9,
+              slidesPerView: 8,
             },
           }}
           className="mt-3 relative"
