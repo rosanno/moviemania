@@ -219,14 +219,14 @@ const PersonDetails = () => {
                         spaceBetween={10}
                         breakpoints={{
                           640: {
-                            slidesPerView: 5,
+                            slidesPerView: 4,
                             spaceBetween: 10,
                           },
                           768: {
                             slidesPerView: 4,
                           },
                           1024: {
-                            slidesPerView: 5,
+                            slidesPerView: 4,
                           },
                           1280: {
                             slidesPerView: 6,
