@@ -8,7 +8,7 @@ const PopularTvShows = () => {
   const { data: tvShows } = useGetPopularTvQuery();
 
   return (
-    <Section heading="Popular TV Series" scrollLeft={scrollLeft} scrollRight={scrollRight}>
+    <Section heading="TV Series" scrollLeft={scrollLeft} scrollRight={scrollRight}>
       <div ref={scrollRef} className="grid grid-flow-col gap-4 overflow-x-scroll scrollbar">
         {tvShows?.results?.map((tv) => (
           <MediaCard key={tv.id} media={tv} isVideo="tv" />
