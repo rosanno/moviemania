@@ -24,7 +24,7 @@ const MovieCard = ({ media, isVideo }) => {
     <>
       <BackdropBlur onClose={onClose} isOpen={openModal} />
       <Modal media={media} setModalOpen={setModalOpen} openModal={openModal} isVideo={isVideo} />
-      <div className="relative group w-72 sm:w-96 h-[270px] overflow-hidden cursor-default">
+      <div className="relative group w-72 sm:w-96 h-[270px] rounded-md overflow-hidden cursor-default">
         <div className="rounded-md overflow-hidden">
           <img
             src={`${
