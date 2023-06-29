@@ -1,5 +1,3 @@
-import { IoImageOutline } from "react-icons/io5";
-
 const Credit = ({ title, name, poster_path, profile_path }) => {
   return (
     <div>
