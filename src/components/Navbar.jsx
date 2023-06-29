@@ -8,7 +8,7 @@ const Navbar = ({ setIsSearch }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
       if (scrollTop > 50) {
         setNavbarColor("bg-black/75 backdrop-blur shadow");
       } else {
