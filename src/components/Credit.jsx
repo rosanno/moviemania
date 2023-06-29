@@ -2,7 +2,7 @@ import { IoImageOutline } from "react-icons/io5";
 
 const Credit = ({ title, name, poster_path, profile_path }) => {
   return (
-    <div className="h-[205px] flex flex-col justify-center">
+    <div className="h-[150px] sm:h-[205px] flex flex-col justify-center">
       {poster_path || profile_path ? (
         <>
           <img
@@ -14,7 +14,7 @@ const Credit = ({ title, name, poster_path, profile_path }) => {
           <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
         </>
       ) : (
-        <div className="w-[130px] h-[180px] bg-gray-300 rounded-md flex items-center justify-center">
+        <div className="w-[130px] h-[120px] sm:h-[180px] bg-gray-300 rounded-md flex items-center justify-center">
           <IoImageOutline className="text-gray-400 text-2xl" />
         </div>
       )}
