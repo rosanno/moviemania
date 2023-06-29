@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaFilter } from "react-icons/fa";
 
 import Grid from "../components/Grid/Grid";
@@ -23,8 +23,7 @@ import WatchProvider from "../components/WatchProvider";
 import { sorts } from "../constant/sorts";
 import FilteringSidebar from "../components/FilteringSidebar";
 import { Oval } from "react-loader-spinner";
-
-const LazyPopularMovies = lazy(() => import("../components/LazyLoad/LazyPopularMovies"));
+import Popular from "../components/Popular";
 
 const PopularMovies = () => {
   const [page, setPage] = useState(1);
@@ -37,7 +36,11 @@ const PopularMovies = () => {
   const [sort, setSort] = useState(sorts[1]);
   const [genre, handleGenre] = useSelection([]);
   const [selectedWatchProviders, handleWatchProvider, resetWatchProviders] = useSelection([]);
-  const { data: popular, isFetching } = useGetPopularQuery({
+  const {
+    data: popular,
+    isFetching,
+    isLoading,
+  } = useGetPopularQuery({
     type: "movies",
     page,
     genre,
@@ -48,7 +51,10 @@ const PopularMovies = () => {
     sort: sort.value,
   });
   const { data: regions } = useGetRegionsQuery();
-  const { data: watchProviders } = useGetWatchProvidersQuery({ type: "movie", selectedRegion });
+  const { data: watchProviders, isFetching: watchFetching } = useGetWatchProvidersQuery({
+    type: "movie",
+    selectedRegion,
+  });
   const { data: genres } = useGetMovieGenreQuery({ type: "movies" });
   const [handleLoadMore, loadMore] = useInfinityScroll(isFetching, page, setPage);
   const [open, setOpen] = useState(false);
@@ -110,11 +116,12 @@ const PopularMovies = () => {
                     handleSelectedRegion={handleSelectedRegion}
                   />
                 </div>
-                <div className="px-4 mt-2 overflow-y-scroll max-h-[360px] scrollbar scroll-smooth">
+                <div className="px-4 mt-2 overflow-y-scroll w-full h-[300px] max-h-[360px] scrollbar scroll-smooth">
                   <WatchProvider
                     data={watchProviders?.results}
                     selectedWatchProviders={selectedWatchProviders}
                     handleWatchProvider={handleWatchProvider}
+                    loading={watchFetching}
                   />
                 </div>
               </FilteringCard>
@@ -134,32 +141,40 @@ const PopularMovies = () => {
               {popular?.results.length === 0 ? (
                 <NoResults />
               ) : (
-                <Suspense fallback={<Loader />}>
-                  <Grid>
-                    <LazyPopularMovies popular={popular} />
-                  </Grid>
-                  {loadMore && isFetching && (
-                    <div className="flex justify-center mt-6">
-                      <Oval
-                        height={40}
-                        width={40}
-                        color="#404144"
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                        visible={true}
-                        ariaLabel="oval-loading"
-                        secondaryColor="#404144"
-                        strokeWidth={2}
-                        strokeWidthSecondary={2}
-                      />
-                    </div>
+                <>
+                  {!loadMore && !watchFetching && isFetching ? (
+                    <Loader />
+                  ) : (
+                    <>
+                      <Grid>
+                        {popular?.results?.map((movie, index) => (
+                          <Popular key={index} movie={movie} media_type="movie" />
+                        ))}
+                      </Grid>
+                      {loadMore && isFetching && (
+                        <div className="flex justify-center mt-6">
+                          <Oval
+                            height={40}
+                            width={40}
+                            color="#404144"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                            visible={true}
+                            ariaLabel="oval-loading"
+                            secondaryColor="#404144"
+                            strokeWidth={2}
+                            strokeWidthSecondary={2}
+                          />
+                        </div>
+                      )}
+                      {!isLoading && (
+                        <div className="flex justify-center">
+                          <Button handleClick={handleLoadMore}>Load more...</Button>
+                        </div>
+                      )}
+                    </>
                   )}
-                  {popular?.total_pages !== 1 && (
-                    <div className="flex justify-center">
-                      <Button handleClick={handleLoadMore}>Load more...</Button>
-                    </div>
-                  )}
-                </Suspense>
+                </>
               )}
             </div>
           </Grid>
