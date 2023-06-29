@@ -9,7 +9,7 @@ import { convertLanguage } from "../helpers/convert-language";
 const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
   const type = media?.media_type || media_type;
   const id = media?.id;
-  const { data, isLoading } = useGetLogoQuery({ type, id });
+  const { data, isFetching } = useGetLogoQuery({ type, id });
   const { data: humanruntime } = useGetRuntimeQuery({ type, id });
   const { logo } = useLogoFilter(data, media?.original_language);
   const langauage = convertLanguage(media?.original_language);
@@ -24,26 +24,28 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
             }}
             className="relative bottom-0 max-h-56 w-full sm:absolute"
           >
-            <motion.img
-              initial={{ opacity: 0, x: -200 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.8,
-                ease: "easeOut",
-                delay: 0.2,
-              }}
-              src={logo?.file_path && `https://image.tmdb.org/t/p/w500${logo?.file_path}`}
-              alt=""
-              loading="lazy"
-              sizes="500px"
-              className="object-contain h-full"
-            />
+            {
+              <motion.img
+                initial={{ opacity: 0, x: -200 }}
+                animate={isFetching ? { opacity: 0, x: -200 } : { opacity: 1, x: 0 }}
+                transition={{
+                  duration: 0.8,
+                  ease: "easeOut",
+                  delay: 0.2,
+                }}
+                src={logo?.file_path && `https://image.tmdb.org/t/p/w500${logo?.file_path}`}
+                alt=""
+                loading="lazy"
+                sizes="500px"
+                className="object-contain h-full"
+              />
+            }
           </div>
         </div>
         <div className="space-y-4">
           <motion.div
             initial={{ opacity: 0, x: -300 }}
-            animate={{ opacity: 1, x: 0 }}
+            animate={isFetching ? { opacity: 0, x: -300 } : { opacity: 1, x: 0 }}
             transition={{
               duration: 0.8,
               ease: "easeOut",
@@ -60,7 +62,7 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={isFetching ? { opacity: 0, y: 40 } : { opacity: 1, y: 0 }}
             transition={{
               duration: 0.8,
               ease: "easeOut",
@@ -73,7 +75,7 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
         </div>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={isFetching ? { opacity: 0, y: 30 } : { opacity: 1, y: 0 }}
           transition={{
             duration: 0.8,
             ease: "easeOut",
