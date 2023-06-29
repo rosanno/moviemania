@@ -26,11 +26,6 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
         <div className="absolute top-16 flex flex-col items-center w-full px-2">
           {query !== "" && (
             <div className="bg-black/80 backdrop-blur px-6 w-full sm:w-[530px] md:w-[640px] rounded-md h-auto max-h-[340px] overflow-y-auto scrollbar">
-              {searchResults?.results?.length === 0 && (
-                <div className="py-20 text-center">
-                  <h4 className="text-sm text-gray-300">No results found</h4>
-                </div>
-              )}
               {isFetching ? (
                 <div className="flex justify-center py-4">
                   <Oval
@@ -75,6 +70,11 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
                       </div>
                     </Link>
                   ))}
+                  {searchResults?.results?.length === 0 && (
+                    <div className="py-20 text-center">
+                      <h4 className="text-sm text-gray-300">No results found</h4>
+                    </div>
+                  )}
                 </>
               )}
             </div>
