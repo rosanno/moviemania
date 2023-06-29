@@ -51,7 +51,7 @@ const TvShows = () => {
     sort: sort.value,
   });
   const { data: regions } = useGetRegionsQuery();
-  const { data: watchProviders } = useGetWatchProvidersQuery({ type: "tv", selectedRegion });
+  const { data: watchProviders, isFetching: watchFetching } = useGetWatchProvidersQuery({ type: "tv", selectedRegion });
   const { data: genres } = useGetMovieGenreQuery({ type: "tv" });
   const [handleLoadMore, loadMore] = useInfinityScroll(isFetching, page, setPage);
   const [open, setOpen] = useState(false);
@@ -113,11 +113,12 @@ const TvShows = () => {
                     handleSelectedRegion={handleSelectedRegion}
                   />
                 </div>
-                <div className="px-4 mt-2 overflow-y-scroll max-h-[360px] scrollbar scroll-smooth">
+                <div className="px-4 mt-2 overflow-y-scroll h-[300px] max-h-[360px] scrollbar scroll-smooth">
                   <WatchProvider
                     data={watchProviders?.results}
                     selectedWatchProviders={selectedWatchProviders}
                     handleWatchProvider={handleWatchProvider}
+                    loading={watchFetching}
                   />
                 </div>
               </FilteringCard>
@@ -138,13 +139,13 @@ const TvShows = () => {
                 <NoResults />
               ) : (
                 <>
-                  {isLoading ? (
+                  {!loadMore && !watchFetching && isFetching ? (
                     <Loader />
                   ) : (
                     <>
                       <Grid>
                         {popular?.results?.map((movie, index) => (
-                          <Popular key={index} movie={movie} isType="tv" />
+                          <Popular key={index} movie={movie} media_type="tv" />
                         ))}
                       </Grid>
                       {loadMore && isFetching && (
