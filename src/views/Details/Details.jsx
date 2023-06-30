@@ -16,7 +16,6 @@ import {
   useGetRecommendationQuery,
   useGetSimilarQuery,
 } from "../../services/api";
-import Loader from "../../components/Loader/Loader";
 import Credit from "../../components/Credit";
 import Hero from "../../components/Hero";
 import Showcase from "../../components/Showcase";
@@ -83,10 +82,6 @@ const Details = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
-  if (isFetching) {
-    return <Loader />;
-  }
 
   return (
     <>
