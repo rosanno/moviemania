@@ -69,7 +69,11 @@ const PersonDetails = () => {
   const sortedCreditMovie = creditMovie?.cast && [...creditMovie.cast]?.sort((a, b) => b.vote_count - a.vote_count);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
   }, []);
 
   const handlePrev = useCallback(() => {
