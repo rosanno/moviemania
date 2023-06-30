@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { IoImageOutline } from "react-icons/io5";
-import { Oval } from "react-loader-spinner";
 
 const Popular = ({ movie, media_type }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
