@@ -1,7 +1,7 @@
 const Credit = ({ title, name, poster_path, profile_path }) => {
   return (
     <div>
-      <div className="h-[170px] sm:h-[210px] flex flex-col justify-center">
+      <div className="h-[180px] sm:h-[190px] flex flex-col justify-center">
         <img
           src={`${
             poster_path || profile_path
