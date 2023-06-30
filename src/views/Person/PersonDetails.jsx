@@ -24,6 +24,7 @@ import Content from "../../components/content/Content";
 import Credit from "../../components/Credit";
 import Loader from "../../components/Loader/Loader";
 import { Oval } from "react-loader-spinner";
+import NotFound from "../../components/NotFound";
 
 const Details = ({ heading, details, isRepeated = false, age }) => {
   if (isRepeated) {
@@ -60,7 +61,7 @@ const SocialAccounts = ({ url, social_id, icon }) => {
 const PersonDetails = () => {
   const { id } = useParams();
   const sliderRef = useRef(null);
-  const { data: details, isFetching, isLoading } = useGetPersonDetailsQuery({ id });
+  const { data: details, isFetching, isLoading, isError } = useGetPersonDetailsQuery({ id });
   const { data: creditMovie } = useGetCreditMoviesQuery({ personId: id });
   const { data: profiles } = useGetProfileQuery({ id });
   const { data: externalIds } = useGetExternalIDQuery({ id });
@@ -88,6 +89,10 @@ const PersonDetails = () => {
 
   if (isFetching) {
     return <Loader />;
+  }
+
+  if (details === undefined) {
+    return <NotFound heading="No Data Found" />;
   }
 
   return (

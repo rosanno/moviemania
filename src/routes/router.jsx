@@ -4,7 +4,7 @@ import Home from "../views/Home";
 import Movies from "../views/Movies";
 import TvShows from "../views/TvShows";
 import PopularPeople from "../views/PopularPeople";
-import NotFound from "../views/NotFound";
+import NotFound from "../components/NotFound";
 import PersonDetails from "../views/Person/PersonDetails";
 import Details from "../views/Details/Details";
 
