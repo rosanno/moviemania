@@ -9,7 +9,7 @@ import { convertLanguage } from "../helpers/convert-language";
 const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
   const type = media?.media_type || media_type;
   const id = media?.id;
-  const { data, isLoading } = useGetLogoQuery({ type, id });
+  const { data, isFetching } = useGetLogoQuery({ type, id });
   const { data: humanruntime } = useGetRuntimeQuery({ type, id });
   const { logo } = useLogoFilter(data, media?.original_language);
   const langauage = convertLanguage(media?.original_language);
@@ -17,33 +17,51 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
   return (
     <>
       <section className="space-y-6 sm:max-w-md px-2 md:pl-6 overflow-y-hidden">
-        <div className="relative sm:aspect-square">
-          <div
-            style={{
-              aspectRatio: logo?.aspect_ratio ? logo?.aspect_ratio : "1.84 / 1",
-            }}
-            className="relative bottom-0 max-h-56 w-full sm:absolute"
-          >
-            <motion.img
-              initial={{ opacity: 0, x: -200 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.8,
-                ease: "easeOut",
-                delay: 0.2,
+        {logo?.file_path && (
+          <div className="relative sm:aspect-square">
+            <div
+              style={{
+                aspectRatio: logo?.aspect_ratio ? logo?.aspect_ratio : "1.84 / 1",
               }}
-              src={logo?.file_path && `https://image.tmdb.org/t/p/w500${logo?.file_path}`}
-              alt=""
-              loading="lazy"
-              sizes="500px"
-              className="object-contain h-full"
-            />
+              className="relative bottom-0 max-h-56 w-full sm:absolute"
+            >
+              {
+                <motion.img
+                  initial={{ opacity: 0, x: -200 }}
+                  animate={isFetching ? { opacity: 0, x: -200 } : { opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    ease: "easeOut",
+                    delay: 0.2,
+                  }}
+                  src={`https://image.tmdb.org/t/p/w500${logo?.file_path}`}
+                  alt=""
+                  loading="lazy"
+                  sizes="500px"
+                  className="object-contain h-full"
+                />
+              }
+            </div>
           </div>
-        </div>
+        )}
+        {!logo?.file_path && (
+          <motion.div
+            initial={{ opacity: 0, x: -200 }}
+            animate={isFetching ? { opacity: 0, x: -200 } : { opacity: 1, x: 0 }}
+            transition={{
+              duration: 0.8,
+              ease: "easeOut",
+              delay: 0.2,
+            }}
+            className="sm:mt-80"
+          >
+            <h1 className="text-5xl font-bold">{media?.name || media?.title}</h1>
+          </motion.div>
+        )}
         <div className="space-y-4">
           <motion.div
             initial={{ opacity: 0, x: -300 }}
-            animate={{ opacity: 1, x: 0 }}
+            animate={isFetching ? { opacity: 0, x: -300 } : { opacity: 1, x: 0 }}
             transition={{
               duration: 0.8,
               ease: "easeOut",
@@ -60,7 +78,7 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={isFetching ? { opacity: 0, y: 40 } : { opacity: 1, y: 0 }}
             transition={{
               duration: 0.8,
               ease: "easeOut",
@@ -73,7 +91,7 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
         </div>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={isFetching ? { opacity: 0, y: 30 } : { opacity: 1, y: 0 }}
           transition={{
             duration: 0.8,
             ease: "easeOut",

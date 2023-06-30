@@ -1,45 +1,48 @@
-import { useEffect, useRef } from "react";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { useGetSearchQuery } from "../services/api";
 import { Link } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { Oval } from "react-loader-spinner";
 
 const Search = ({ isSearch, query, setQuery, onClose }) => {
-  const inputRef = useRef(null);
-  const { data: searchResults } = useGetSearchQuery({ query }, { skip: !isSearch });
-
-  useEffect(() => {
-    inputRef.current.focus();
-  }, [isSearch]);
+  const { data: searchResults, isFetching } = useGetSearchQuery({ query }, { skip: !isSearch });
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0, y: -100 }}
-        animate={isSearch ? { opacity: 1, y: 0 } : { opacity: 0, y: -100 }}
-        exit={{ opacity: 0, y: -100 }}
-        transition={{
-          duration: 0.3,
-          delay: 0.3,
-        }}
-        className="relative z-50"
-      >
-        <div className="fixed left-0 right-0 sm:left-1/2 sm:-translate-x-1/2 top-10 md:w-[640px]">
-          <div className="flex flex-col items-center w-full px-2">
-            <div className="flex items-center bg-black/50 backdrop-blur w-full sm:w-[530px] md:w-[640px] py-2 px-5 rounded-md shadow-md">
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                ref={inputRef}
-                placeholder="Search for a movies, tv shows, person"
-                className="w-full bg-transparent p-2 font-normal outline-none"
-              />
-              <HiOutlineMagnifyingGlass className="text-xl" />
-            </div>
-            <div className="absolute top-16 flex flex-col items-center w-full px-2">
-              {query !== "" && (
-                <div className="bg-black/50 backdrop-blur px-6 w-full sm:w-[530px] md:w-[640px] rounded-md max-h-[340px] overflow-y-auto scrollbar">
+    <div
+      className={`fixed top-10 left-0 right-0 z-50 sm:left-1/2 sm:-translate-x-1/2 ${
+        isSearch ? "translate-y-0" : "-translate-y-96"
+      } transition-transform duration-700 ease-in-out md:w-[640px]`}
+    >
+      <div className="flex flex-col items-center w-full px-2">
+        <div className="flex items-center bg-black/80 backdrop-blur w-full sm:w-[530px] md:w-[640px] py-2 px-5 rounded-md shadow-md">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search for a movies, tv shows, person"
+            className="w-full bg-transparent p-2 font-normal outline-none"
+          />
+          <HiOutlineMagnifyingGlass className="text-xl" />
+        </div>
+        <div className="absolute top-16 flex flex-col items-center w-full px-2">
+          {query !== "" && (
+            <div className="bg-black/80 backdrop-blur px-6 w-full sm:w-[530px] md:w-[640px] rounded-md h-auto max-h-[340px] overflow-y-auto scrollbar">
+              {isFetching ? (
+                <div className="flex justify-center py-4">
+                  <Oval
+                    height={30}
+                    width={30}
+                    color="#404144"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="oval-loading"
+                    secondaryColor="#404144"
+                    strokeWidth={2}
+                    strokeWidthSecondary={2}
+                  />
+                </div>
+              ) : (
+                <>
                   {searchResults?.results?.map((item) => (
                     <Link
                       onClick={onClose}
@@ -67,13 +70,18 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
                       </div>
                     </Link>
                   ))}
-                </div>
+                  {searchResults?.results?.length === 0 && (
+                    <div className="py-20 text-center">
+                      <h4 className="text-sm text-gray-300">No results found</h4>
+                    </div>
+                  )}
+                </>
               )}
             </div>
-          </div>
+          )}
         </div>
-      </motion.div>
-    </AnimatePresence>
+      </div>
+    </div>
   );
 };
 

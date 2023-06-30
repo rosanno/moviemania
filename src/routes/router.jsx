@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import Home from "../views/Home";
-import PopularMovies from "../views/PopularMovies";
+import Movies from "../views/Movies";
 import TvShows from "../views/TvShows";
 import PopularPeople from "../views/PopularPeople";
 import NotFound from "../views/NotFound";
@@ -18,8 +18,8 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/popular-movies",
-        element: <PopularMovies />,
+        path: "/movies",
+        element: <Movies />,
       },
       {
         path: "/movie/details/:id",

@@ -1,7 +1,7 @@
 import { useGetNowPlayingQuery } from "../services/api";
 import Section from "./Section/Section";
 import useHorizontalScroll from "../hooks/useHorizontalScroll";
-import MovieCard from "./MovieCard";
+import MediaCard from "./MediaCard";
 
 const NowShowing = () => {
   const { scrollRef, scrollLeft, scrollRight } = useHorizontalScroll();
@@ -11,7 +11,7 @@ const NowShowing = () => {
     <Section heading="Now Showing" scrollLeft={scrollLeft} scrollRight={scrollRight}>
       <div ref={scrollRef} className="grid grid-rows-2 grid-flow-col overflow-x-auto gap-4 scrollbar">
         {nowPlaying?.results?.map((item) => (
-          <MovieCard key={item.id} media={item} isVideo="movie" />
+          <MediaCard key={item.id} media={item} isVideo="movie" />
         ))}
       </div>
     </Section>

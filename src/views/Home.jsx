@@ -13,8 +13,8 @@ import Modal from "../components/Modal";
 import PopularTvShows from "../components/PopularTvShows";
 
 const Home = () => {
-  const { data, isLoading } = useGetTrendingQuery({ type: "movies" });
-  const { randomMovie } = useGetRandomMovie(data);
+  const { data: trending, isLoading } = useGetTrendingQuery({ type: "movies" });
+  const { randomMovie } = useGetRandomMovie(trending);
   const [openModal, setModalOpen] = useState(false);
 
   useEffect(() => {

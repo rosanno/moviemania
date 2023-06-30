@@ -1,5 +1,13 @@
+import { useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+
+import "swiper/css";
+import "swiper/css/navigation";
 
 import Content from "../../components/content/Content";
 import {
@@ -12,8 +20,53 @@ import Loader from "../../components/Loader/Loader";
 import Credit from "../../components/Credit";
 import Hero from "../../components/Hero";
 import Showcase from "../../components/Showcase";
-import { useEffect, useState } from "react";
 import Modal from "../../components/Modal";
+
+const MediaSection = ({ children, heading, results, type, divider = false, spacer = false, similar = false }) => {
+  return (
+    <section className="px-3 sm:px-6 transition-all duration-1000 ease-in mt-10 sm:mt-20 custom-container">
+      {spacer && <div className="pt-4 sm:pt-20" />}
+      {divider && <div className="border-t border-gray-400/40 mb-10" />}
+      <h3 className="text-xl sm:text-3xl font-semibold text-gray-300 mb-3 sm:mb-5">
+        {heading} {similar && <span className="capitalize">{type === "movie" ? "Movies" : "TV Show"}</span>}
+      </h3>
+      {results !== 0 ? (
+        <Swiper
+          navigation={{
+            nextEl: ".button-next-slide",
+            prevEl: ".button-prev-slide",
+          }}
+          modules={[Navigation]}
+          slidesPerView={3}
+          spaceBetween={10}
+          breakpoints={{
+            640: {
+              slidesPerView: 4,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 5,
+            },
+            1024: {
+              slidesPerView: 7,
+            },
+            1280: {
+              slidesPerView: 8,
+            },
+          }}
+          className="mt-3 relative"
+        >
+          {children}
+        </Swiper>
+      ) : (
+        <h1 className="text-sm text-gray-300 pt-10 text-center">
+          No {similar ? "Similar" : "Recommendation"} for this{" "}
+          <span className="capitalize">{type === "tv" ? `${type} Show` : type}</span>
+        </h1>
+      )}
+    </section>
+  );
+};
 
 const Details = () => {
   const { pathname } = useLocation();
@@ -54,54 +107,51 @@ const Details = () => {
         <Showcase media={media} isMediaSelected={false} media_type={type} setModalOpen={setModalOpen} />
       </Content>
       <Content isSpacerOnly>
-        <section className="relative z-20 px-3 sm:px-6 transition-all duration-1000 ease-in mt-10 sm:mt-20 custom-container">
-          <div className="pt-4 sm:pt-20">
-            <h3 className="text-xl sm:text-3xl font-semibold text-gray-300">Cast</h3>
-            <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto scrollbar mt-3 sm:mt-5">
-              {credits?.cast?.map((credit) => (
-                <Link to={`/person/${credit.id}`} key={credit.id}>
-                  <Credit {...credit} />
-                </Link>
-              ))}
-            </div>
+        <MediaSection heading="Cast" spacer>
+          {credits?.cast?.map((credit) => (
+            <SwiperSlide key={credit.id}>
+              <Link to={`/person/${credit.id}`}>
+                <Credit {...credit} />
+              </Link>
+            </SwiperSlide>
+          ))}
+          <div className="button-prev-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
+            <BsChevronLeft className="text-xl" />
           </div>
-        </section>
-        <section className="relative z-20 px-3 sm:px-6 transition-all duration-1000 ease-in mt-20 custom-container">
-          <div className="border-t border-gray-400/40 mb-10" />
-          <h3 className="text-xl sm:text-3xl font-semibold text-gray-300">
-            Similar <span className="capitalize">{type === "movie" ? "Movies" : "TV Show"}</span>{" "}
-          </h3>
-          {similar?.results?.length !== 0 ? (
-            <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto scrollbar mt-3 sm:mt-5">
-              {similar?.results?.map((item) => (
-                <Link to={`/${type}/details/${item.id}`} key={item.id}>
-                  <Credit {...item} />
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <h1 className="text-sm text-gray-300 pt-10 text-center">
-              No Similar for this <span className="capitalize">{type === "tv" ? `${type} Show` : type}</span>
-            </h1>
-          )}
-        </section>
-        <section className="relative z-20 px-3 sm:px-6 transition-all duration-1000 ease-in mt-20 custom-container">
-          <div className="border-t border-gray-400/40 mb-10" />
-          <h3 className="text-xl sm:text-3xl font-semibold text-gray-300">Recommendations</h3>
-          {recommendations?.results?.length !== 0 ? (
-            <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto scrollbar mt-3 sm:mt-5">
-              {recommendations?.results?.map((recommend) => (
-                <Link to={`/${recommend.media_type}/details/${recommend.id}`} key={recommend.id}>
-                  <Credit {...recommend} />
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <h1 className="text-sm text-gray-300 pt-10 text-center">
-              No Recommendation for this <span className="capitalize">{type === "tv" ? `${type} Show` : type}</span>
-            </h1>
-          )}
-        </section>
+          <div className="button-next-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 right-0 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
+            <BsChevronRight className="text-xl" />
+          </div>
+        </MediaSection>
+        <MediaSection heading="Similar" results={similar?.results?.length} type={type} divider similar>
+          {similar?.results?.map((item) => (
+            <SwiperSlide key={item.id}>
+              <Link to={`/${type}/details/${item.id}`}>
+                <Credit {...item} />
+              </Link>
+            </SwiperSlide>
+          ))}
+          <div className="button-prev-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
+            <BsChevronLeft className="text-xl" />
+          </div>
+          <div className="button-next-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 right-0 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
+            <BsChevronRight className="text-xl" />
+          </div>
+        </MediaSection>
+        <MediaSection heading="Recommendation" results={recommendations?.results?.length} type={type} divider>
+          {recommendations?.results?.map((recommend) => (
+            <SwiperSlide key={recommend.id}>
+              <Link to={`/${recommend.media_type}/details/${recommend.id}`}>
+                <Credit {...recommend} />
+              </Link>
+            </SwiperSlide>
+          ))}
+          <div className="button-prev-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
+            <BsChevronLeft className="text-xl" />
+          </div>
+          <div className="button-next-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 right-0 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
+            <BsChevronRight className="text-xl" />
+          </div>
+        </MediaSection>
       </Content>
     </>
   );

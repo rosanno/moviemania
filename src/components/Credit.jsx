@@ -1,21 +1,22 @@
-import { IoImageOutline } from "react-icons/io5";
-
 const Credit = ({ title, name, poster_path, profile_path }) => {
   return (
     <div>
-      {poster_path || profile_path ? (
+      <div className="h-[170px] sm:h-[210px] flex flex-col justify-center">
         <img
-          src={`https://image.tmdb.org/t/p/w300${poster_path || profile_path}`}
+          src={`${
+            poster_path || profile_path
+              ? `https://image.tmdb.org/t/p/w300${poster_path || profile_path}`
+              : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
+          }`}
           alt={title || name}
           loading="lazy"
-          className="w-[130px] max-h-[180px] object-cover rounded-md"
+          className="w-full h-full md:min-h-[190px] object-cover rounded-md"
         />
-      ) : (
-        <div className="w-[130px] h-[180px] bg-gray-300 rounded-md flex items-center justify-center">
-          <IoImageOutline className="text-gray-400 text-2xl" />
-        </div>
-      )}
-      <p className="text-xs text-center max-w-[130px] pt-1">{title || name}</p>
+        <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+      </div>
+      <p className="text-xs sm:text-sm text-center text-gray-300 max-w-[130px] truncate pt-2 mt-auto">
+        {title || name}
+      </p>
     </div>
   );
 };
