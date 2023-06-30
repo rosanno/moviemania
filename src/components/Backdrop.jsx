@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { LineWave } from "react-loader-spinner";
 
 const Backdrop = ({ src, isAlwaysDisplayed, setIsVideoPlayed }) => {
   const [isDisplayed, setIsDisplayed] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     const firstTimeout = setTimeout(() => {
@@ -32,10 +34,27 @@ const Backdrop = ({ src, isAlwaysDisplayed, setIsVideoPlayed }) => {
         alt="Backdrop"
         loading="lazy"
         sizes="100vw"
+        onLoad={() => setImageLoaded(true)}
         className={`
        ${isDisplayed ? "opacity-100" : "xl:opacity-0"}
       object-cover w-full brightness-110 transition-all duration-1000 ease-in`}
       />
+      <div className="absolute top-10 left-56 sm:top-1/2 sm:left-1/2 z-20">
+        {!imageLoaded && (
+          <LineWave
+            height="100"
+            width="100"
+            color="#404144"
+            ariaLabel="line-wave"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+            firstLineColor=""
+            middleLineColor=""
+            lastLineColor=""
+          />
+        )}
+      </div>
     </>
   );
 };

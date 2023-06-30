@@ -5,6 +5,8 @@ import { useLogoFilter } from "../hooks/useLogoFilter";
 import runtime from "../helpers/runtime";
 import { BiPlay } from "react-icons/bi";
 import { convertLanguage } from "../helpers/convert-language";
+import { useState } from "react";
+import { Oval } from "react-loader-spinner";
 
 const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
   const type = media?.media_type || media_type;
@@ -13,6 +15,7 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
   const { data: humanruntime } = useGetRuntimeQuery({ type, id });
   const { logo } = useLogoFilter(data, media?.original_language);
   const langauage = convertLanguage(media?.original_language);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <>
@@ -25,22 +28,37 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
               }}
               className="relative bottom-0 max-h-56 w-full sm:absolute"
             >
-              {
-                <motion.img
-                  initial={{ opacity: 0, x: -200 }}
-                  animate={isFetching ? { opacity: 0, x: -200 } : { opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.8,
-                    ease: "easeOut",
-                    delay: 0.2,
-                  }}
-                  src={`https://image.tmdb.org/t/p/w500${logo?.file_path}`}
-                  alt=""
-                  loading="lazy"
-                  sizes="500px"
-                  className="object-contain h-full"
-                />
-              }
+              <motion.img
+                initial={{ opacity: 0, x: -200 }}
+                animate={isFetching ? { opacity: 0, x: -200 } : { opacity: 1, x: 0 }}
+                transition={{
+                  duration: 0.8,
+                  ease: "easeOut",
+                  delay: 0.2,
+                }}
+                onLoad={() => setImageLoaded(true)}
+                src={`https://image.tmdb.org/t/p/w500${logo?.file_path}`}
+                alt=""
+                loading="lazy"
+                sizes="500px"
+                className="object-contain h-full"
+              />
+              {!imageLoaded && (
+                <div className="absolute top-1/2 left-1/2">
+                  <Oval
+                    height={50}
+                    width={50}
+                    color="#404144"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="oval-loading"
+                    secondaryColor="#404144"
+                    strokeWidth={4}
+                    strokeWidthSecondary={4}
+                  />
+                </div>
+              )}
             </div>
           </div>
         )}

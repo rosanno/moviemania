@@ -13,7 +13,7 @@ import Modal from "../components/Modal";
 import PopularTvShows from "../components/PopularTvShows";
 
 const Home = () => {
-  const { data: trending, isLoading } = useGetTrendingQuery({ type: "movies" });
+  const { data: trending } = useGetTrendingQuery({ type: "movies" });
   const { randomMovie } = useGetRandomMovie(trending);
   const [openModal, setModalOpen] = useState(false);
 
@@ -37,7 +37,7 @@ const Home = () => {
       {openModal && <Modal media={randomMovie} setModalOpen={setModalOpen} openModal={openModal} />}
       <Hero media={randomMovie} />
       <Content variant="primary">
-        {isLoading ? <Loader /> : <Showcase media={randomMovie} isMediaSelected={false} setModalOpen={setModalOpen} />}
+        <Showcase media={randomMovie} isMediaSelected={false} setModalOpen={setModalOpen} />
       </Content>
       <Content isSpacerOnly>
         <NowShowing />
