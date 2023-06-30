@@ -20,6 +20,7 @@ import Credit from "../../components/Credit";
 import Hero from "../../components/Hero";
 import Showcase from "../../components/Showcase";
 import Modal from "../../components/Modal";
+import Loader from "../../components/Loader/Loader";
 
 const MediaSection = ({ children, heading, results, type, divider = false, spacer = false, similar = false }) => {
   return (
@@ -80,8 +81,16 @@ const Details = () => {
   // const genre = media?.genres?.map((genre) => genre.name).join(", ");
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
   }, [pathname]);
+
+  if (isFetching) {
+    return <Loader />;
+  }
 
   return (
     <>

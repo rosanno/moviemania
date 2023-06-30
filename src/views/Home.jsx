@@ -13,13 +13,21 @@ import Modal from "../components/Modal";
 import PopularTvShows from "../components/PopularTvShows";
 
 const Home = () => {
-  const { data: trending } = useGetTrendingQuery({ type: "movies" });
+  const { data: trending, isFetching } = useGetTrendingQuery({ type: "movies" });
   const { randomMovie } = useGetRandomMovie(trending);
   const [openModal, setModalOpen] = useState(false);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
   }, []);
+
+  if (isFetching) {
+    return <Loader />;
+  }
 
   return (
     <>
