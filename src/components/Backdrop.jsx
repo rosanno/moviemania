@@ -39,12 +39,12 @@ const Backdrop = ({ src, isAlwaysDisplayed, setIsVideoPlayed }) => {
        ${isDisplayed ? "opacity-100" : "xl:opacity-0"}
       object-cover w-full brightness-110 transition-all duration-1000 ease-in`}
       />
-      <div className="absolute top-10 left-56 sm:top-1/2 sm:left-1/2 z-20">
+      <div className="absolute top-10 left-56 sm:top-48 sm:left-1/2 z-20">
         {!imageLoaded && (
           <LineWave
             height="100"
             width="100"
-            color="#404144"
+            color="#636364"
             ariaLabel="line-wave"
             wrapperStyle={{}}
             wrapperClass=""
