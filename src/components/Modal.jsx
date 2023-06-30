@@ -11,7 +11,10 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
   const videoRef = useRef(null);
   const type = media?.media_type || isVideo;
   const id = media?.id;
-  const { data } = useGetVideoQuery({ type, id, original_language: media?.original_language }, { skip: !openModal });
+  const { data, isFetching } = useGetVideoQuery(
+    { type, id, original_language: media?.original_language },
+    { skip: !openModal }
+  );
   const { video } = useFilterVideo(data);
 
   const handlePlayVideo = () => {
@@ -58,20 +61,24 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
                       <div className="mt-2">
                         {openModal && (
                           <>
-                            {video !== undefined ? (
-                              <iframe
-                                ref={videoRef}
-                                src={`https://www.youtube.com/embed/${video?.key}/?autoplay=1&mute=1&loop=1&controls=0`}
-                                title="Playback"
-                                className="w-full h-[300px] sm:w-[520px] md:w-[930px] md:h-[600px] scale-150 object-cover brightness-110"
-                              ></iframe>
-                            ) : (
-                              <div className="flex justify-center items-center sm:h-96">
-                                <div className="flex flex-col items-center gap-2">
-                                  <BsCameraVideoOff className="text-2xl" />
-                                  <h1 className="text-xl">No video</h1>
-                                </div>
-                              </div>
+                            {!isFetching && (
+                              <>
+                                {video !== undefined ? (
+                                  <iframe
+                                    ref={videoRef}
+                                    src={`https://www.youtube.com/embed/${video?.key}/?autoplay=1&mute=1&loop=1&controls=0`}
+                                    title="Playback"
+                                    className="w-full h-[300px] sm:w-[520px] md:w-[930px] md:h-[600px] scale-150 object-cover brightness-110"
+                                  ></iframe>
+                                ) : (
+                                  <div className="flex justify-center items-center sm:h-[480px]">
+                                    <div className="flex flex-col items-center gap-2">
+                                      <BsCameraVideoOff className="text-2xl text-gray-400" />
+                                      <h1 className="text-xl text-gray-400 font-semibold">No video</h1>
+                                    </div>
+                                  </div>
+                                )}
+                              </>
                             )}
                           </>
                         )}
