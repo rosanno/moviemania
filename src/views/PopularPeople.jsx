@@ -6,11 +6,13 @@ import Content from "../components/content/Content";
 import { useGetPopularPeopleQuery } from "../services/api";
 import Button from "../components/Button/Button";
 import Loader from "../components/Loader/Loader";
+import useInfinityScroll from "../hooks/useInfinityScroll";
+import { Oval } from "react-loader-spinner";
 
 const PopularPeople = () => {
   const [page, setPage] = useState(1);
-  const [loadMore, setLoadMore] = useState(false);
   const { data: people, isLoading, isFetching } = useGetPopularPeopleQuery({ page });
+  const [handleLoadMore, loadMore] = useInfinityScroll(isFetching, page, setPage);
 
   useEffect(() => {
     document.documentElement.scrollTo({
@@ -19,29 +21,6 @@ const PopularPeople = () => {
       behavior: "instant",
     });
   }, []);
-  useEffect(() => {
-    if (!loadMore) return;
-
-    const onScroll = () => {
-      const scrolledToBottom =
-        document.documentElement.clientHeight + window.scrollY >= document.documentElement.offsetHeight * 0.9;
-      if (scrolledToBottom && !isFetching) {
-        console.log("Fetching more data...");
-        setPage((prev) => prev + 1);
-      }
-    };
-
-    document.addEventListener("scroll", onScroll);
-
-    return () => {
-      document.removeEventListener("scroll", onScroll);
-    };
-  }, [page, isFetching, loadMore]);
-
-  const handleLoadMore = () => {
-    setLoadMore(true);
-    setPage((prev) => prev + 1);
-  };
 
   if (isLoading) {
     return <Loader />;
@@ -57,6 +36,22 @@ const PopularPeople = () => {
               <People key={index} movie={movie} />
             ))}
           </Grid>
+          {loadMore && isFetching && (
+            <div className="flex justify-center mt-6">
+              <Oval
+                height={40}
+                width={40}
+                color="#404144"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel="oval-loading"
+                secondaryColor="#404144"
+                strokeWidth={2}
+                strokeWidthSecondary={2}
+              />
+            </div>
+          )}
           {!loadMore && (
             <div className="flex justify-center">
               <Button handleClick={handleLoadMore}>Load more...</Button>
