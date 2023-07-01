@@ -26,7 +26,7 @@ const MediaSection = ({ children, heading, results, type, divider = false, space
   return (
     <section className="px-3 sm:px-6 transition-all duration-1000 ease-in mt-10 sm:mt-20 custom-container">
       {spacer && <div className="pt-4 sm:pt-20" />}
-      {divider && <div className="border-t border-gray-400/40 mb-10" />}
+      {divider && <div className="border-t border-gray-400/10 mb-10" />}
       <h3 className="text-xl sm:text-3xl font-semibold text-gray-300 mb-3 sm:mb-5">
         {heading} {similar && <span className="capitalize">{type === "movie" ? "Movies" : "TV Show"}</span>}
       </h3>
