@@ -69,6 +69,11 @@ const TvShows = () => {
     });
   }, []);
 
+  const handleReset = () => {
+    setFromDate("");
+    setToDate("");
+  };
+
   return (
     <>
       <FilteringSidebar
@@ -134,6 +139,12 @@ const TvShows = () => {
                   <div className="mt-2">
                     <DateInput label="From" setDate={setFromDate} />
                     <DateInput label="To" setDate={setToDate} />
+                    <button
+                      onClick={handleReset}
+                      className="bg-yellow-400 hover:bg-yellow-500 transition-colors duration-300 text-sm font-semibold text-gray-50 capitalize w-full py-1.5 rounded-md mt-4"
+                    >
+                      clear dates
+                    </button>
                   </div>
                 </div>
               </FilteringCard>
