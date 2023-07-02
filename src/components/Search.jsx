@@ -19,7 +19,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search for a movies, tv shows, person"
-            className="w-full bg-transparent p-2 font-normal outline-none"
+            className="w-full bg-transparent p-2 font-normal outline-none text-sm sm:text-base"
           />
           <HiOutlineMagnifyingGlass className="text-xl" />
         </div>
@@ -46,7 +46,9 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
                   {searchResults?.results?.map((item) => (
                     <Link
                       onClick={onClose}
-                      to={`/${item.media_type}${item.media_type === "person" ? "" : "/details"}/${item.id}`}
+                      to={`/${item.media_type}${item.media_type === "person" ? "" : "/details"}/${
+                        item.id
+                      }`}
                       key={item.id}
                       className="my-2 block"
                     >
@@ -54,7 +56,9 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
                         <img
                           src={`${
                             item?.poster_path !== null && item?.profile_path !== null
-                              ? `https://image.tmdb.org/t/p/w300${item?.poster_path || item?.profile_path}`
+                              ? `https://image.tmdb.org/t/p/w300${
+                                  item?.poster_path || item?.profile_path
+                                }`
                               : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
                           } `}
                           alt=""
@@ -65,7 +69,9 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
                           <p className="text-xs pt-1 text-gray-400 capitalize">
                             <span>{item.media_type}</span>
                           </p>
-                          <p className="text-xs pt-2 text-gray-400 truncate overflow-hidden">{item.overview}</p>
+                          <p className="text-xs pt-2 text-gray-400 truncate overflow-hidden">
+                            {item.overview}
+                          </p>
                         </div>
                       </div>
                     </Link>
