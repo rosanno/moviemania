@@ -7,6 +7,7 @@ import { FiTwitter } from "react-icons/fi";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -67,7 +68,8 @@ const PersonDetails = () => {
   const { data: externalIds } = useGetExternalIDQuery({ id });
   const [bioLength, setBioLength] = useState(450);
 
-  const sortedCreditMovie = creditMovie?.cast && [...creditMovie.cast]?.sort((a, b) => b.vote_count - a.vote_count);
+  const sortedCreditMovie =
+    creditMovie?.cast && [...creditMovie.cast]?.sort((a, b) => b.vote_count - a.vote_count);
 
   useEffect(() => {
     document.documentElement.scrollTo({
@@ -135,7 +137,11 @@ const PersonDetails = () => {
                 />
               )}
               {externalIds?.tiktok_id && (
-                <SocialAccounts url="https://www.tiktok.com/" social_id={externalIds?.tiktok_id} icon={<BsTiktok />} />
+                <SocialAccounts
+                  url="https://www.tiktok.com/"
+                  social_id={externalIds?.tiktok_id}
+                  icon={<BsTiktok />}
+                />
               )}
               {externalIds?.youtube_id && (
                 <SocialAccounts
@@ -178,7 +184,10 @@ const PersonDetails = () => {
                       Read More <BiChevronRight className="text-2xl" />
                     </button>
                   ) : (
-                    <button className="text-sm text-yellow-500 flex items-center" onClick={() => setBioLength(450)}>
+                    <button
+                      className="text-sm text-yellow-500 flex items-center"
+                      onClick={() => setBioLength(450)}
+                    >
                       Read less <BiChevronRight className="text-2xl" />
                     </button>
                   )}
@@ -210,20 +219,12 @@ const PersonDetails = () => {
                     </div>
                   ) : (
                     <div className="relative w-full xl:w-[865px] mt-1">
-                      <button
-                        className="hidden sm:inline-block absolute z-10 top-1/3 sm:-left-4 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full"
-                        onClick={handlePrev}
-                      >
-                        <BsChevronLeft className="text-lg" />
-                      </button>
-                      <button
-                        className="hidden sm:inline-block absolute z-10 top-1/3 right-0 sm:-right-4 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full"
-                        onClick={handleNext}
-                      >
-                        <BsChevronRight />
-                      </button>
                       <Swiper
-                        ref={sliderRef}
+                        navigation={{
+                          nextEl: ".button-next-slide",
+                          prevEl: ".button-prev-slide",
+                        }}
+                        modules={[Navigation]}
                         slidesPerView={3}
                         spaceBetween={10}
                         breakpoints={{
@@ -241,15 +242,25 @@ const PersonDetails = () => {
                             slidesPerView: 6,
                           },
                         }}
-                        className="mySwiper"
+                        className=""
                       >
                         {sortedCreditMovie?.map((credit) => (
                           <SwiperSlide key={credit.id}>
-                            <Link to={`/${credit.media_type === "movie" ? "movie" : "tv"}/details/${credit.id}`}>
+                            <Link
+                              to={`/${credit.media_type === "movie" ? "movie" : "tv"}/details/${
+                                credit.id
+                              }`}
+                            >
                               <Credit {...credit} />
                             </Link>
                           </SwiperSlide>
                         ))}
+                        <button className="button-prev-slide hidden sm:inline-block absolute z-10 top-1/3 left-1  bg-action-dark/40 backdrop-blur p-2 rounded-full">
+                          <BsChevronLeft className="text-lg" />
+                        </button>
+                        <button className="button-next-slide hidden sm:inline-block absolute z-10 top-1/3 right-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
+                          <BsChevronRight />
+                        </button>
                       </Swiper>
                     </div>
                   )}
