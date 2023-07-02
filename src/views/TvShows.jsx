@@ -185,7 +185,7 @@ const TvShows = () => {
                           />
                         </div>
                       )}
-                      {!isLoading && (
+                      {!isLoading && popular?.total_pages !== 1 && (
                         <div className="flex justify-center">
                           <Button handleClick={handleLoadMore}>Load more...</Button>
                         </div>
