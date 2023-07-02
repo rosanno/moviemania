@@ -56,7 +56,8 @@ const PopularMovies = () => {
     selectedRegion,
   });
   const { data: genres } = useGetMovieGenreQuery({ type: "movies" });
-  const [handleLoadMore, loadMore] = useInfinityScroll(isFetching, page, setPage);
+  const total_pages = popular?.total_pages;
+  const [handleLoadMore, loadMore] = useInfinityScroll(isFetching, page, setPage, total_pages);
   const [open, setOpen] = useState(false);
 
   const handleSelectedRegion = (selected) => {

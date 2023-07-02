@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useInfinityScroll = (isFetching, page, setPage) => {
+const useInfinityScroll = (isFetching, page, setPage, total_pages) => {
   const [loadMore, setLoadMore] = useState(false);
 
   useEffect(() => {
@@ -8,8 +8,9 @@ const useInfinityScroll = (isFetching, page, setPage) => {
 
     const onScroll = () => {
       const scrolledToBottom =
-        document.documentElement.clientHeight + window.scrollY >= document.documentElement.offsetHeight * 0.8;
-      if (scrolledToBottom && !isFetching) {
+        document.documentElement.clientHeight + window.scrollY >=
+        document.documentElement.offsetHeight * 0.8;
+      if (scrolledToBottom && !isFetching && page < total_pages) {
         console.log("Fetching more data...");
         setPage((prev) => prev + 1);
       }
@@ -20,7 +21,7 @@ const useInfinityScroll = (isFetching, page, setPage) => {
     return () => {
       document.removeEventListener("scroll", onScroll);
     };
-  }, [loadMore, page, isFetching, setPage]);
+  }, [loadMore, page, isFetching, setPage, total_pages]);
 
   const handleLoadMore = () => {
     setLoadMore(true);

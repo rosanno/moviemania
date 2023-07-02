@@ -12,7 +12,8 @@ import { Oval } from "react-loader-spinner";
 const PopularPeople = () => {
   const [page, setPage] = useState(1);
   const { data: people, isLoading, isFetching } = useGetPopularPeopleQuery({ page });
-  const [handleLoadMore, loadMore] = useInfinityScroll(isFetching, page, setPage);
+  const total_pages = people?.total_pages;
+  const [handleLoadMore, loadMore] = useInfinityScroll(isFetching, page, setPage, total_pages);
 
   useEffect(() => {
     document.documentElement.scrollTo({
