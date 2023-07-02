@@ -30,7 +30,9 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
             >
               <motion.img
                 initial={{ opacity: 0, x: -200 }}
-                animate={isFetching ? { opacity: 0, x: -200 } : { opacity: 1, x: 0 }}
+                animate={
+                  isFetching && !imageLoaded ? { opacity: 0, x: -200 } : { opacity: 1, x: 0 }
+                }
                 transition={{
                   duration: 0.8,
                   ease: "easeOut",
@@ -63,11 +65,7 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
         <div className="space-y-4">
           <motion.div
             initial={{ opacity: 0, x: -300 }}
-            animate={
-              isFetching && !imageLoaded && logo?.file_path
-                ? { opacity: 0, x: -300 }
-                : { opacity: 1, x: 0 }
-            }
+            animate={isFetching && !imageLoaded ? { opacity: 0, x: -300 } : { opacity: 1, x: 0 }}
             transition={{
               duration: 0.8,
               ease: "easeOut",
@@ -88,11 +86,7 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 40 }}
-            animate={
-              isFetching && !imageLoaded && logo?.file_path
-                ? { opacity: 0, y: 40 }
-                : { opacity: 1, y: 0 }
-            }
+            animate={isFetching && !imageLoaded ? { opacity: 0, y: 40 } : { opacity: 1, y: 0 }}
             transition={{
               duration: 0.8,
               ease: "easeOut",
@@ -105,11 +99,7 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
         </div>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={
-            isFetching && !imageLoaded && logo?.file_path
-              ? { opacity: 0, y: 30 }
-              : { opacity: 1, y: 0 }
-          }
+          animate={isFetching && !imageLoaded ? { opacity: 0, y: 30 } : { opacity: 1, y: 0 }}
           transition={{
             duration: 0.8,
             ease: "easeOut",
