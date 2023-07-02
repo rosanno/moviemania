@@ -27,8 +27,8 @@ import { Oval } from "react-loader-spinner";
 
 const TvShows = () => {
   const [page, setPage] = useState(1);
-  const [fromDate, setFromDate] = useState();
-  const [toDate, setToDate] = useState();
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
   const [selectedRegion, setSelectedRegion] = useState({
     iso_3166_1: "PH",
     english_name: "Philippines",
@@ -51,7 +51,10 @@ const TvShows = () => {
     sort: sort.value,
   });
   const { data: regions } = useGetRegionsQuery();
-  const { data: watchProviders, isFetching: watchFetching } = useGetWatchProvidersQuery({ type: "tv", selectedRegion });
+  const { data: watchProviders, isFetching: watchFetching } = useGetWatchProvidersQuery({
+    type: "tv",
+    selectedRegion,
+  });
   const { data: genres } = useGetMovieGenreQuery({ type: "tv" });
   const [handleLoadMore, loadMore] = useInfinityScroll(isFetching, page, setPage);
   const [open, setOpen] = useState(false);
@@ -89,9 +92,12 @@ const TvShows = () => {
         genre={genre}
         setFromDate={setFromDate}
         setToDate={setToDate}
+        fromDate={fromDate}
+        toDate={toDate}
         watchProviders={watchProviders?.results}
         selectedWatchProviders={selectedWatchProviders}
         handleWatchProvider={handleWatchProvider}
+        onResetDate={handleReset}
       />
       <Content variant="secondary">
         <section className="mt-16 sm:mt-20 md:mt-32 px-3 sm:px-6 transition-all duration-1000 ease-in">

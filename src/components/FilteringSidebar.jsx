@@ -21,9 +21,12 @@ const FilteringSidebar = ({
   genre,
   setFromDate,
   setToDate,
+  fromDate,
+  toDate,
   watchProviders,
   selectedWatchProviders,
   handleWatchProvider,
+  onResetDate,
 }) => {
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -79,8 +82,15 @@ const FilteringSidebar = ({
                     </div>
                     <div className="relative mt-3 flex-1 px-4 sm:px-6">
                       <div className="border-t mb-3 border-gray-700" />
-                      <SortSelect data={sorts} sort={sort} setSort={setSort} label="Sort Results By" />
-                      <Dialog.Title className="text-lg leading-6 text-white mt-6">Filtered</Dialog.Title>
+                      <SortSelect
+                        data={sorts}
+                        sort={sort}
+                        setSort={setSort}
+                        label="Sort Results By"
+                      />
+                      <Dialog.Title className="text-lg leading-6 text-white mt-6">
+                        Filtered
+                      </Dialog.Title>
                       <div className="border-t mt-3 border-gray-700" />
                       <div className="mt-3">
                         <h3 className="text-sm font-light">Where to Watch</h3>
@@ -105,8 +115,14 @@ const FilteringSidebar = ({
                       <div className="mt-3">
                         <div className="border-t mb-3 border-gray-700" />
                         <h3 className="text-sm font-light">Release Dates</h3>
-                        <DateInput label="From" setDate={setFromDate} />
-                        <DateInput label="To" setDate={setToDate} />
+                        <DateInput label="From" setDate={setFromDate} date={fromDate} />
+                        <DateInput label="To" setDate={setToDate} date={toDate} />
+                        <button
+                          onClick={onResetDate}
+                          className="bg-yellow-400 hover:bg-yellow-500 transition-colors duration-300 text-sm font-semibold text-gray-50 capitalize w-full py-1.5 rounded-md mt-4"
+                        >
+                          clear dates
+                        </button>
                       </div>
                     </div>
                   </div>
