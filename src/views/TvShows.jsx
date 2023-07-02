@@ -133,7 +133,7 @@ const TvShows = () => {
               </FilteringCard>
               <FilteringCard heading="Filters" subHeading="Genre" divider dateInputs>
                 <Genre genres={genres} handleGenre={handleGenre} genre={genre} />
-                <div className="border-t border-t-gray-600 my-4" />
+                <div className="border-t border-t-gray-600/20 my-4" />
                 <div className="px-4">
                   <h4 className="text-sm font-light">Release Dates</h4>
                   <div className="mt-2">
