@@ -67,6 +67,7 @@ const PersonDetails = () => {
   const { data: profiles } = useGetProfileQuery({ id });
   const { data: externalIds } = useGetExternalIDQuery({ id });
   const [bioLength, setBioLength] = useState(450);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const sortedCreditMovie =
     creditMovie?.cast && [...creditMovie.cast]?.sort((a, b) => b.vote_count - a.vote_count);
@@ -107,7 +108,10 @@ const PersonDetails = () => {
                 src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${details?.profile_path}`}
                 alt={details?.name}
                 loading="lazy"
-                className="w-full object-cover rounded-md overflow-hidden"
+                onLoad={() => setImageLoaded(true)}
+                className={`w-full object-cover rounded-md overflow-hidden ${
+                  !imageLoaded && "filter blur-sm"
+                }`}
               />
             ) : (
               <div className="h-[380px] w-[300px] sm:w-[340px] md:w-[290px] xl:w-[300px] rounded-md bg-gray-300 flex items-center justify-center">
@@ -277,7 +281,8 @@ const PersonDetails = () => {
                         src={`https://www.themoviedb.org/t/p/w300${profile.file_path}`}
                         alt=""
                         loading="lazy"
-                        className="rounded-md"
+                        onLoad={() => setImageLoaded(true)}
+                        className={`rounded-md ${!imageLoaded && "filter blur-sm"}`}
                       />
                     </div>
                   ))}
