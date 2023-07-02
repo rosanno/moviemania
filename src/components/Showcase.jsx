@@ -43,22 +43,6 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
                 sizes="500px"
                 className="object-contain h-full"
               />
-              {!imageLoaded && (
-                <div className="absolute top-1/2 left-1/2">
-                  <Oval
-                    height={50}
-                    width={50}
-                    color="#404144"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    visible={true}
-                    ariaLabel="oval-loading"
-                    secondaryColor="#404144"
-                    strokeWidth={4}
-                    strokeWidthSecondary={4}
-                  />
-                </div>
-              )}
             </div>
           </div>
         )}
@@ -79,7 +63,11 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
         <div className="space-y-4">
           <motion.div
             initial={{ opacity: 0, x: -300 }}
-            animate={isFetching ? { opacity: 0, x: -300 } : { opacity: 1, x: 0 }}
+            animate={
+              isFetching && !imageLoaded && logo?.file_path
+                ? { opacity: 0, x: -300 }
+                : { opacity: 1, x: 0 }
+            }
             transition={{
               duration: 0.8,
               ease: "easeOut",
@@ -89,14 +77,22 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
           >
             <p className="font-semibold text-gray-300">
               {media?.release_date?.slice(0, 4) ? media?.release_date?.slice(0, 4) : "New"} •{" "}
-              {type === "movie" ? runtime(humanruntime?.runtime) : `${humanruntime?.number_of_seasons} Seasons`} •{" "}
-              {langauage?.en.name || "English"} •
+              {type === "movie"
+                ? runtime(humanruntime?.runtime)
+                : `${humanruntime?.number_of_seasons} Seasons`}{" "}
+              • {langauage?.en.name || "English"} •
             </p>
-            <div className="rounded bg-rated-dark px-2 py-0.5 font-semibold sm:py-0">{media?.adult ? "18+" : "PG"}</div>
+            <div className="rounded bg-rated-dark px-2 py-0.5 font-semibold sm:py-0">
+              {media?.adult ? "18+" : "PG"}
+            </div>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 40 }}
-            animate={isFetching ? { opacity: 0, y: 40 } : { opacity: 1, y: 0 }}
+            animate={
+              isFetching && !imageLoaded && logo?.file_path
+                ? { opacity: 0, y: 40 }
+                : { opacity: 1, y: 0 }
+            }
             transition={{
               duration: 0.8,
               ease: "easeOut",
@@ -109,7 +105,11 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
         </div>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={isFetching ? { opacity: 0, y: 30 } : { opacity: 1, y: 0 }}
+          animate={
+            isFetching && !imageLoaded && logo?.file_path
+              ? { opacity: 0, y: 30 }
+              : { opacity: 1, y: 0 }
+          }
           transition={{
             duration: 0.8,
             ease: "easeOut",
