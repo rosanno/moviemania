@@ -15,7 +15,9 @@ const CountrySelect = ({ data, label, selectedRegion, handleSelectedRegion }) =>
           <div className="relative mt-2">
             <Listbox.Button className="relative w-full cursor-default rounded-md bg-neutral-700 py-1 pl-1 pr-10 text-left text-white shadow-sm ring-1 ring-inset ring-neutral-500 focus:outline-none focus:ring-2 focus:ring-[#FFAE06] sm:text-sm sm:leading-6">
               <span className="flex items-center">
-                <span className="ml-3 block truncate">{selectedRegion.english_name}</span>
+                <span className="ml-3 text-sm sm:text-base block truncate">
+                  {selectedRegion.english_name}
+                </span>
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                 <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -45,7 +47,10 @@ const CountrySelect = ({ data, label, selectedRegion, handleSelectedRegion }) =>
                       <>
                         <div className="flex items-center">
                           <span
-                            className={classNames(selected ? "font-semibold" : "font-normal", "ml-3 block truncate")}
+                            className={classNames(
+                              selected ? "font-semibold" : "font-normal",
+                              "ml-3 block truncate text-sm sm:text-base"
+                            )}
                           >
                             {item.english_name}
                           </span>

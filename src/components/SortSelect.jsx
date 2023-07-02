@@ -45,7 +45,10 @@ const SortSelect = ({ data, sort, setSort, label }) => {
                       <>
                         <div className="flex items-center">
                           <span
-                            className={classNames(selected ? "font-semibold" : "font-normal", "ml-3 block truncate")}
+                            className={classNames(
+                              selected ? "font-semibold" : "font-normal",
+                              "ml-3 block truncate text-sm"
+                            )}
                           >
                             {sort.label}
                           </span>

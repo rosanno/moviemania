@@ -78,7 +78,9 @@ const FilteringSidebar = ({
                   </Transition.Child>
                   <div className="flex h-full flex-col overflow-y-scroll scrollbar bg-background-dark py-6 shadow-xl">
                     <div className="px-4 sm:px-6">
-                      <Dialog.Title className="text-lg leading-6 text-white">Sorting</Dialog.Title>
+                      <Dialog.Title className="text-sm font-semibold leading-6 text-white">
+                        Sorting
+                      </Dialog.Title>
                     </div>
                     <div className="relative mt-3 flex-1 px-4 sm:px-6">
                       <div className="border-t mb-3 border-gray-700" />
@@ -88,7 +90,7 @@ const FilteringSidebar = ({
                         setSort={setSort}
                         label="Sort Results By"
                       />
-                      <Dialog.Title className="text-lg leading-6 text-white mt-6">
+                      <Dialog.Title className="text-sm sm:text-lg font-semibold leading-6 text-white mt-6">
                         Filtered
                       </Dialog.Title>
                       <div className="border-t mt-3 border-gray-700" />
