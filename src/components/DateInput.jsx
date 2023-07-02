@@ -4,7 +4,7 @@ const DateInput = ({ label, setDate }) => {
       <label className="text-sm">{label}</label>
       <input
         type="date"
-        className="text-sm px-2 py-1.5 my-1 rounded-md"
+        className="text-sm text-gray-400 px-2 py-1.5 my-1 rounded-md"
         onChange={(e) => setDate(e.target.value)}
       />
     </div>
