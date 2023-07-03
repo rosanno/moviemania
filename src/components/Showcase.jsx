@@ -6,7 +6,6 @@ import runtime from "../helpers/runtime";
 import { BiPlay } from "react-icons/bi";
 import { convertLanguage } from "../helpers/convert-language";
 import { useState } from "react";
-import { Oval } from "react-loader-spinner";
 
 const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
   const type = media?.media_type || media_type;

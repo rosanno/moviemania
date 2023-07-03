@@ -16,7 +16,9 @@ const Hero = ({ media }) => {
   return (
     <section className="sticky -z-10 aspect-video max-h-screen w-full overflow-hidden sm:top-0">
       <div className="relative h-full w-full">
-        {isVideoPlayed && <>{video ? <Playback src={`https://www.youtube.com/embed/${video?.key}`} /> : null}</>}
+        {isVideoPlayed && (
+          <>{video ? <Playback src={`https://www.youtube.com/embed/${video?.key}`} /> : null}</>
+        )}
         <Backdrop
           src={media?.backdrop_path}
           isAlwaysDisplayed={video ? true : false}
