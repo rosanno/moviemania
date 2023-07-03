@@ -129,7 +129,7 @@ const TvShows = () => {
                     handleSelectedRegion={handleSelectedRegion}
                   />
                 </div>
-                <div className="px-4 mt-2 overflow-y-scroll h-[300px] max-h-[360px] scrollbar scroll-smooth">
+                <div className="px-4 mt-2 overflow-y-scroll h-[300px] max-h-[360px] scrollbar-none scroll-smooth">
                   <WatchProvider
                     data={watchProviders?.results}
                     selectedWatchProviders={selectedWatchProviders}
