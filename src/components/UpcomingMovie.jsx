@@ -11,7 +11,10 @@ function UpcomingMovie() {
 
   return (
     <Section heading="Upcoming Movies" scrollLeft={scrollLeft} scrollRight={scrollRight}>
-      <div ref={scrollRef} className="grid grid-rows-2 grid-flow-col gap-4 md:mt-7 overflow-x-auto scrollbar">
+      <div
+        ref={scrollRef}
+        className="grid grid-rows-2 grid-flow-col gap-4 md:mt-7 overflow-x-auto scrollbar-none"
+      >
         {data?.results?.map((item) => (
           <MediaCard key={item.id} media={item} isVideo="movie" />
         ))}

@@ -6,6 +6,12 @@
   color-scheme: dark;
 }
 
+@layer base {
+   body {
+    @apply scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-neutral-900
+   }
+}
+
 @layer components {
   .transition-smooth {
     @apply transition-all duration-150 ease-in;
