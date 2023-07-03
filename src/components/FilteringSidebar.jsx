@@ -76,7 +76,7 @@ const FilteringSidebar = ({
                       </button>
                     </div>
                   </Transition.Child>
-                  <div className="flex h-full flex-col overflow-y-scroll scrollbar bg-background-dark py-6 shadow-xl">
+                  <div className="flex h-full flex-col overflow-y-scroll scrollbar-none bg-background-dark py-6 shadow-xl">
                     <div className="px-4 sm:px-6">
                       <Dialog.Title className="text-sm font-semibold leading-6 text-white">
                         Sorting
@@ -101,7 +101,7 @@ const FilteringSidebar = ({
                           selectedRegion={selectedRegion}
                           handleSelectedRegion={handleSelectedRegion}
                         />
-                        <div className="overflow-y-scroll max-h-[360px] scrollbar scroll-smooth">
+                        <div className="overflow-y-scroll max-h-[360px] scrollbar-none scroll-smooth">
                           <WatchProvider
                             data={watchProviders}
                             selectedWatchProviders={selectedWatchProviders}
