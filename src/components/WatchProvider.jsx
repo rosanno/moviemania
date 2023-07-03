@@ -2,6 +2,8 @@ import React from "react";
 import { Oval } from "react-loader-spinner";
 
 const WatchProvider = ({ data, selectedWatchProviders, handleWatchProvider, loading }) => {
+  const isTouchDevice = "ontouchstart" in window || navigator.msMaxTouchPoints > 0;
+
   return (
     <>
       {loading ? (
@@ -30,7 +32,7 @@ const WatchProvider = ({ data, selectedWatchProviders, handleWatchProvider, load
                 <img
                   src={`https://www.themoviedb.org/t/p/original${provider.logo_path}`}
                   alt=""
-                  className={`hover:opacity-30 ${
+                  className={`${!isTouchDevice && "hover:opacity-30"} ${
                     selectedWatchProviders.includes(provider.provider_id) ? "opacity-30" : ""
                   } transition duration-300`}
                 />
