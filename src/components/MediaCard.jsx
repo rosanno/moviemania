@@ -40,14 +40,19 @@ const MovieCard = ({ media, isVideo }) => {
           <h2 className="text-lg sm:text-2xl group-hover:text-base transition duration-300 font-bold">
             {media?.title || media?.name}
           </h2>
-          <span className="text-gray-300 capitalize text-sm">{language?.en.name ? language?.en.name : "English"}</span>{" "}
-          • <span className="text-sm text-gray-300">{moment(media?.release_date).format("MMMM D YYYY")}</span>
+          <span className="text-gray-300 capitalize text-sm">
+            {language?.en.name ? language?.en.name : "English"}
+          </span>{" "}
+          •{" "}
+          <span className="text-sm text-gray-300">
+            {moment(media?.release_date).format("MMMM D YYYY")}
+          </span>
         </div>
         <div className="absolute bottom-0 left-0 right-0 z-10 group-hover:h-full h-0 transition-all duration-300 bg-black/30 backdrop-blur rounded-md overflow-hidden">
           <div className="translate-y-28 px-5 py-1">
             <h4 className="font-bold text-sm">Overview</h4>
           </div>
-          <div className="h-[60px] overflow-y-auto scrollbar px-5 translate-y-28">
+          <div className="h-[60px] overflow-y-auto scrollbar-none px-5 translate-y-28">
             <p className="text-xs sm:text-sm">{media?.overview}</p>
           </div>
           <div className="px-5 translate-y-28 flex gap-3 mt-4">
