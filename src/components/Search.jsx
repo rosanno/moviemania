@@ -25,7 +25,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
         </div>
         <div className="absolute top-16 flex flex-col items-center w-full px-2">
           {query !== "" && (
-            <div className="bg-black/80 backdrop-blur px-6 w-full sm:w-[530px] md:w-[640px] rounded-md h-auto max-h-[340px] overflow-y-auto scrollbar-none">
+            <div className="bg-black/80 backdrop-blur w-full sm:w-[530px] md:w-[640px] rounded-md h-auto max-h-[340px] overflow-y-auto scrollbar-none">
               {isFetching ? (
                 <div className="flex justify-center py-4">
                   <Oval
@@ -50,7 +50,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
                         item.id
                       }`}
                       key={item.id}
-                      className="my-2 block"
+                      className="my-2 block hover:bg-gray-500/10 transition-none duration-300 px-6 py-2"
                     >
                       <div className="flex gap-2">
                         <img
