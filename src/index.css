@@ -32,6 +32,10 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+    -webkit-tap-highlight-color: transparent;
+}
+
 /* loader */
 .loader {
   width: 40px;
