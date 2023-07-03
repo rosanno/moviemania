@@ -22,13 +22,22 @@ import Showcase from "../../components/Showcase";
 import Modal from "../../components/Modal";
 import Loader from "../../components/Loader/Loader";
 
-const MediaSection = ({ children, heading, results, type, divider = false, spacer = false, similar = false }) => {
+const MediaSection = ({
+  children,
+  heading,
+  results,
+  type,
+  divider = false,
+  spacer = false,
+  similar = false,
+}) => {
   return (
     <section className="px-3 sm:px-6 transition-all duration-1000 ease-in mt-10 sm:mt-20 custom-container">
       {spacer && <div className="pt-4 sm:pt-20" />}
       {divider && <div className="border-t border-gray-400/10 mb-10" />}
       <h3 className="text-xl sm:text-3xl font-semibold text-gray-300 mb-3 sm:mb-5">
-        {heading} {similar && <span className="capitalize">{type === "movie" ? "Movies" : "TV Show"}</span>}
+        {heading}{" "}
+        {similar && <span className="capitalize">{type === "movie" ? "Movies" : "TV Show"}</span>}
       </h3>
       {results !== 0 ? (
         <Swiper
@@ -105,10 +114,17 @@ const Details = () => {
           className="fixed z-40 inset-0 overflow-hidden bg-gradient-to-r from-black/80 backdrop-blur"
         />
       )}
-      {openModal && <Modal media={media} setModalOpen={setModalOpen} openModal={openModal} isVideo={type} />}
+      {openModal && (
+        <Modal media={media} setModalOpen={setModalOpen} openModal={openModal} isVideo={type} />
+      )}
       <Hero media={media} />
       <Content variant="primary">
-        <Showcase media={media} isMediaSelected={false} media_type={type} setModalOpen={setModalOpen} />
+        <Showcase
+          media={media}
+          isMediaSelected={false}
+          media_type={type}
+          setModalOpen={setModalOpen}
+        />
       </Content>
       <Content isSpacerOnly>
         <MediaSection heading="Cast" spacer>
@@ -126,7 +142,13 @@ const Details = () => {
             <BsChevronRight className="text-xl" />
           </div>
         </MediaSection>
-        <MediaSection heading="Similar" results={similar?.results?.length} type={type} divider similar>
+        <MediaSection
+          heading="Similar"
+          results={similar?.results?.length}
+          type={type}
+          divider
+          similar
+        >
           {similar?.results?.map((item) => (
             <SwiperSlide key={item.id}>
               <Link to={`/${type}/details/${item.id}`}>
@@ -141,7 +163,12 @@ const Details = () => {
             <BsChevronRight className="text-xl" />
           </div>
         </MediaSection>
-        <MediaSection heading="Recommendation" results={recommendations?.results?.length} type={type} divider>
+        <MediaSection
+          heading="Recommendation"
+          results={recommendations?.results?.length}
+          type={type}
+          divider
+        >
           {recommendations?.results?.map((recommend) => (
             <SwiperSlide key={recommend.id}>
               <Link to={`/${recommend.media_type}/details/${recommend.id}`}>
