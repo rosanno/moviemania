@@ -25,7 +25,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
         </div>
         <div className="absolute top-16 flex flex-col items-center w-full px-2">
           {query !== "" && (
-            <div className="bg-black/80 backdrop-blur px-6 w-full sm:w-[530px] md:w-[640px] rounded-md h-auto max-h-[340px] overflow-y-auto scrollbar">
+            <div className="bg-black/80 backdrop-blur px-6 w-full sm:w-[530px] md:w-[640px] rounded-md h-auto max-h-[340px] overflow-y-auto scrollbar-none">
               {isFetching ? (
                 <div className="flex justify-center py-4">
                   <Oval
