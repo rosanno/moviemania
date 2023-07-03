@@ -32,7 +32,7 @@ const WatchProvider = ({ data, selectedWatchProviders, handleWatchProvider, load
                 <img
                   src={`https://www.themoviedb.org/t/p/original${provider.logo_path}`}
                   alt=""
-                  className={`${!isTouchDevice && "hover:opacity-30"} ${
+                  className={`${!isTouchDevice ? "hover:opacity-30" : ""} ${
                     selectedWatchProviders.includes(provider.provider_id) ? "opacity-30" : ""
                   } transition duration-300`}
                 />

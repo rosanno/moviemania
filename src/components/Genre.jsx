@@ -8,7 +8,7 @@ const Genre = ({ genres, handleGenre, genre }) => {
           key={item.id}
           onClick={() => handleGenre(item.id)}
           className={`text-sm text-gray-400 ${
-            !isTouchDevice && "hover:bg-[#FFAE06]"
+            !isTouchDevice ? "hover:bg-[#FFAE06]" : ""
           } hover:text-white ${
             genre.includes(item.id) ? "bg-[#FFAE06] text-white" : "bg-neutral-700"
           } transition duration-300 px-6 py-1.5 rounded-full`}
