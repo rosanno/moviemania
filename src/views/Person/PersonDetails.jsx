@@ -98,15 +98,21 @@ const ProfileModal = ({ profilePath, setOpenModal, openModal }) => {
         {imageLoaded && (
           <div
             className="absolute -top-4 -right-4 z-40 p-1.5 bg-black/20 backdrop-blur rounded-full cursor-pointer"
-            onClick={() => setOpenModal(false)}
+            onClick={() => {
+              setOpenModal(false);
+              setImageLoaded(false);
+            }}
           >
             <AiOutlineClose className="text-white text-lg" />
           </div>
         )}
       </div>
       <div
-        className={`fixed inset-0 z-40 bg-black/80 backdrop-blur`}
-        onClick={() => setOpenModal(false)}
+        className={`fixed inset-0 z-40 bg-black/80 backdrop-blur transition-all duration-700`}
+        onClick={() => {
+          setOpenModal(false);
+          setImageLoaded(false);
+        }}
       />
     </div>
   );
