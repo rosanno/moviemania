@@ -44,6 +44,18 @@ const MovieCard = ({ media, isVideo }) => {
             {language?.en.name ? language?.en.name : "English"}
           </span>{" "}
           •{" "}
+          <span
+            className={`${
+              media?.vote_average < 5
+                ? "bg-red-600"
+                : media?.vote_average < 7
+                ? "bg-orange-400"
+                : "bg-green-600"
+            } rounded-full px-2.5 text-black text-xs font-semibold`}
+          >
+            {media?.vote_average.toFixed(1)}
+          </span>{" "}
+          •{" "}
           <span className="text-sm text-gray-300">
             {moment(media?.release_date).format("MMMM D YYYY")}
           </span>

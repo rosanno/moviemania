@@ -77,7 +77,19 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
               {type === "movie"
                 ? runtime(humanruntime?.runtime)
                 : `${humanruntime?.number_of_seasons} Seasons`}{" "}
-              • {langauage?.en.name || "English"} •
+              • {langauage?.en.name || "English"} •{" "}
+              <span
+                className={`${
+                  media?.vote_average < 5
+                    ? "bg-red-600"
+                    : media?.vote_average < 7
+                    ? "bg-orange-400"
+                    : "bg-green-600"
+                } rounded-full px-2.5 text-black`}
+              >
+                {media?.vote_average.toFixed(1)}
+              </span>{" "}
+              •
             </p>
             <div className="rounded bg-rated-dark px-2 py-0.5 font-semibold sm:py-0">
               {media?.adult ? "18+" : "PG"}
