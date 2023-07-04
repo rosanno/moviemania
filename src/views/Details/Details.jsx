@@ -71,7 +71,7 @@ const MediaSection = ({
               slidesPerView: xl ? xl : 8,
             },
           }}
-          className="mt-3 relative"
+          className={`mt-3 relativ`}
         >
           {children}
         </Swiper>
@@ -185,7 +185,7 @@ const Details = () => {
                 <img
                   src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
                   alt=""
-                  className="object-contain"
+                  className="w-full h-full object-contain rounded-sm overflow-hidden"
                 />
                 <div
                   onClick={() => onModalOpen(video.key)}
