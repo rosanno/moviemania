@@ -6,7 +6,7 @@ import { useFilterVideo } from "../hooks/useFilterVideo";
 
 import { Dialog, Transition } from "@headlessui/react";
 
-const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
+const Modal = ({ media, setModalOpen, openModal, isVideo, videoKey }) => {
   const cancelButtonRef = useRef(null);
   const videoRef = useRef(null);
   const type = media?.media_type || isVideo;
@@ -66,7 +66,9 @@ const Modal = ({ media, setModalOpen, openModal, isVideo }) => {
                                 {video !== undefined ? (
                                   <iframe
                                     ref={videoRef}
-                                    src={`https://www.youtube.com/embed/${video?.key}`}
+                                    src={`https://www.youtube.com/embed/${
+                                      !videoKey ? video?.key : videoKey
+                                    }`}
                                     title="Playback"
                                     className="w-full h-[300px] sm:h-[550px] md:w-full xl:md:w-[970px] md:h-[600px] object-cover brightness-110"
                                   ></iframe>
