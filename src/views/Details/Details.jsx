@@ -71,7 +71,7 @@ const MediaSection = ({
               slidesPerView: xl ? xl : 8,
             },
           }}
-          className={`mt-3 relativ`}
+          className={`mt-3 relative`}
         >
           {children}
         </Swiper>
