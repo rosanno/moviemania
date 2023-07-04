@@ -133,10 +133,10 @@ const Details = () => {
               </Link>
             </SwiperSlide>
           ))}
-          <div className="button-prev-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
+          <div className="button-prev-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 left-1 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
             <BsChevronLeft className="text-xl" />
           </div>
-          <div className="button-next-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 right-0 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
+          <div className="button-next-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 right-1 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
             <BsChevronRight className="text-xl" />
           </div>
         </MediaSection>
@@ -154,10 +154,10 @@ const Details = () => {
               </Link>
             </SwiperSlide>
           ))}
-          <div className="button-prev-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
+          <div className="button-prev-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 left-1 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
             <BsChevronLeft className="text-xl" />
           </div>
-          <div className="button-next-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 right-0 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
+          <div className="button-next-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 right-1 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
             <BsChevronRight className="text-xl" />
           </div>
         </MediaSection>
@@ -174,10 +174,10 @@ const Details = () => {
               </Link>
             </SwiperSlide>
           ))}
-          <div className="button-prev-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
+          <div className="button-prev-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 left-1 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
             <BsChevronLeft className="text-xl" />
           </div>
-          <div className="button-next-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 right-0 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
+          <div className="button-next-slide cursor-pointer hidden sm:inline-block absolute z-10 top-1/3 right-1 -translate-y-1 bg-action-dark/40 backdrop-blur p-2 rounded-full">
             <BsChevronRight className="text-xl" />
           </div>
         </MediaSection>
