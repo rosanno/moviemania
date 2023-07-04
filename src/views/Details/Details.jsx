@@ -87,8 +87,6 @@ const Details = () => {
   const { data: similar } = useGetSimilarQuery({ id, type });
   const [openModal, setModalOpen] = useState(false);
 
-  // const genre = media?.genres?.map((genre) => genre.name).join(", ");
-
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -152,7 +150,7 @@ const Details = () => {
           {similar?.results?.map((item) => (
             <SwiperSlide key={item.id}>
               <Link to={`/${type}/details/${item.id}`}>
-                <Credit {...item} />
+                <Credit {...item} isMovie />
               </Link>
             </SwiperSlide>
           ))}
@@ -172,7 +170,7 @@ const Details = () => {
           {recommendations?.results?.map((recommend) => (
             <SwiperSlide key={recommend.id}>
               <Link to={`/${recommend.media_type}/details/${recommend.id}`}>
-                <Credit {...recommend} />
+                <Credit {...recommend} isMovie />
               </Link>
             </SwiperSlide>
           ))}

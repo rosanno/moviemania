@@ -1,4 +1,16 @@
-const Credit = ({ title, name, poster_path, profile_path, character, isCast = false }) => {
+import moment from "moment";
+
+const Credit = ({
+  title,
+  name,
+  poster_path,
+  profile_path,
+  character,
+  release_date,
+  first_air_date,
+  isCast = false,
+  isMovie = false,
+}) => {
   return (
     <div>
       <div className="h-[180px] sm:h-[190px] flex flex-col justify-center">
@@ -14,10 +26,21 @@ const Credit = ({ title, name, poster_path, profile_path, character, isCast = fa
         />
         <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
       </div>
-      <p className="text-xs sm:text-sm text-center text-gray-300 max-w-[130px] truncate pt-2 mt-auto">
+      <p
+        className={`text-xs sm:text-sm ${
+          isCast && "text-center"
+        } text-gray-300 max-w-[130px] truncate pt-2 mt-auto`}
+      >
         {title || name}
       </p>
       {isCast && <span className="text-xs text-gray-400 text-center block mt-1">{character}</span>}
+      {isMovie && (
+        <span className="text-xs text-gray-400 block mt-1">
+          {release_date
+            ? moment(release_date).format("MMMM D YYYY")
+            : moment(first_air_date).format("MMMM D YYYY")}
+        </span>
+      )}
     </div>
   );
 };
