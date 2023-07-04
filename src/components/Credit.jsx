@@ -1,4 +1,4 @@
-const Credit = ({ title, name, poster_path, profile_path }) => {
+const Credit = ({ title, name, poster_path, profile_path, character, isCast = false }) => {
   return (
     <div>
       <div className="h-[180px] sm:h-[190px] flex flex-col justify-center">
@@ -17,6 +17,7 @@ const Credit = ({ title, name, poster_path, profile_path }) => {
       <p className="text-xs sm:text-sm text-center text-gray-300 max-w-[130px] truncate pt-2 mt-auto">
         {title || name}
       </p>
+      {isCast && <span className="text-xs text-gray-400 text-center block mt-1">{character}</span>}
     </div>
   );
 };

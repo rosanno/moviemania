@@ -131,7 +131,7 @@ const Details = () => {
           {credits?.cast?.map((credit) => (
             <SwiperSlide key={credit.id}>
               <Link to={`/person/${credit.id}`}>
-                <Credit {...credit} />
+                <Credit {...credit} isCast />
               </Link>
             </SwiperSlide>
           ))}
