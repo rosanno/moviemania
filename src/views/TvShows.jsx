@@ -144,8 +144,8 @@ const TvShows = () => {
                 <div className="px-4">
                   <h4 className="text-sm font-light">Release Dates</h4>
                   <div className="mt-2">
-                    <DateInput label="From" setDate={setFromDate} />
-                    <DateInput label="To" setDate={setToDate} />
+                    <DateInput label="From" setDate={setFromDate} date={fromDate} />
+                    <DateInput label="To" setDate={setToDate} date={toDate} />
                     <button
                       onClick={handleReset}
                       className="bg-yellow-400 hover:bg-yellow-500 transition-colors duration-300 text-sm font-semibold text-gray-50 capitalize w-full py-1.5 rounded-md mt-4"
