@@ -69,7 +69,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
                           <p className="text-xs pt-1 text-gray-400 capitalize">
                             <span>{item.media_type}</span>
                           </p>
-                          <p className="text-xs pt-2 text-gray-400 w-[250px] sm:w-full truncate overflow-hidden">
+                          <p className="text-xs pt-2 text-gray-400 w-[250px] md:w-full truncate overflow-hidden">
                             {item.overview}
                           </p>
                         </div>
