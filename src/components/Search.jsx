@@ -8,7 +8,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
 
   return (
     <div
-      className={`fixed top-10 left-0 right-0 z-50 sm:left-1/2 sm:-translate-x-1/2 ${
+      className={`fixed top-5 sm:top-10 left-0 right-0 z-50 sm:left-1/2 sm:-translate-x-1/2 ${
         isSearch ? "translate-y-0" : "-translate-y-96"
       } transition-transform duration-700 ease-in-out md:w-[640px]`}
     >
@@ -25,7 +25,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
         </div>
         <div className="absolute top-16 flex flex-col items-center w-full px-2">
           {query !== "" && (
-            <div className="bg-black/80 backdrop-blur w-full sm:w-[530px] md:w-[640px] rounded-md h-auto max-h-[340px] overflow-y-auto scrollbar-none">
+            <div className="bg-black/80 backdrop-blur w-full sm:w-[530px] md:w-[640px] rounded-md h-auto max-h-[340px] overflow-y-auto overflow-x-hidden scrollbar-none">
               {isFetching ? (
                 <div className="flex justify-center py-4">
                   <Oval
@@ -50,7 +50,7 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
                         item.id
                       }`}
                       key={item.id}
-                      className="my-2 block hover:bg-gray-500/10 transition-none duration-300 px-6 py-2"
+                      className="block hover:bg-gray-500/10 transition-none duration-300 sm:px-6 py-1.5 sm:py-1"
                     >
                       <div className="flex gap-2">
                         <img
@@ -65,11 +65,11 @@ const Search = ({ isSearch, query, setQuery, onClose }) => {
                           className="w-20"
                         />
                         <div className="w-[510px]">
-                          <h3>{item.title || item.original_name}</h3>
+                          <h3 className="text-sm">{item.title || item.original_name}</h3>
                           <p className="text-xs pt-1 text-gray-400 capitalize">
                             <span>{item.media_type}</span>
                           </p>
-                          <p className="text-xs pt-2 text-gray-400 truncate overflow-hidden">
+                          <p className="text-xs pt-2 text-gray-400 w-[250px] sm:w-full truncate overflow-hidden">
                             {item.overview}
                           </p>
                         </div>
