@@ -85,7 +85,7 @@ const Showcase = ({ media, isMediaSelected, setModalOpen, media_type }) => {
                     : media?.vote_average < 7
                     ? "bg-orange-400"
                     : "bg-green-600"
-                } rounded-full px-2.5 text-black`}
+                } rounded-full text-sm px-2.5 text-gray-200 font-bold`}
               >
                 {media?.vote_average.toFixed(1)}
               </span>{" "}
