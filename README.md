@@ -1,37 +1,36 @@
-# **MovieMania Web App**
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-MovieMania is a web application built using React, Redux Toolkit, Tailwind CSS, and TMDB API. It provides users with a platform to browse and discover information about movies.
+## Getting Started
 
-## **Tech Stack**
+First, run the development server:
 
-![reactjs](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)&nbsp;
-![vitejs](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)&nbsp;
-![redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)&nbsp;
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## **Features**
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- Movie Search: Users can search for movies by title or keyword.
-- Movie Details: Users can view detailed information about a selected movie, including the title, release date, genre, rating, and plot summary.
-- Movie Sorting and Filtering: Users can sort and filter movies based on various criteria such as genre, rating, and release date.
-- Infinity Scroll: Movies are dynamically loaded as the user scrolls down the page, providing a seamless browsing experience.
-- Responsive Design: The web app is designed to work seamlessly across different screen sizes and devices.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## **Contributors**
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-<a href="https://github.com/Jes2ni16">
-<img src="https://avatars.githubusercontent.com/u/133185513?v=4" width="40px" height="40px" style="border-radius: 50%;" />
-</a>
-<a href="https://github.com/louismoses">
-<img src="https://avatars.githubusercontent.com/u/51215698?v=4" width="40px" height="40px" style="border-radius: 50%;" />
-</a>
+## Learn More
 
-## **License**
+To learn more about Next.js, take a look at the following resources:
 
-This project is licensed under the [**MIT License**](https://opensource.org/license/mit/)
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### **Powered by:**
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-<a href="https://developer.themoviedb.org/reference/intro/getting-started">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tmdb.new.logo.svg/768px-Tmdb.new.logo.svg.png?20200406190906" width="100px" />
-</a>
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
