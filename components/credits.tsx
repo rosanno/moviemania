@@ -13,12 +13,34 @@ interface CreditsProps {
 
 const Credits = ({ data }: CreditsProps) => {
   return (
-    <section className="px-10 pt-28 pb-16">
-      <h1 className="text-white text-lg md:text-2xl font-semibold">Cast</h1>
+    <section className="pt-28 pb-16">
+      <div className="px-10">
+        <h1 className="text-white text-lg md:text-2xl font-semibold">Cast</h1>
+      </div>
       <Swiper
-        slidesPerView={15.5}
+        slidesPerView={4.5}
+        slidesOffsetAfter={100}
+        slidesOffsetBefore={30}
         navigation={true}
         className="mt-4"
+        breakpoints={{
+          640: {
+            slidesPerView: 6.5,
+            slidesOffsetBefore: 30,
+          },
+          768: {
+            slidesPerView: 11.5,
+            slidesOffsetBefore: 35,
+          },
+          1024: {
+            slidesPerView: 13.5,
+            slidesOffsetBefore: 35,
+          },
+          1280: {
+            slidesPerView: 15.5,
+            slidesOffsetBefore: 35,
+          },
+        }}
         modules={[Navigation]}
       >
         {data.cast.map((item) => (

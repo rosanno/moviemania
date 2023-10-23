@@ -15,7 +15,7 @@ const HomePage = async () => {
   const trendingMovies: Discover = await getTrendingMovies();
   const nowPlaying: Discover = await getNowPlaying();
 
-  const movie = discovered.results[Math.floor(Math.random() * 6)];
+  const movie = discovered?.results[Math.floor(Math.random() * 6)];
 
   return (
     <>
